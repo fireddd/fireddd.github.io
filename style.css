@@ -25,6 +25,7 @@
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
+  overflow-x: hidden;
   background: var(--bg);
   color: var(--ink);
   font-family: var(--sans);
@@ -55,9 +56,11 @@ nav .brand:hover { text-decoration: none; color: var(--accent); }
 nav a:not(.brand) { color: var(--muted); }
 nav a:not(.brand):hover { color: var(--ink); text-decoration: none; }
 nav a[aria-current="page"] { color: var(--ink); font-weight: 550; }
-@media (max-width: 520px) {
-  nav { gap: 15px; font-size: 14px; flex-wrap: wrap; }
-  nav .brand { margin-right: auto; }
+@media (max-width: 560px) {
+  nav { gap: 8px 14px; font-size: 14px; flex-wrap: wrap; padding-bottom: 30px; }
+  /* margin-right:auto absorbs the free space on the first line and pushes the
+     trailing links off-screen instead of wrapping them — give the brand its own row */
+  nav .brand { margin-right: 0; flex: 0 0 100%; }
 }
 
 /* ---------- hero ---------- */
@@ -121,7 +124,7 @@ h1 {
   transition: filter .15s ease, opacity .15s ease;
 }
 .logo-strip .badge:hover img { filter: none; opacity: 1; }
-@media (max-width: 520px) {
+@media (max-width: 560px) {
   .logo-strip { justify-content: flex-start; flex-wrap: wrap; margin: 4px 0 28px; gap: 8px; }
 }
 
