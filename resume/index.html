@@ -79,7 +79,7 @@
 
     <div class="item">
       <div class="item-head">
-        <h3>Zamp.ai <span class="at">· Software Engineer, Bangalore</span></h3>
+        <h3><a href="https://zamp.ai">Zamp.ai</a> <span class="at">· Software Engineer, Bangalore</span></h3>
         <span class="when">Jul 2025 – Mar 2026</span>
       </div>
       <ul>
@@ -91,20 +91,20 @@
 
     <div class="item">
       <div class="item-head">
-        <h3>PhonePe (Walmart) <span class="at">· Software Engineer, Pune</span></h3>
+        <h3><a href="https://www.phonepe.com">PhonePe (Walmart)</a> <span class="at">· Software Engineer, Pune</span></h3>
         <span class="when">Oct 2022 – Jul 2025</span>
       </div>
       <ul>
         <li>Led SDK development for PhonePe's <strong>B2B payment gateway</strong>. Designed and implemented the <a href="https://github.com/PhonePe/phonepe-pg-sdk-java">Java SDK</a>, wrote the CI/CD pipelines, and mentored development of SDKs for other languages. The SDK family has generated <strong>over USD 1 million in revenue</strong>.</li>
-        <li>Owned the <strong>Epoch</strong> framework for online merchant services. Introduced structural reforms for its scripts and fixed a long-standing org-wide missing-logs issue. Wrote reconciliation and reporting scripts to analyze and close pending transactions.</li>
-        <li>Integrated <strong>disaster recovery</strong> changes into online merchant services and performed the DR drill for the OMX service, coordinating with SREs and other stakeholders. Upgraded infrastructure and migrated the services to the Mahape data centre.</li>
+        <li>Owned the <a href="https://github.com/PhonePe/epoch-cli"><strong>Epoch</strong></a> framework for online merchant services. Introduced structural reforms for its scripts and fixed a long-standing org-wide missing-logs issue. Wrote reconciliation and reporting scripts to analyze and close pending transactions.</li>
+        <li>Integrated <strong>disaster recovery</strong> changes into online merchant services and performed the DR drill for the OMX service, coordinating with SREs and other stakeholders. Upgraded infrastructure and migrated the services to the Mahape data centre. (PhonePe's engineering blog describes <a href="https://tech.phonepe.com/demystifying-tstore-the-backbone-of-billions-of-transactions-at-phonepe-chapter-2/">what a drill of this kind involves</a> at their scale.)</li>
         <li>Designed and implemented end-to-end accounting and template management for partner integrations. Added backend error codes, events for PG offerings, and <strong>merchant-level kill switches</strong> on live traffic.</li>
       </ul>
     </div>
 
     <div class="item">
       <div class="item-head">
-        <h3>Morgan Stanley <span class="at">· Quantitative Strategist, Mumbai</span></h3>
+        <h3><a href="https://www.morganstanley.com">Morgan Stanley</a> <span class="at">· Quantitative Strategist, Mumbai</span></h3>
         <span class="when">Jan 2021 – Oct 2022</span>
       </div>
       <ul>
@@ -115,7 +115,7 @@
 
     <div class="item">
       <div class="item-head">
-        <h3>IBM <span class="at">· Data Scientist, Bangalore</span></h3>
+        <h3><a href="https://www.ibm.com">IBM</a> <span class="at">· Data Scientist, Bangalore</span></h3>
         <span class="when">Sep 2020 – Jan 2021</span>
       </div>
       <ul>
@@ -135,7 +135,7 @@
 
     <div class="item">
       <div class="item-head">
-        <h3>University of New South Wales <span class="at">· Visiting Researcher, UNSW Business School, Sydney</span></h3>
+        <h3><a href="https://www.unsw.edu.au/business">University of New South Wales</a> <span class="at">· Visiting Researcher, UNSW Business School, Sydney</span></h3>
         <span class="when">Aug 2019 – Dec 2019</span>
       </div>
       <ul>
@@ -145,7 +145,7 @@
 
     <div class="item">
       <div class="item-head">
-        <h3>AlphaGrep Securities <span class="at">· Quantitative Trading Analyst, Mumbai</span></h3>
+        <h3><a href="https://www.alpha-grep.com">AlphaGrep Securities</a> <span class="at">· Quantitative Trading Analyst, Mumbai</span></h3>
         <span class="when">May 2019 – Jul 2019</span>
       </div>
       <ul>
@@ -155,7 +155,7 @@
 
     <div class="item">
       <div class="item-head">
-        <h3>WorldQuant <span class="at">· Research Consultant, Remote</span></h3>
+        <h3><a href="https://www.worldquant.com">WorldQuant</a> <span class="at">· Research Consultant, Remote</span></h3>
         <span class="when">Jun 2017 – May 2019</span>
       </div>
       <ul>
@@ -165,10 +165,53 @@
   </section>
 
   <section>
+    <h2>Open source</h2>
+    <div class="item">
+      <ul>
+        <li>
+          <a href="https://github.com/tokio-rs/loom"><strong>tokio-rs/loom</strong></a> (2.7k ★) —
+          <a href="https://github.com/tokio-rs/loom/pull/415">aligned the <code>Notify</code> API
+          with <code>tokio::sync::Notify</code></a>, so code under test need not diverge between
+          the real and model-checked implementations. <span class="status">PR open</span>
+        </li>
+        <li>
+          <a href="https://github.com/Osmantic/ODS"><strong>Osmantic/ODS</strong></a> (2.9k ★) —
+          audited the dashboard API, reported four bugs and sent a fix for each: a
+          <a href="https://github.com/Osmantic/ODS/pull/1584">race in async HTTP client singleton
+          creation</a>, a
+          <a href="https://github.com/Osmantic/ODS/pull/1586">symlink check running after the file
+          was already followed</a>, a
+          <a href="https://github.com/Osmantic/ODS/pull/1585">bare int passed where aiohttp expects
+          a <code>ClientTimeout</code></a>, and a
+          <a href="https://github.com/Osmantic/ODS/pull/1587">cache with no public invalidation</a>.
+          <span class="status">1 merged, 3 open</span>
+        </li>
+        <li>
+          <a href="https://github.com/AgentWrapper/agent-orchestrator"><strong>agent-orchestrator</strong></a>
+          (8.2k ★) — patched a
+          <a href="https://github.com/AgentWrapper/agent-orchestrator/pull/1092">critical SSRF
+          vulnerability</a> in a transitive axios dependency, and added the project's
+          <a href="https://github.com/AgentWrapper/agent-orchestrator/pull/837">diff-coverage
+          gate</a> (80% enforced on changed lines only). <span class="status">merged</span>
+        </li>
+        <li>
+          <a href="https://github.com/PhonePe/phonepe-pg-sdk-java"><strong>PhonePe/phonepe-pg-sdk-java</strong></a>
+          and <a href="https://github.com/PhonePe/epoch-cli"><strong>PhonePe/epoch-cli</strong></a> —
+          the payment gateway SDK I led, and the CLI for the Epoch scheduler I owned.
+        </li>
+        <li>
+          <a href="https://github.com/fireddd/RA_Bschool"><strong>RA_Bschool</strong></a> — research
+          assistant work from UNSW Business School.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
     <h2>Education</h2>
     <div class="item">
       <div class="item-head">
-        <h3>BITS Pilani <span class="at">· B.E. (Hons.) Computer Science &amp; M.Sc. Economics</span></h3>
+        <h3><a href="https://www.bits-pilani.ac.in">BITS Pilani</a> <span class="at">· B.E. (Hons.) Computer Science &amp; M.Sc. Economics</span></h3>
         <span class="when">GPA 8.34 / 10</span>
       </div>
       <p>Coursework: data structures and algorithms, object-oriented programming, database

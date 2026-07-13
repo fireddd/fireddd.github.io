@@ -64,6 +64,28 @@ Project: https://www.media.mit.edu/projects/pal/overview/
   Built the reinforcement learning environment, wrote the Python simulations of user
   behaviour, and generated augmented data for training.
 
+## Open source
+
+- **[tokio-rs/loom](https://github.com/tokio-rs/loom)** (2.7k stars) — [aligned loom's `Notify`
+  API with `tokio::sync::Notify`](https://github.com/tokio-rs/loom/pull/415) so code under test
+  need not diverge between the real and model-checked implementations. PR open.
+- **[Osmantic/ODS](https://github.com/Osmantic/ODS)** (2.9k stars) — audited the dashboard API,
+  reported four bugs and sent a fix for each: a [race condition in async HTTP client singleton
+  creation](https://github.com/Osmantic/ODS/pull/1584), a [symlink check running after the file
+  was already followed](https://github.com/Osmantic/ODS/pull/1586), a [bare int passed where
+  aiohttp expects a `ClientTimeout`](https://github.com/Osmantic/ODS/pull/1585), and a [cache
+  with no public invalidation](https://github.com/Osmantic/ODS/pull/1587). One merged, three open.
+- **[agent-orchestrator](https://github.com/AgentWrapper/agent-orchestrator)** (8.2k stars) —
+  patched a [critical SSRF vulnerability](https://github.com/AgentWrapper/agent-orchestrator/pull/1092)
+  in a transitive axios dependency, and added the project's
+  [diff-coverage gate](https://github.com/AgentWrapper/agent-orchestrator/pull/837) enforcing 80%
+  on changed lines only. Merged.
+- **[PhonePe/phonepe-pg-sdk-java](https://github.com/PhonePe/phonepe-pg-sdk-java)** and
+  **[PhonePe/epoch-cli](https://github.com/PhonePe/epoch-cli)** — the payment gateway SDK I led,
+  and the CLI for the Epoch scheduler I owned.
+- **[RA_Bschool](https://github.com/fireddd/RA_Bschool)** — research assistant work from UNSW
+  Business School.
+
 ## Experience
 
 | Organization           | Role                        | Location  | Dates             |

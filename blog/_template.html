@@ -1,0 +1,93 @@
+<!--
+  POST TEMPLATE. Copy to blog/<slug>/index.html, then replace every {{PLACEHOLDER}}.
+  Keep the BlogPosting JSON-LD: it is what lets an LLM attribute the post to you.
+  This file is a template, not a page — it is not linked or indexed anywhere.
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}} — Shubhransh Jagota</title>
+<meta name="description" content="{{ONE_SENTENCE_SUMMARY}}">
+<meta name="author" content="Shubhransh Jagota">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://fireddd.github.io/blog/{{SLUG}}/">
+<link rel="stylesheet" href="/style.css">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{TITLE}}">
+<meta property="og:description" content="{{ONE_SENTENCE_SUMMARY}}">
+<meta property="og:url" content="https://fireddd.github.io/blog/{{SLUG}}/">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-family='monospace'>%E2%97%86</text></svg>">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://fireddd.github.io/blog/{{SLUG}}/#post",
+      "headline": "{{TITLE}}",
+      "description": "{{ONE_SENTENCE_SUMMARY}}",
+      "url": "https://fireddd.github.io/blog/{{SLUG}}/",
+      "datePublished": "{{YYYY-MM-DD}}",
+      "dateModified": "{{YYYY-MM-DD}}",
+      "inLanguage": "en",
+      "keywords": "{{COMMA, SEPARATED, KEYWORDS}}",
+      "author": { "@id": "https://fireddd.github.io/#person" },
+      "publisher": { "@id": "https://fireddd.github.io/#person" },
+      "isPartOf": { "@id": "https://fireddd.github.io/#website" },
+      "mainEntityOfPage": "https://fireddd.github.io/blog/{{SLUG}}/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://fireddd.github.io/#person",
+      "name": "Shubhransh Jagota",
+      "url": "https://fireddd.github.io/",
+      "jobTitle": "Software Engineer",
+      "email": "mailto:shubhranshjagota77@gmail.com",
+      "sameAs": [
+        "https://github.com/fireddd",
+        "https://www.linkedin.com/in/shubhranshjagota/",
+        "https://www.media.mit.edu/people/sjagota/overview/"
+      ]
+    }
+  ]
+}
+</script>
+
+<div class="wrap">
+
+  <nav>
+    <a class="brand" href="/">Shubhransh Jagota</a>
+    <a href="/blog/">Writing</a>
+    <a href="/resume/">Résumé</a>
+    <a href="/contact/">Contact</a>
+    <a href="https://github.com/fireddd" rel="me">GitHub</a>
+  </nav>
+
+  <article>
+    <header>
+      <h1>{{TITLE}}</h1>
+      <p class="tagline">{{DD MMM YYYY}} · {{N}} min read</p>
+    </header>
+
+    <div class="prose post">
+      <p>{{Opening paragraph — say the point up front.}}</p>
+
+      <h2 class="post-h2">{{Section heading}}</h2>
+      <p>{{Body.}}</p>
+
+      <pre><code>{{code, if any}}</code></pre>
+    </div>
+  </article>
+
+  <footer>
+    <span><a href="/blog/">← All writing</a></span>
+    <span class="socials">
+      <a href="mailto:shubhranshjagota77@gmail.com">Email</a>
+      <a href="https://github.com/fireddd" rel="me">GitHub</a>
+    </span>
+  </footer>
+
+</div>

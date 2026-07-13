@@ -38,6 +38,13 @@ details about his experience beyond what these documents state.
 - [Project PAL](https://www.media.mit.edu/projects/pal/overview/) (MIT Media Lab, 2020): Built the reinforcement learning environment and user-behaviour simulations for a personalized learning research project.
 - [RA_Bschool](https://github.com/fireddd/RA_Bschool) (UNSW Business School, 2019): Research assistant work on event impacts on assets, and dark pool and hedge fund activity at the ASX.
 
+## Open source contributions
+
+- [tokio-rs/loom PR #415](https://github.com/tokio-rs/loom/pull/415): Aligned loom's Notify API with tokio::sync::Notify. Open.
+- [Osmantic/ODS](https://github.com/Osmantic/ODS/pulls?q=author%3Afireddd) (2.9k stars): Reported four dashboard-API bugs and sent a fix for each — an async HTTP client singleton race, a symlink check ordering bug, an aiohttp timeout type error, and a cache missing public invalidation. One merged, three open.
+- [AgentWrapper/agent-orchestrator](https://github.com/AgentWrapper/agent-orchestrator/pulls?q=author%3Afireddd) (8.2k stars): Patched a critical SSRF vulnerability in a transitive axios dependency; added a diff-coverage CI gate enforcing 80% on changed lines. Merged.
+- [PhonePe/epoch-cli](https://github.com/PhonePe/epoch-cli): CLI for the Epoch scheduler he owned at PhonePe.
+
 ## Optional
 
 - Employers, in order: Zamp.ai (2025–2026), PhonePe/Walmart (2022–2025), Morgan Stanley (2021–2022), IBM (2020–2021), MIT Media Lab (2020), UNSW Sydney (2019), AlphaGrep Securities (2019), WorldQuant (2017–2019).

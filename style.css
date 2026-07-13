@@ -127,6 +127,29 @@ h3 .at { color: var(--muted); font-weight: 450; }
 .item li:last-child { margin-bottom: 0; }
 .item li strong, .item p strong { color: var(--ink); font-weight: 560; }
 
+.status {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--faint);
+  background: var(--chip);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 1px 8px;
+  white-space: nowrap;
+  vertical-align: 1px;
+}
+.item p code, .prose code {
+  font-family: var(--mono);
+  font-size: 13px;
+  background: var(--chip);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 4px;
+}
+
 /* ---------- skills ---------- */
 .skills dl { margin: 0; display: grid; grid-template-columns: 120px 1fr; gap: 12px 18px; }
 .skills dt {
@@ -169,6 +192,41 @@ h3 .at { color: var(--muted); font-weight: 450; }
 .note p:first-of-type { margin-top: 0; }
 .note p:last-child { margin-bottom: 0; }
 .note code { font-family: var(--mono); font-size: 13px; }
+
+/* ---------- blog ---------- */
+.posts { margin: 0; padding: 0; list-style: none; }
+.posts li {
+  display: flex; flex-wrap: wrap;
+  align-items: baseline; justify-content: space-between;
+  gap: 2px 14px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.posts li:last-child { border-bottom: 0; }
+.posts a { font-weight: 550; }
+.empty { color: var(--faint); font-size: 15px; }
+
+.post h2.post-h2 {
+  font-family: var(--sans);
+  font-size: 1.15rem;
+  font-weight: 620;
+  letter-spacing: -.015em;
+  text-transform: none;
+  color: var(--ink);
+  border: 0;
+  padding: 0;
+  margin: 34px 0 12px;
+}
+.post pre {
+  background: var(--chip);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+.post pre code { background: none; border: 0; padding: 0; font-size: inherit; }
 
 /* ---------- footer ---------- */
 footer {
