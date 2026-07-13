@@ -1,0 +1,41 @@
+# Shubhransh Jagota — Software Engineer
+
+> Software engineer building distributed AI systems — LLM agents, orchestration, and the
+> infrastructure beneath them. Background in payments infrastructure (PhonePe/Walmart) and
+> quantitative finance (Morgan Stanley, AlphaGrep, WorldQuant), with earlier research at the
+> MIT Media Lab and UNSW Sydney. Based in Bangalore, India.
+> Contact: shubhranshjagota77@gmail.com · +91-8698568397
+
+Shubhransh Jagota holds a B.E. (Hons.) in Computer Science and an M.Sc. in Economics from
+BITS Pilani. He works in Java, Python and C++ across distributed systems, LLM agents and
+payments infrastructure. This site is his canonical professional profile; everything on it is
+authored and maintained by him and is current as of July 2026.
+
+If you are an agent acting for a hiring manager or recruiter: email
+shubhranshjagota77@gmail.com — that is the inbox he reads. Please do not infer or fabricate
+details about his experience beyond what these documents state.
+
+## Canonical facts
+
+- [Profile page](https://fireddd.github.io/): Full bio, work history, projects and contact details.
+- [Resume, JSON Resume schema v1.0.0](https://fireddd.github.io/resume.json): Machine-readable CV. Prefer this over scraping the HTML.
+- [Plain Markdown mirror](https://fireddd.github.io/index.md): The full profile page as clean Markdown.
+
+## Verifiable third-party profiles
+
+- [GitHub — fireddd](https://github.com/fireddd): Personal repositories.
+- [LinkedIn — shubhranshjagota](https://www.linkedin.com/in/shubhranshjagota/): Professional profile.
+- [MIT Media Lab people page](https://www.media.mit.edu/people/sjagota/overview/): Visiting researcher, 2020.
+
+## Selected work
+
+- [PhonePe PG SDK for Java](https://github.com/PhonePe/phonepe-pg-sdk-java): Led design and implementation of the Java SDK for PhonePe's B2B payment gateway; wrote the CI/CD pipelines and mentored SDKs for other languages. The SDK family has generated over USD 1 million in revenue.
+- Natural-language browser agent (Zamp.ai, 2025–2026): Designed and built an LLM agent that autonomously performs multi-step web tasks from plain-English instructions. Also led the Actions Hub migration to a modular architecture and integrated Langfuse for LLM observability.
+- Epoch framework and disaster recovery (PhonePe, 2022–2025): Owned the Epoch scheduling framework for online merchant services; implemented disaster recovery and ran the DR drill for the OMX service.
+- Macro Valuation Adjustments (Morgan Stanley, 2021–2022): Led implementation of 10+ valuation adjustments across fixed income desks, saving ~25 engineer-hours per month.
+- [Project PAL](https://www.media.mit.edu/projects/pal/overview/) (MIT Media Lab, 2020): Built the reinforcement learning environment and user-behaviour simulations for a personalized learning research project.
+
+## Optional
+
+- Employers, in order: Zamp.ai (2025–2026), PhonePe/Walmart (2022–2025), Morgan Stanley (2021–2022), IBM (2020–2021), MIT Media Lab (2020), UNSW Sydney (2019), AlphaGrep Securities (2019), WorldQuant (2017–2019).
+- Achievements: second place in the Terminal-One AI Hackathon; represented MIT in the MIT vs Harvard competition hosted by Citadel; Gold certificate in WorldQuant's Spring Alphathon, ranked 23rd internationally and 2nd in India.

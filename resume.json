@@ -1,0 +1,220 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "basics": {
+    "name": "Shubhransh Jagota",
+    "label": "Software Engineer — Distributed AI Systems",
+    "email": "shubhranshjagota77@gmail.com",
+    "phone": "+91-8698568397",
+    "url": "https://fireddd.github.io",
+    "summary": "Software engineer building distributed AI systems — LLM agents, orchestration, and the infrastructure beneath them. Background in payments infrastructure at PhonePe (Walmart) and quantitative finance at Morgan Stanley, AlphaGrep and WorldQuant, with earlier research at the MIT Media Lab and UNSW Sydney. B.E. (Hons.) Computer Science and M.Sc. Economics from BITS Pilani.",
+    "location": {
+      "city": "Bangalore",
+      "region": "Karnataka",
+      "countryCode": "IN"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "fireddd",
+        "url": "https://github.com/fireddd"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "shubhranshjagota",
+        "url": "https://www.linkedin.com/in/shubhranshjagota/"
+      },
+      {
+        "network": "MIT Media Lab",
+        "username": "sjagota",
+        "url": "https://www.media.mit.edu/people/sjagota/overview/"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "Zamp.ai",
+      "position": "Software Engineer",
+      "location": "Bangalore, India",
+      "startDate": "2025-07-01",
+      "endDate": "2026-03-31",
+      "summary": "AI-driven automation for complex enterprise workflows.",
+      "highlights": [
+        "Designed and implemented a natural language-controlled browser agent capable of autonomously performing multi-step web tasks.",
+        "Led the migration of the Actions Hub to a modular architecture, decoupling action registration from agent execution.",
+        "Integrated Langfuse for end-to-end observability across LLM systems.",
+        "Implemented RBAC for access control and compliance, and built automated workflows to streamline onboarding of new organizations."
+      ]
+    },
+    {
+      "name": "PhonePe (Walmart)",
+      "position": "Software Engineer",
+      "location": "Pune, India",
+      "startDate": "2022-10-01",
+      "endDate": "2025-07-31",
+      "summary": "Payment gateway SDKs, online merchant services, and payments infrastructure.",
+      "highlights": [
+        "Led SDK development for PhonePe's B2B payment gateway offering: designed and implemented the Java SDK, wrote the CI/CD pipelines, and mentored development of SDKs for other languages. The SDK family has generated over USD 1 million in revenue.",
+        "Owned the Epoch scheduling framework for online merchant services; introduced structural reforms for its scripts and fixed a long-standing org-wide missing-logs issue.",
+        "Wrote reconciliation and reporting scripts to analyze and close pending transactions.",
+        "Implemented disaster recovery changes for online merchant services and ran the DR drill for the OMX service alongside SREs and stakeholders; upgraded infrastructure and migrated services to the Mahape data centre.",
+        "Designed and implemented end-to-end accounting and template management for partner integrations, plus backend error codes, events for PG offerings, and merchant-level kill switches on live traffic."
+      ]
+    },
+    {
+      "name": "Morgan Stanley",
+      "position": "Quantitative Strategist",
+      "location": "Mumbai, India",
+      "startDate": "2021-01-01",
+      "endDate": "2022-10-31",
+      "summary": "Associate on the Fixed Income Division's Macro Valuation Adjustment (VA) team, improving front-office risk systems.",
+      "highlights": [
+        "Led implementation of 10+ valuation adjustments across desks including structured notes and FX.",
+        "Automated accurate VA reporting to streamline controls, reduce cognitive load, and save roughly 25 engineer-hours per month for the Valuation Control and Strats teams."
+      ]
+    },
+    {
+      "name": "IBM",
+      "position": "Data Scientist",
+      "location": "Bangalore, India",
+      "startDate": "2020-09-01",
+      "endDate": "2021-01-31",
+      "highlights": [
+        "Implemented a cost-efficient heating solution using machine learning for Energy.AI clients.",
+        "Conducted preliminary research and prototyped an agile methodology incorporating genetically evolving algorithms, with an anticipated 40-50% decrease in client costs."
+      ]
+    },
+    {
+      "name": "MIT Media Lab",
+      "position": "Visiting Researcher",
+      "location": "Boston, MA, USA",
+      "url": "https://www.media.mit.edu/people/sjagota/overview/",
+      "startDate": "2020-01-01",
+      "endDate": "2020-07-31",
+      "summary": "Research on Project PAL, which aims to provide personalized learning for its users.",
+      "highlights": [
+        "Wrote Python scripts simulating user behaviour and created the reinforcement learning environment for the project.",
+        "Created augmented data for training algorithms."
+      ]
+    },
+    {
+      "name": "University of New South Wales",
+      "position": "Visiting Researcher",
+      "location": "Sydney, Australia",
+      "startDate": "2019-08-01",
+      "endDate": "2019-12-31",
+      "highlights": [
+        "Developed an agile system to assess event impacts on assets, under the guidance of Professor Fethi Rabhi.",
+        "Contributed to research on dark pool and hedge fund activity at the ASX, analyzing trading patterns and fund distribution across Australian exchanges."
+      ]
+    },
+    {
+      "name": "AlphaGrep Securities",
+      "position": "Quantitative Trading Analyst",
+      "location": "Mumbai, India",
+      "startDate": "2019-05-01",
+      "endDate": "2019-07-31",
+      "highlights": [
+        "Built a single-pane solution for stakeholders to view strategy performance, written in Python.",
+        "Developed algorithms for Indian equities achieving a Sharpe ratio above 4 before trading costs."
+      ]
+    },
+    {
+      "name": "WorldQuant LLC",
+      "position": "Research Consultant",
+      "location": "Remote",
+      "startDate": "2017-06-01",
+      "endDate": "2019-05-31",
+      "highlights": [
+        "Developed alphas based on technical and fundamental analysis as trading signals; selected alphas were traded in the market."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Birla Institute of Technology and Science, Pilani",
+      "url": "https://www.bits-pilani.ac.in/",
+      "area": "Computer Science; Economics",
+      "studyType": "B.E. (Hons.) Computer Science & M.Sc. Economics",
+      "score": "8.34/10",
+      "courses": [
+        "Data Structures and Algorithms",
+        "Object Oriented Programming",
+        "Database Systems",
+        "Operating Systems",
+        "Computer Architecture",
+        "Machine Learning",
+        "Neural Networks and Fuzzy Logic"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "PhonePe PG SDK for Java",
+      "description": "Official Java SDK for the PhonePe Payment Gateway B2B offering. Led the design and implementation, wrote the CI/CD pipelines, and mentored the SDKs built for other languages.",
+      "url": "https://github.com/PhonePe/phonepe-pg-sdk-java",
+      "keywords": ["java", "payments", "sdk", "ci-cd"],
+      "roles": ["Lead developer"],
+      "entity": "PhonePe (Walmart)",
+      "type": "application"
+    },
+    {
+      "name": "Natural-language browser agent",
+      "description": "An LLM agent that autonomously performs multi-step web tasks from a plain-English instruction — planning, navigating and acting across pages without a scripted path.",
+      "keywords": ["llm-agents", "browser-automation", "ai"],
+      "roles": ["Designer", "Lead developer"],
+      "entity": "Zamp.ai",
+      "type": "application"
+    },
+    {
+      "name": "Project PAL",
+      "description": "Personalized adaptive learning research at the MIT Media Lab. Built the reinforcement learning environment and user-behaviour simulations.",
+      "url": "https://www.media.mit.edu/projects/pal/overview/",
+      "keywords": ["reinforcement-learning", "research", "python"],
+      "roles": ["Visiting researcher"],
+      "entity": "MIT Media Lab",
+      "type": "research"
+    }
+  ],
+  "awards": [
+    {
+      "title": "Second place, Terminal-One AI Hackathon",
+      "summary": "Placed second in the Terminal-One AI Hackathon."
+    },
+    {
+      "title": "Represented MIT in the MIT vs Harvard competition hosted by Citadel",
+      "awarder": "Citadel"
+    },
+    {
+      "title": "Gold level certificate, WorldQuant Spring Alphathon",
+      "awarder": "WorldQuant",
+      "summary": "Ranked 23rd internationally and 2nd in India."
+    }
+  ],
+  "skills": [
+    {
+      "name": "Languages",
+      "keywords": ["Java", "Python", "C++", "Bash", "R", "SQL"]
+    },
+    {
+      "name": "AI & ML",
+      "keywords": ["LLM agents", "Langfuse", "Reinforcement learning", "Machine learning", "pandas", "NumPy"]
+    },
+    {
+      "name": "Systems & infrastructure",
+      "keywords": ["Distributed systems", "Kafka", "RabbitMQ", "Temporal", "Aerospike", "MySQL", "MariaDB", "AWS", "CI/CD", "Disaster recovery"]
+    },
+    {
+      "name": "Engineering practice",
+      "keywords": ["Data structures", "Algorithms", "Design patterns", "JUnit", "Mockito", "WireMock"]
+    }
+  ],
+  "languages": [
+    { "language": "English", "fluency": "Fluent" },
+    { "language": "Hindi", "fluency": "Native speaker" }
+  ],
+  "meta": {
+    "canonical": "https://fireddd.github.io/resume.json",
+    "version": "v1.0.0",
+    "lastModified": "2026-07-14T00:00:00Z"
+  }
+}
