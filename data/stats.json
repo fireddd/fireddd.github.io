@@ -1,9 +1,9 @@
 {
   "tokens": {
-    "total_tokens": 2714267425,
-    "output_tokens": 22042570,
-    "input_tokens": 17118858,
-    "cost_usd": 2745.53,
+    "total_tokens": 2716243768,
+    "output_tokens": 22049663,
+    "input_tokens": 17118873,
+    "cost_usd": 2746.78,
     "days": 50,
     "first_day": "2026-04-01",
     "last_day": "2026-07-14",
@@ -62,11 +62,14 @@
       },
       {
         "date": "2026-07-14",
-        "tokens": 42335056
+        "tokens": 44311399
       }
     ]
   },
   "health": null,
-  "visits": null,
-  "updated": "2026-07-13T19:47:54+00:00"
+  "visits": {
+    "today": 4,
+    "total": 4
+  },
+  "updated": "2026-07-13T19:54:23+00:00"
 }

@@ -29,12 +29,9 @@ jobs:
           python-version: "3.12"
 
       # This runner has no ~/.claude and no Apple Health export, so update-stats.py
-      # only refreshes the visit count here and keeps the committed token/health
-      # numbers. Those are refreshed by the launchd job on the Mac.
+      # only refreshes the visit count here (hits.sh needs no credentials) and keeps
+      # the committed token/health numbers. Those come from the launchd job on the Mac.
       - name: Refresh stats
-        env:
-          GOATCOUNTER_SITE: ${{ secrets.GOATCOUNTER_SITE }}
-          GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
         run: python3 scripts/update-stats.py
 
       - name: Commit if changed

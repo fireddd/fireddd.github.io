@@ -7,6 +7,7 @@ Two sources:
   2. Apple Health (steps, calories) — via a JSON file written by the
      "Health Auto Export" iPhone app. Point HEALTH_JSON at it (env var
      AO_HEALTH_JSON overrides).
+  3. Site visits — parsed from the hits.sh badge. No account, no API key.
 
 Writes data/stats.json, then rewrites the block between the STATS markers in
 index.html. The numbers are baked into the HTML on purpose: the site ships zero
@@ -130,25 +131,33 @@ def health():
 
 
 def visits():
-    """Total pageviews from GoatCounter. Works in CI (no local data needed)."""
-    site = os.environ.get("GOATCOUNTER_SITE")
-    token = os.environ.get("GOATCOUNTER_TOKEN")
-    if not (site and token):
-        print("  · GOATCOUNTER_SITE/TOKEN unset — skipping visits", file=sys.stderr)
-        return None
+    """Total pageviews from hits.sh.
+
+    No account, no API key: the count is embedded in the badge SVG's aria-label
+    ("hits: <today> / <total>"), so we just parse it. Note this fetch itself
+    registers as one hit, so the daily job inflates the count by ~1/day.
+    """
     import urllib.request
 
-    req = urllib.request.Request(
-        f"https://{site}.goatcounter.com/api/v0/stats/total",
-        headers={"Authorization": f"Bearer {token}"},
-    )
+    url = "https://hits.sh/fireddd.github.io.svg?view=today-total"
     try:
-        with urllib.request.urlopen(req, timeout=30) as r:
-            d = json.load(r)
+        with urllib.request.urlopen(url, timeout=30) as r:
+            svg = r.read().decode("utf-8", "replace")
     except Exception as e:
-        print(f"  ! goatcounter failed ({e}); keeping previous visits", file=sys.stderr)
+        print(f"  ! hits.sh failed ({e}); keeping previous visits", file=sys.stderr)
         return None
-    return {"pageviews": d.get("total", 0), "visitors": d.get("total_unique", 0)}
+
+    m = re.search(r'aria-label="hits:\s*([\d.,km]+)\s*/\s*([\d.,km]+)"', svg, re.I)
+    if not m:
+        print("  ! could not parse hits.sh badge; keeping previous visits", file=sys.stderr)
+        return None
+
+    def num(x):
+        x = x.strip().lower().replace(",", "")
+        mult = {"k": 1_000, "m": 1_000_000}
+        return int(float(x[:-1]) * mult[x[-1]]) if x and x[-1] in mult else int(float(x))
+
+    return {"today": num(m.group(1)), "total": num(m.group(2))}
 
 
 def bars(recent):
@@ -197,9 +206,9 @@ def render(stats):
     if v:
         parts.append(f"""      <div class="card">
         <h3 class="card-t">Visits</h3>
-        <p class="stat">{v['pageviews']:,}<span class="unit">pageviews</span></p>
+        <p class="stat">{v['total']:,}<span class="unit">pageviews</span></p>
         <dl class="mini">
-          <dt>Unique</dt><dd>{v['visitors']:,}</dd>
+          <dt>Today</dt><dd>{v['today']:,}</dd>
         </dl>
       </div>""")
 
