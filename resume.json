@@ -193,11 +193,11 @@
   "skills": [
     {
       "name": "Languages",
-      "keywords": ["Java", "Python", "C++", "Bash", "R", "SQL"]
+      "keywords": ["Java", "Python", "C++", "Scala", "Bash", "R", "SQL"]
     },
     {
       "name": "AI & ML",
-      "keywords": ["LLM agents", "Langfuse", "Reinforcement learning", "Machine learning", "pandas", "NumPy"]
+      "keywords": ["LLM agents", "Langfuse", "Reinforcement learning", "Machine learning", "Keras", "pandas", "NumPy"]
     },
     {
       "name": "Systems & infrastructure",
@@ -205,7 +205,7 @@
     },
     {
       "name": "Engineering practice",
-      "keywords": ["Data structures", "Algorithms", "Design patterns", "JUnit", "Mockito", "WireMock"]
+      "keywords": ["Data structures", "Algorithms", "Design patterns", "JUnit", "Mockito", "WireMock", "Git"]
     }
   ],
   "languages": [

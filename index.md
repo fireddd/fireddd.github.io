@@ -99,10 +99,10 @@ Project: https://www.media.mit.edu/projects/pal/overview/
 
 ## Tools
 
-- **Languages:** Java, Python, C++, Bash, R, SQL
-- **AI & ML:** LLM agents, Langfuse, reinforcement learning, pandas, NumPy
+- **Languages:** Java, Python, C++, Scala, Bash, R, SQL
+- **AI & ML:** LLM agents, Langfuse, reinforcement learning, Keras, pandas, NumPy
 - **Systems:** Kafka, RabbitMQ, Temporal, Aerospike, MySQL, MariaDB, AWS
-- **Practice:** Distributed systems, design patterns, JUnit, Mockito, WireMock, CI/CD,
+- **Practice:** Distributed systems, design patterns, JUnit, Mockito, WireMock, Git, CI/CD,
   disaster recovery
 
 ---
