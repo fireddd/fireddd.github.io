@@ -91,36 +91,39 @@ h1 {
 .prose p:last-child { margin-bottom: 0; }
 .prose strong { font-weight: 600; }
 
-/* ---------- experience badges: logos only ---------- */
-.badges {
+/* ---------- experience logos: one line, top right ---------- */
+.logo-strip {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 9px;
+  margin: -22px 0 34px;
 }
-.badge {
+.logo-strip .badge {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 52px;
-  height: 52px;
-  border: 1px solid var(--rule);
-  border-radius: 10px;
-  background: var(--chip);
-  transition: border-color .15s ease, transform .15s ease;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  transition: transform .15s ease;
 }
-.badge:hover { border-color: var(--accent); text-decoration: none; transform: translateY(-1px); }
-.badge img {
-  width: 26px; height: 26px;
+.logo-strip .badge:hover { text-decoration: none; transform: translateY(-2px); }
+.logo-strip img {
+  width: 22px;
+  height: 22px;
   object-fit: contain;
-  border-radius: 4px;
+  border-radius: 3px;
   filter: grayscale(1);
-  opacity: .8;
+  opacity: .55;
   transition: filter .15s ease, opacity .15s ease;
 }
-.badge:hover img { filter: none; opacity: 1; }
+.logo-strip .badge:hover img { filter: none; opacity: 1; }
+@media (max-width: 520px) {
+  .logo-strip { justify-content: flex-start; flex-wrap: wrap; margin: 4px 0 28px; gap: 8px; }
+}
 
 /* ---------- sections ---------- */
 section { margin-top: 56px; }
