@@ -130,16 +130,21 @@ h1 {
   width: 64px;
   height: 64px;
   border-radius: 12px;
-  transition: transform .15s ease;
+  background: #fff;
+  border: 1px solid var(--rule);
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  transition: transform .15s ease, box-shadow .15s ease;
 }
-.logo-strip .badge:hover { text-decoration: none; }
+.logo-strip .badge:hover { text-decoration: none; box-shadow: 0 4px 14px rgba(0,0,0,.16); }
 .logo-strip img {
   width: 52px;
   height: 52px;
   object-fit: contain;
-  border-radius: 7px;
   transition: transform .18s ease;
+  image-rendering: -webkit-optimize-contrast;
 }
+/* AlphaGrep only publish a white-on-transparent mark; flip it for the white tile */
+.logo-strip img[src*="alphagrep"] { filter: invert(1); }
 .logo-strip .badge:hover img { transform: scale(1.3); }
 @media (max-width: 560px) {
   .logo-strip { justify-content: flex-start; flex-wrap: wrap; margin: 4px 0 30px; gap: 10px; }
