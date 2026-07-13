@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Daily refresh of the token + health stats, which can only be computed on this
+  Mac (~/.claude transcripts and the Apple Health export both live here).
+  GitHub Actions handles the visit count separately.
+
+  Install:
+    cp scripts/com.shubhransh.sitestats.plist ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/com.shubhransh.sitestats.plist
+
+  Run once, now:
+    launchctl start com.shubhransh.sitestats
+
+  Logs: /tmp/sitestats.out  /tmp/sitestats.err
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.shubhransh.sitestats</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/python3</string>
+    <string>/Users/dj/sj/fireddd.github.io/scripts/update-stats.py</string>
+    <string>--push</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/dj/sj/fireddd.github.io</string>
+
+  <!-- 09:20 local, every day -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key><integer>9</integer>
+    <key>Minute</key><integer>20</integer>
+  </dict>
+
+  <!-- if the Mac was asleep at 09:20, run at the next wake -->
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/sitestats.out</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/sitestats.err</string>
+</dict>
+</plist>

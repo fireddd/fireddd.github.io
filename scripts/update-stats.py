@@ -48,7 +48,14 @@ def human(n):
 
 
 def tokens():
-    """Total Claude Code usage across every project on this machine."""
+    """Total Claude Code usage across every project on this machine.
+
+    Only works where the ~/.claude transcripts live. In CI there is nothing to
+    read, so this returns None and the committed value is kept.
+    """
+    if not (Path.home() / ".claude" / "projects").exists():
+        print("  · no ~/.claude transcripts here — keeping previous token stats", file=sys.stderr)
+        return None
     try:
         raw = subprocess.run(
             ["npx", "-y", "ccusage@latest", "--json"],
@@ -122,6 +129,28 @@ def health():
     }
 
 
+def visits():
+    """Total pageviews from GoatCounter. Works in CI (no local data needed)."""
+    site = os.environ.get("GOATCOUNTER_SITE")
+    token = os.environ.get("GOATCOUNTER_TOKEN")
+    if not (site and token):
+        print("  · GOATCOUNTER_SITE/TOKEN unset — skipping visits", file=sys.stderr)
+        return None
+    import urllib.request
+
+    req = urllib.request.Request(
+        f"https://{site}.goatcounter.com/api/v0/stats/total",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            d = json.load(r)
+    except Exception as e:
+        print(f"  ! goatcounter failed ({e}); keeping previous visits", file=sys.stderr)
+        return None
+    return {"pageviews": d.get("total", 0), "visitors": d.get("total_unique", 0)}
+
+
 def bars(recent):
     """A 14-day bar chart in pure CSS — no JS, no external chart library."""
     if not recent:
@@ -164,9 +193,23 @@ def render(stats):
         </dl>
       </div>""")
 
-    updated = datetime.now(timezone.utc).strftime("%d %b %Y")
-    parts.append(f'      <p class="rail-note">Updated {updated} · '
-                 f'<a href="/data/stats.json">stats.json</a></p>')
+    v = stats.get("visits")
+    if v:
+        parts.append(f"""      <div class="card">
+        <h3 class="card-t">Visits</h3>
+        <p class="stat">{v['pageviews']:,}<span class="unit">pageviews</span></p>
+        <dl class="mini">
+          <dt>Unique</dt><dd>{v['visitors']:,}</dd>
+        </dl>
+      </div>""")
+
+    now = datetime.now(timezone.utc)
+    stamp = now.strftime("%d %b %Y, %H:%M UTC")
+    parts.append(
+        f'      <p class="rail-note">Last updated '
+        f'<time datetime="{now.isoformat(timespec="seconds")}">{stamp}</time><br>'
+        f'<a href="/data/stats.json">stats.json</a> · refreshed daily</p>'
+    )
     return "\n".join(parts)
 
 
@@ -174,9 +217,13 @@ def main():
     DATA.parent.mkdir(exist_ok=True)
     prev = json.loads(DATA.read_text()) if DATA.exists() else {}
 
+    # Each source fills what it can and falls back to the committed value, so the
+    # cloud runner (visits only) and the Mac runner (tokens/health) don't clobber
+    # each other's numbers.
     stats = {
         "tokens": tokens() or prev.get("tokens"),
         "health": health() or prev.get("health"),
+        "visits": visits() or prev.get("visits"),
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
     }
     DATA.write_text(json.dumps(stats, indent=2) + "\n")
