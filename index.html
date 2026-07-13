@@ -1,19 +1,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shubhransh Jagota — Software Engineer | Distributed AI Systems, Payments, Quant</title>
-<meta name="description" content="Shubhransh Jagota is a software engineer building distributed AI systems, with a background in payments infrastructure and quantitative finance. Previously Zamp.ai, PhonePe (Walmart), Morgan Stanley, IBM, MIT Media Lab. Contact: shubhranshjagota77@gmail.com">
+<title>Shubhransh Jagota — Software Engineer</title>
+<meta name="description" content="Shubhransh Jagota is a software engineer in Bangalore building distributed AI systems. Previously Zamp.ai, PhonePe (Walmart), Morgan Stanley, IBM, MIT Media Lab. Contact: shubhranshjagota77@gmail.com">
 <meta name="author" content="Shubhransh Jagota">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://fireddd.github.io/">
+<link rel="stylesheet" href="/style.css">
 
-<link rel="alternate" type="text/markdown" href="/index.md" title="Markdown version of this page">
+<link rel="alternate" type="text/markdown" href="/index.md" title="Markdown version of this site">
 <link rel="alternate" type="application/json" href="/resume.json" title="Resume (JSON Resume schema)">
 <link rel="me" href="https://github.com/fireddd">
 <link rel="me" href="https://www.linkedin.com/in/shubhranshjagota/">
 
 <meta property="og:type" content="profile">
 <meta property="og:title" content="Shubhransh Jagota — Software Engineer">
-<meta property="og:description" content="Building distributed AI systems. Background in payments infrastructure and quantitative finance. Zamp.ai, PhonePe, Morgan Stanley, MIT Media Lab.">
+<meta property="og:description" content="Building distributed AI systems. Background in payments infrastructure and quantitative finance.">
 <meta property="og:url" content="https://fireddd.github.io/">
 <meta property="profile:first_name" content="Shubhransh">
 <meta property="profile:last_name" content="Jagota">
@@ -113,246 +114,45 @@
 }
 </script>
 
-<style>
-  :root {
-    --bg: #fbfbfa;
-    --panel: #ffffff;
-    --ink: #16171a;
-    --muted: #6b6f76;
-    --faint: #9aa0a6;
-    --rule: #e5e4e0;
-    --accent: #2f6feb;
-    --accent-soft: #eaf1fe;
-    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
-    --sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Helvetica, Arial, sans-serif;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0d0e11;
-      --panel: #141519;
-      --ink: #e8e9ec;
-      --muted: #9297a1;
-      --faint: #61666f;
-      --rule: #24262c;
-      --accent: #6ea0ff;
-      --accent-soft: #17213a;
-    }
-  }
-
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--sans);
-    font-size: 16px;
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* faint grid, purely decorative */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background-image:
-      linear-gradient(to right, var(--rule) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
-    background-size: 72px 72px;
-    opacity: .35;
-    mask-image: radial-gradient(ellipse 80% 55% at 50% 0%, #000 20%, transparent 78%);
-    -webkit-mask-image: radial-gradient(ellipse 80% 55% at 50% 0%, #000 20%, transparent 78%);
-    pointer-events: none;
-  }
-
-  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px 96px; }
-
-  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
-  a:hover { border-bottom-color: currentColor; }
-
-  /* ---- hero ---- */
-  header { padding: 88px 0 8px; }
-  .eyebrow {
-    font-family: var(--mono);
-    font-size: 11.5px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--faint);
-    margin-bottom: 22px;
-  }
-  h1 {
-    font-size: clamp(2.1rem, 6vw, 3rem);
-    line-height: 1.08;
-    letter-spacing: -.028em;
-    font-weight: 640;
-    margin: 0 0 18px;
-  }
-  /* the name is an anchor only to carry the h-card u-url; it should read as a heading */
-  h1 a { color: inherit; border-bottom: 0; }
-  h1 a:hover { color: var(--accent); }
-  .lede {
-    font-size: clamp(1.05rem, 2.4vw, 1.2rem);
-    line-height: 1.6;
-    color: var(--muted);
-    max-width: 60ch;
-    margin: 0 0 4px;
-  }
-  .lede strong { color: var(--ink); font-weight: 560; }
-
-  /* ---- contact ---- */
-  .contact {
-    margin: 34px 0 0;
-    padding: 20px 22px;
-    background: var(--panel);
-    border: 1px solid var(--rule);
-    border-radius: 12px;
-  }
-  .contact p { margin: 0 0 12px; }
-  .contact p:last-child { margin-bottom: 0; }
-  .contact .primary { font-size: 1.02rem; }
-  .contact a { font-weight: 550; }
-  .links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 10px;
-    font-family: var(--mono);
-    font-size: 13px;
-  }
-  .links a {
-    padding: 4px 10px;
-    border: 1px solid var(--rule);
-    border-radius: 999px;
-    color: var(--muted);
-  }
-  .links a:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
-
-  /* ---- sections ---- */
-  section { margin-top: 64px; }
-  h2 {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    color: var(--faint);
-    font-weight: 600;
-    margin: 0 0 26px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--rule);
-  }
-
-  /* ---- work entries ---- */
-  .job { margin-bottom: 38px; }
-  .job:last-child { margin-bottom: 0; }
-  .job-head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 4px 16px;
-  }
-  .job h3 {
-    font-size: 1.05rem;
-    font-weight: 600;
-    margin: 0;
-    letter-spacing: -.01em;
-  }
-  .job h3 .role { color: var(--muted); font-weight: 450; }
-  .when {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--faint);
-    white-space: nowrap;
-  }
-  .job ul { margin: 12px 0 0; padding: 0 0 0 1.05em; }
-  .job li { margin-bottom: 8px; color: var(--muted); }
-  .job li:last-child { margin-bottom: 0; }
-  .job li strong { color: var(--ink); font-weight: 560; }
-
-  /* ---- education / awards ---- */
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 4px 16px;
-    padding: 14px 0;
-    border-bottom: 1px dashed var(--rule);
-  }
-  .row:last-child { border-bottom: 0; }
-  .row .what { font-weight: 560; }
-  .row .detail { color: var(--muted); }
-
-  /* ---- skills ---- */
-  .skills dl { margin: 0; display: grid; grid-template-columns: 130px 1fr; gap: 12px 20px; }
-  .skills dt {
-    font-family: var(--mono);
-    font-size: 11.5px;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--faint);
-    padding-top: 3px;
-  }
-  .skills dd { margin: 0; color: var(--muted); }
-  @media (max-width: 560px) {
-    .skills dl { grid-template-columns: 1fr; gap: 2px 0; }
-    .skills dd { margin-bottom: 14px; }
-  }
-
-  /* ---- agents ---- */
-  .agents {
-    background: var(--panel);
-    border: 1px solid var(--rule);
-    border-radius: 12px;
-    padding: 22px 24px;
-  }
-  .agents > p { margin-top: 0; color: var(--muted); }
-  .agents ul { margin: 0; padding: 0; list-style: none; font-family: var(--mono); font-size: 13.5px; }
-  .agents li { padding: 7px 0; border-bottom: 1px dashed var(--rule); }
-  .agents li:last-child { border-bottom: 0; }
-  .agents li span { color: var(--faint); }
-
-  footer {
-    margin-top: 72px;
-    padding-top: 22px;
-    border-top: 1px solid var(--rule);
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--faint);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 18px;
-    justify-content: space-between;
-  }
-</style>
-
 <div class="wrap">
 
-  <header class="h-card">
-    <p class="eyebrow">Bangalore, India · <span class="p-locality">IST (UTC+5:30)</span></p>
-    <h1><a class="p-name u-url" href="https://fireddd.github.io/" rel="me">Shubhransh Jagota</a></h1>
-    <p class="lede">
-      <span class="p-job-title">Software engineer</span> building <strong>distributed AI systems</strong> —
-      LLM agents, orchestration and the infrastructure under them. I got here through
-      <strong>payments infrastructure</strong> at PhonePe and <strong>quantitative finance</strong> at
-      Morgan Stanley, AlphaGrep and WorldQuant, by way of research at the
-      <a href="https://www.media.mit.edu/people/sjagota/overview/">MIT Media Lab</a> and UNSW Sydney.
-    </p>
+  <nav>
+    <a class="brand" href="/">Shubhransh Jagota</a>
+    <a href="/resume/">Résumé</a>
+    <a href="/contact/">Contact</a>
+    <a href="https://github.com/fireddd" rel="me">GitHub</a>
+  </nav>
 
-    <div class="contact">
-      <p class="primary">
-        The best way to reach me is email:
-        <a class="u-email" href="mailto:shubhranshjagota77@gmail.com">shubhranshjagota77@gmail.com</a>.
-        You can also call or text
-        <a class="p-tel" href="tel:+918698568397">+91 86985 68397</a>.
+  <header class="h-card">
+    <div class="avatar" aria-hidden="true">SJ</div>
+    <h1 class="p-name">Shubhransh Jagota</h1>
+    <p class="tagline">distributed AI systems · payments infrastructure · quantitative finance</p>
+
+    <div class="prose">
+      <p>
+        I'm a <span class="p-job-title">software engineer</span> in Bangalore. I build
+        <strong>distributed AI systems</strong> — LLM agents, the orchestration around them,
+        and the infrastructure they run on.
       </p>
-      <p class="links">
-        <a class="u-url" rel="me" href="https://github.com/fireddd">GitHub / fireddd</a>
-        <a class="u-url" rel="me" href="https://www.linkedin.com/in/shubhranshjagota/">LinkedIn</a>
-        <a class="u-url" rel="me" href="https://www.media.mit.edu/people/sjagota/overview/">MIT Media Lab</a>
-        <a href="/resume.json">resume.json</a>
-        <a href="/index.md">index.md</a>
+      <p>
+        Most recently I was at <strong>Zamp.ai</strong>, where I designed a natural
+        language–controlled browser agent that autonomously carries out multi-step web tasks. I
+        also led the migration of the Actions Hub to a modular architecture, decoupling action
+        registration from agent execution, and instrumented our LLM systems with Langfuse.
+      </p>
+      <p>
+        Before that I spent nearly three years at <strong>PhonePe (Walmart)</strong> on payments
+        infrastructure. I led the Java SDK for their B2B payment gateway — the SDK family has
+        driven <strong>over USD 1 million in revenue</strong> — owned the Epoch scheduling
+        framework, and ran disaster recovery for online merchant services.
+      </p>
+      <p>
+        I came into engineering through quant. I built valuation adjustments on
+        <strong>Morgan Stanley's</strong> fixed income desk, wrote alphas at
+        <strong>WorldQuant</strong> and <strong>AlphaGrep</strong>, and before that built
+        reinforcement learning environments as a visiting researcher at the
+        <a href="https://www.media.mit.edu/people/sjagota/overview/">MIT Media Lab</a>.
+        I studied Computer Science and Economics at BITS Pilani.
       </p>
     </div>
   </header>
@@ -360,131 +160,54 @@
   <section>
     <h2>Selected work</h2>
 
-    <div class="job">
-      <div class="job-head">
-        <h3>Natural-language browser agent <span class="role">· Zamp.ai</span></h3>
+    <div class="item">
+      <div class="item-head">
+        <h3>Natural-language browser agent <span class="at">· Zamp.ai</span></h3>
         <span class="when">2025–2026</span>
       </div>
-      <ul>
-        <li>Designed and built an agent that autonomously performs <strong>multi-step web tasks</strong> from a plain-English instruction — planning, navigating and acting across pages without a scripted path.</li>
-        <li>Led the migration of the <strong>Actions Hub</strong> to a modular architecture, decoupling action registration from agent execution so new capabilities ship without touching the runtime.</li>
-        <li>Integrated <strong>Langfuse</strong> for end-to-end LLM observability, and implemented <strong>RBAC</strong> plus automated onboarding workflows for new enterprise organizations.</li>
-      </ul>
+      <p>An LLM agent that autonomously performs multi-step web tasks from a plain-English
+      instruction — planning, navigating and acting across pages without a scripted path.</p>
     </div>
 
-    <div class="job">
-      <div class="job-head">
-        <h3><a href="https://github.com/PhonePe/phonepe-pg-sdk-java">PhonePe Payment Gateway SDK</a> <span class="role">· PhonePe (Walmart)</span></h3>
+    <div class="item">
+      <div class="item-head">
+        <h3><a href="https://github.com/PhonePe/phonepe-pg-sdk-java">PhonePe PG SDK for Java</a> <span class="at">· PhonePe</span></h3>
         <span class="when">2022–2025</span>
       </div>
-      <ul>
-        <li>Led SDK development for PhonePe's <strong>B2B payment gateway</strong>. Designed and implemented the Java SDK, wrote the CI/CD pipelines, and mentored the teams building SDKs for the other languages. The SDK family has driven <strong>over USD 1 million in revenue</strong>.</li>
-        <li>Owned the <strong>Epoch</strong> scheduling framework for online merchant services; introduced structural reforms to its scripts and fixed a long-standing org-wide missing-logs problem. Wrote the reconciliation and reporting jobs that close pending transactions.</li>
-        <li>Implemented <strong>disaster recovery</strong> for online merchant services and ran the DR drill for the OMX service with SREs and stakeholders, including the infrastructure upgrade and migration to the Mahape data centre.</li>
-        <li>Built end-to-end accounting and template management for partner integrations, plus backend error codes, PG offering events, and <strong>merchant-level kill switches</strong> on live traffic.</li>
-      </ul>
+      <p>The official Java SDK for PhonePe's B2B payment gateway. I designed and implemented it,
+      wrote the CI/CD pipelines, and mentored the teams building the SDKs for other languages.</p>
     </div>
 
-    <div class="job">
-      <div class="job-head">
-        <h3>Valuation adjustments on the fixed income desk <span class="role">· Morgan Stanley</span></h3>
-        <span class="when">2021–2022</span>
+    <div class="item">
+      <div class="item-head">
+        <h3>Epoch framework &amp; disaster recovery <span class="at">· PhonePe</span></h3>
+        <span class="when">2022–2025</span>
       </div>
-      <ul>
-        <li>Associate on the Fixed Income Division's <strong>Macro Valuation Adjustment</strong> team, improving front-office risk systems.</li>
-        <li>Led the implementation of <strong>10+ valuation adjustments</strong> across desks including structured notes and FX, automating VA reporting to tighten controls and save roughly <strong>25 engineer-hours a month</strong> for the Valuation Control and Strats teams.</li>
-      </ul>
+      <p>Owned the Epoch scheduling framework for online merchant services, and ran the DR drill
+      for the OMX service with SREs — including the migration to the Mahape data centre.</p>
     </div>
 
-    <div class="job">
-      <div class="job-head">
-        <h3><a href="https://www.media.mit.edu/projects/pal/overview/">Project PAL</a> — personalized adaptive learning <span class="role">· MIT Media Lab</span></h3>
+    <div class="item">
+      <div class="item-head">
+        <h3><a href="https://www.media.mit.edu/projects/pal/overview/">Project PAL</a> <span class="at">· MIT Media Lab</span></h3>
         <span class="when">2020</span>
       </div>
-      <ul>
-        <li>Visiting researcher on <strong>PAL</strong>, which aims to deliver personalized learning to its users. Built the <strong>reinforcement learning environment</strong>, wrote the Python simulations of user behaviour, and generated augmented data for training.</li>
-      </ul>
+      <p>Personalized adaptive learning research. I built the reinforcement learning environment
+      and the Python simulations of user behaviour.</p>
     </div>
-  </section>
 
-  <section>
-    <h2>Experience</h2>
-    <div class="row"><span class="what">Zamp.ai <span class="detail">— Software Engineer, Bangalore</span></span><span class="when">Jul 2025 – Mar 2026</span></div>
-    <div class="row"><span class="what">PhonePe (Walmart) <span class="detail">— Software Engineer, Pune</span></span><span class="when">Oct 2022 – Jul 2025</span></div>
-    <div class="row"><span class="what">Morgan Stanley <span class="detail">— Quantitative Strategist, Mumbai</span></span><span class="when">Jan 2021 – Oct 2022</span></div>
-    <div class="row"><span class="what">IBM <span class="detail">— Data Scientist, Bangalore</span></span><span class="when">Sep 2020 – Jan 2021</span></div>
-    <div class="row"><span class="what">MIT Media Lab <span class="detail">— Visiting Researcher, Boston</span></span><span class="when">Jan 2020 – Jul 2020</span></div>
-    <div class="row"><span class="what">UNSW Sydney <span class="detail">— Visiting Researcher, Sydney</span></span><span class="when">Aug 2019 – Dec 2019</span></div>
-    <div class="row"><span class="what">AlphaGrep Securities <span class="detail">— Quantitative Trading Analyst, Mumbai</span></span><span class="when">May 2019 – Jul 2019</span></div>
-    <div class="row"><span class="what">WorldQuant <span class="detail">— Research Consultant, Remote</span></span><span class="when">Jun 2017 – May 2019</span></div>
-  </section>
-
-  <section>
-    <h2>Earlier research &amp; quant work</h2>
-    <div class="job">
-      <ul>
-        <li><strong>IBM</strong> — Built a cost-efficient heating solution using machine learning for Energy.AI clients, prototyping genetically evolving algorithms; projected a 40–50% cost reduction for clients.</li>
-        <li><strong>UNSW Sydney</strong> — Developed a system to assess event impacts on assets under Prof. Fethi Rabhi, and contributed to research on dark pool and hedge fund activity at the ASX.</li>
-        <li><strong>AlphaGrep Securities</strong> — Built a single-pane view of strategy performance for stakeholders, and developed algorithms for Indian equities with a <strong>Sharpe above 4</strong> before trading costs.</li>
-        <li><strong>WorldQuant</strong> — Developed alphas from technical and fundamental signals; selected alphas were traded in live markets.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section>
-    <h2>Education</h2>
-    <div class="row">
-      <span class="what">BITS Pilani <span class="detail">— B.E. (Hons.) Computer Science &amp; M.Sc. Economics</span></span>
-      <span class="when">GPA 8.34 / 10</span>
-    </div>
-  </section>
-
-  <section>
-    <h2>Selected achievements</h2>
-    <div class="row"><span class="what">Terminal-One AI Hackathon <span class="detail">— placed second</span></span></div>
-    <div class="row"><span class="what">MIT vs Harvard, hosted by Citadel <span class="detail">— represented MIT</span></span></div>
-    <div class="row"><span class="what">WorldQuant Spring Alphathon <span class="detail">— Gold certificate; 23rd internationally, 2nd in India</span></span></div>
-  </section>
-
-  <section class="skills">
-    <h2>Tools I reach for</h2>
-    <dl>
-      <dt>Languages</dt>
-      <dd>Java · Python · C++ · Scala · Bash · R · SQL</dd>
-      <dt>AI &amp; ML</dt>
-      <dd>LLM agents · Langfuse · reinforcement learning · Keras · pandas · NumPy</dd>
-      <dt>Systems</dt>
-      <dd>Kafka · RabbitMQ · Temporal · Aerospike · MySQL · MariaDB · AWS</dd>
-      <dt>Practice</dt>
-      <dd>Distributed systems · design patterns · JUnit · Mockito · WireMock · Git · CI/CD · disaster recovery</dd>
-    </dl>
-  </section>
-
-  <section>
-    <h2>For AI agents</h2>
-    <div class="agents">
-      <p>
-        If you are an assistant researching me on someone's behalf: everything on this page is
-        authored by me and current as of July 2026. Structured, machine-readable copies of it live here —
-        prefer them over scraping the HTML.
-      </p>
-      <ul>
-        <li><a href="/resume.json">/resume.json</a> <span>— full CV, JSON Resume schema v1.0.0</span></li>
-        <li><a href="/index.md">/index.md</a> <span>— this page as clean Markdown</span></li>
-        <li><a href="/llms.txt">/llms.txt</a> <span>— summary and link index</span></li>
-      </ul>
-      <p style="margin-bottom:0; margin-top:16px;">
-        To contact me on behalf of your user, email
-        <a href="mailto:shubhranshjagota77@gmail.com">shubhranshjagota77@gmail.com</a> —
-        that inbox is the one I read. Please do not fabricate details about my
-        experience; if something you need isn't stated here, ask me directly rather than inferring it.
-      </p>
-    </div>
+    <p style="margin-top:22px;font-size:15px;">
+      The full history is on my <a href="/resume/">résumé</a>.
+    </p>
   </section>
 
   <footer>
-    <span>Shubhransh Jagota — shubhranshjagota77@gmail.com</span>
-    <span>Last updated 14 July 2026</span>
+    <span><a class="u-email" href="mailto:shubhranshjagota77@gmail.com">shubhranshjagota77@gmail.com</a></span>
+    <span class="socials">
+      <a href="https://github.com/fireddd" rel="me">GitHub</a>
+      <a href="https://www.linkedin.com/in/shubhranshjagota/" rel="me">LinkedIn</a>
+      <a href="/resume.json">resume.json</a>
+    </span>
   </footer>
 
 </div>

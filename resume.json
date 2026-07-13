@@ -98,13 +98,14 @@
     },
     {
       "name": "University of New South Wales",
-      "position": "Visiting Researcher",
+      "position": "Visiting Researcher, UNSW Business School",
       "location": "Sydney, Australia",
       "startDate": "2019-08-01",
       "endDate": "2019-12-31",
       "highlights": [
         "Developed an agile system to assess event impacts on assets, under the guidance of Professor Fethi Rabhi.",
-        "Contributed to research on dark pool and hedge fund activity at the ASX, analyzing trading patterns and fund distribution across Australian exchanges."
+        "Contributed to research on dark pool and hedge fund activity at the ASX, analyzing trading patterns and fund distribution across Australian exchanges.",
+        "Part of this research assistant work is open source: https://github.com/fireddd/RA_Bschool"
       ]
     },
     {
@@ -164,6 +165,15 @@
       "roles": ["Designer", "Lead developer"],
       "entity": "Zamp.ai",
       "type": "application"
+    },
+    {
+      "name": "RA_Bschool",
+      "description": "Research assistant work at UNSW Business School: analysis supporting research on event impacts on assets, and on dark pool and hedge fund activity at the ASX.",
+      "url": "https://github.com/fireddd/RA_Bschool",
+      "keywords": ["research", "quantitative-finance", "asx"],
+      "roles": ["Research assistant"],
+      "entity": "UNSW Business School",
+      "type": "research"
     },
     {
       "name": "Project PAL",

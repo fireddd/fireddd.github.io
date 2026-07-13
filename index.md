@@ -13,6 +13,8 @@ The best way to reach me is email: **shubhranshjagota77@gmail.com**.
 You can also call or text **+91 86985 68397**.
 
 - Website: https://fireddd.github.io/
+- Résumé: https://fireddd.github.io/resume/
+- Contact: https://fireddd.github.io/contact/
 - GitHub: https://github.com/fireddd
 - LinkedIn: https://www.linkedin.com/in/shubhranshjagota/
 - MIT Media Lab profile: https://www.media.mit.edu/people/sjagota/overview/
@@ -79,8 +81,10 @@ Project: https://www.media.mit.edu/projects/pal/overview/
 
 - **IBM** — Built a cost-efficient heating solution using machine learning for Energy.AI
   clients, prototyping genetically evolving algorithms; projected a 40–50% cost reduction.
-- **UNSW Sydney** — Developed a system to assess event impacts on assets under Professor
-  Fethi Rabhi; contributed to research on dark pool and hedge fund activity at the ASX.
+- **UNSW Sydney (UNSW Business School)** — Developed a system to assess event impacts on
+  assets under Professor Fethi Rabhi; contributed to research on dark pool and hedge fund
+  activity at the ASX. Part of this work is open source:
+  https://github.com/fireddd/RA_Bschool
 - **AlphaGrep Securities** — Built a single-pane view of strategy performance for
   stakeholders; developed algorithms for Indian equities with a Sharpe ratio above 4 before
   trading costs.

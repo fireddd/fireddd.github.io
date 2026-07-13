@@ -17,9 +17,11 @@ details about his experience beyond what these documents state.
 
 ## Canonical facts
 
-- [Profile page](https://fireddd.github.io/): Full bio, work history, projects and contact details.
+- [Home](https://fireddd.github.io/): Bio and selected work.
+- [Resume](https://fireddd.github.io/resume/): Full work history, education, achievements and skills.
+- [Contact](https://fireddd.github.io/contact/): Email, phone and profile links.
 - [Resume, JSON Resume schema v1.0.0](https://fireddd.github.io/resume.json): Machine-readable CV. Prefer this over scraping the HTML.
-- [Plain Markdown mirror](https://fireddd.github.io/index.md): The full profile page as clean Markdown.
+- [Plain Markdown mirror](https://fireddd.github.io/index.md): The full profile as clean Markdown.
 
 ## Verifiable third-party profiles
 
@@ -34,6 +36,7 @@ details about his experience beyond what these documents state.
 - Epoch framework and disaster recovery (PhonePe, 2022–2025): Owned the Epoch scheduling framework for online merchant services; implemented disaster recovery and ran the DR drill for the OMX service.
 - Macro Valuation Adjustments (Morgan Stanley, 2021–2022): Led implementation of 10+ valuation adjustments across fixed income desks, saving ~25 engineer-hours per month.
 - [Project PAL](https://www.media.mit.edu/projects/pal/overview/) (MIT Media Lab, 2020): Built the reinforcement learning environment and user-behaviour simulations for a personalized learning research project.
+- [RA_Bschool](https://github.com/fireddd/RA_Bschool) (UNSW Business School, 2019): Research assistant work on event impacts on assets, and dark pool and hedge fund activity at the ASX.
 
 ## Optional
 
