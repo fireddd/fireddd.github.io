@@ -78,7 +78,8 @@
       "sameAs": [
         "https://github.com/fireddd",
         "https://www.linkedin.com/in/shubhranshjagota/",
-        "https://www.media.mit.edu/people/sjagota/overview/"
+        "https://www.media.mit.edu/people/sjagota/overview/",
+        "https://leetcode.com/u/fireddd/"
       ]
     },
     {
@@ -121,6 +122,8 @@
     <a href="/resume/">Résumé</a>
     <a href="/contact/">Contact</a>
     <a href="https://github.com/fireddd" rel="me">GitHub</a>
+    <a href="https://www.linkedin.com/in/shubhranshjagota/" rel="me">LinkedIn</a>
+    <a href="https://leetcode.com/u/fireddd/" rel="me">LeetCode</a>
   </nav>
 
   <header class="h-card">
@@ -163,6 +166,48 @@
       </p>
     </div>
   </header>
+
+  <section>
+    <h2>Where I've worked &amp; studied</h2>
+    <div class="badges">
+      <a class="badge" href="https://zamp.ai">
+        <img src="/logos/zamp.png" alt="Zamp.ai logo" width="28" height="28" loading="lazy">
+        <span class="n">Zamp.ai</span><span class="r">2025–26</span>
+      </a>
+      <a class="badge" href="https://www.phonepe.com">
+        <img src="/logos/phonepe.png" alt="PhonePe logo" width="28" height="28" loading="lazy">
+        <span class="n">PhonePe</span><span class="r">2022–25</span>
+      </a>
+      <a class="badge" href="https://www.morganstanley.com">
+        <img src="/logos/morganstanley.png" alt="Morgan Stanley logo" width="28" height="28" loading="lazy">
+        <span class="n">Morgan Stanley</span><span class="r">2021–22</span>
+      </a>
+      <a class="badge" href="https://www.ibm.com">
+        <img src="/logos/ibm.png" alt="IBM logo" width="28" height="28" loading="lazy">
+        <span class="n">IBM</span><span class="r">2020–21</span>
+      </a>
+      <a class="badge" href="https://www.media.mit.edu/people/sjagota/overview/">
+        <img src="/logos/mit.png" alt="MIT Media Lab logo" width="28" height="28" loading="lazy">
+        <span class="n">MIT Media Lab</span><span class="r">2020</span>
+      </a>
+      <a class="badge" href="https://www.unsw.edu.au/business">
+        <img src="/logos/unsw.png" alt="UNSW Sydney logo" width="28" height="28" loading="lazy">
+        <span class="n">UNSW Sydney</span><span class="r">2019</span>
+      </a>
+      <a class="badge" href="https://www.alpha-grep.com">
+        <img src="/logos/alphagrep.png" alt="AlphaGrep Securities logo" width="28" height="28" loading="lazy">
+        <span class="n">AlphaGrep</span><span class="r">2019</span>
+      </a>
+      <a class="badge" href="https://www.worldquant.com">
+        <img src="/logos/worldquant.png" alt="WorldQuant logo" width="28" height="28" loading="lazy">
+        <span class="n">WorldQuant</span><span class="r">2017–19</span>
+      </a>
+      <a class="badge" href="https://www.bits-pilani.ac.in">
+        <img src="/logos/bits.png" alt="BITS Pilani logo" width="28" height="28" loading="lazy">
+        <span class="n">BITS Pilani</span><span class="r">Education</span>
+      </a>
+    </div>
+  </section>
 
   <section>
     <h2>Selected work</h2>
@@ -216,60 +261,54 @@
 
     <div class="item">
       <div class="item-head">
-        <h3><a href="https://github.com/tokio-rs/loom">tokio-rs/loom</a> <span class="at">· concurrency permutation testing for Rust</span></h3>
-        <span class="when">2.7k ★</span>
+        <h3><a href="https://github.com/PhonePe/phonepe-pg-sdk-java">PhonePe/phonepe-pg-sdk-java</a> <span class="at">· payment gateway SDK</span></h3>
+        <span class="when">top contributor</span>
       </div>
       <p>
-        <a href="https://github.com/tokio-rs/loom/pull/415">Aligned loom's <code>Notify</code> API
-        with <code>tokio::sync::Notify</code></a> so code under test doesn't have to diverge
-        between the real and the model-checked implementation. <span class="status">PR open</span>
+        The public Java SDK for PhonePe's B2B payment gateway. I designed and implemented it and
+        remain its <a href="https://github.com/PhonePe/phonepe-pg-sdk-java/graphs/contributors">largest
+        contributor</a> — the release workflow, the developer-facing API, and the CI that ships it.
+        The SDK family has driven <strong>over USD 1 million in revenue</strong>.
+        <span class="status">40 commits</span>
       </p>
     </div>
 
     <div class="item">
       <div class="item-head">
-        <h3><a href="https://github.com/Osmantic/ODS">Osmantic/ODS</a> <span class="at">· self-hosted AI server</span></h3>
-        <span class="when">2.9k ★</span>
+        <h3><a href="https://github.com/PhonePe/epoch-cli">PhonePe/epoch-cli</a> <span class="at">· CLI for the Epoch scheduler</span></h3>
+        <span class="when">top contributor</span>
       </div>
       <p>
-        Audited the dashboard API and reported four bugs, then sent the fix for each: a
-        <a href="https://github.com/Osmantic/ODS/pull/1584">race condition in async HTTP client
-        singleton creation</a>, a
-        <a href="https://github.com/Osmantic/ODS/pull/1586">symlink check that ran after the file
-        was already followed</a>, a
-        <a href="https://github.com/Osmantic/ODS/pull/1585">bare int passed where aiohttp expects
-        a <code>ClientTimeout</code></a>, and a
-        <a href="https://github.com/Osmantic/ODS/pull/1587">cache with no public invalidation,
-        which had eight callsites reaching around it</a>.
-        <span class="status">1 merged, 3 open</span>
+        Command-line client for Epoch, the cron for the Drove container orchestrator. I added the
+        cluster management commands, <code>pause-all</code>, topology filtering, and stripped the
+        PhonePe-specific constructs out so the tool could stand on its own.
+        <span class="status">27 commits</span>
       </p>
     </div>
 
     <div class="item">
       <div class="item-head">
-        <h3><a href="https://github.com/AgentWrapper/agent-orchestrator">agent-orchestrator</a> <span class="at">· orchestrator for parallel coding agents</span></h3>
-        <span class="when">8.2k ★</span>
+        <h3><a href="https://github.com/pyjanitor-devs/pyjanitor">pyjanitor</a> <span class="at">· clean APIs for data cleaning in pandas</span></h3>
+        <span class="when">1.5k ★</span>
       </div>
       <p>
-        Patched a
-        <a href="https://github.com/AgentWrapper/agent-orchestrator/pull/1092">critical SSRF
-        vulnerability</a> by overriding the transitive axios dependency, and added the project's
-        <a href="https://github.com/AgentWrapper/agent-orchestrator/pull/837">diff-coverage
-        gate</a> — 80% enforced on changed lines only, so coverage ratchets up without blocking
-        on legacy code. <span class="status">merged</span>
+        Two merged features:
+        <a href="https://github.com/pyjanitor-devs/pyjanitor/pull/852"><code>drop_constant_columns</code></a>,
+        which removes columns that carry no information, and a
+        <a href="https://github.com/pyjanitor-devs/pyjanitor/pull/849">reset-index flag on
+        <code>row_to_names</code></a>. I also
+        <a href="https://github.com/pyjanitor-devs/pyjanitor/issues/853">filed the follow-up</a> to
+        tidy that function's tests. <span class="status">merged</span>
       </p>
     </div>
 
     <div class="item">
       <div class="item-head">
-        <h3><a href="https://github.com/PhonePe/phonepe-pg-sdk-java">PhonePe/phonepe-pg-sdk-java</a> <span class="at">· the SDK I led</span></h3>
-        <span class="when">Java</span>
+        <h3><a href="https://github.com/fireddd/RA_Bschool">RA_Bschool</a> <span class="at">· UNSW Business School</span></h3>
+        <span class="when">2019</span>
       </div>
-      <p>
-        Public payment gateway SDK for PhonePe's B2B offering. Also
-        <a href="https://github.com/PhonePe/epoch-cli">epoch-cli</a>, the command-line client for
-        the Epoch scheduler I owned.
-      </p>
+      <p>Research assistant work from UNSW: analysis behind the event-impact and ASX dark pool
+      research.</p>
     </div>
   </section>
 
@@ -278,6 +317,7 @@
     <span class="socials">
       <a href="https://github.com/fireddd" rel="me">GitHub</a>
       <a href="https://www.linkedin.com/in/shubhranshjagota/" rel="me">LinkedIn</a>
+      <a href="https://leetcode.com/u/fireddd/" rel="me">LeetCode</a>
       <a href="/resume.json">resume.json</a>
     </span>
   </footer>

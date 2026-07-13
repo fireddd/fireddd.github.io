@@ -17,6 +17,7 @@ You can also call or text **+91 86985 68397**.
 - Contact: https://fireddd.github.io/contact/
 - GitHub: https://github.com/fireddd
 - LinkedIn: https://www.linkedin.com/in/shubhranshjagota/
+- LeetCode: https://leetcode.com/u/fireddd/
 - MIT Media Lab profile: https://www.media.mit.edu/people/sjagota/overview/
 - Machine-readable CV: https://fireddd.github.io/resume.json (JSON Resume schema v1.0.0)
 
@@ -66,23 +67,20 @@ Project: https://www.media.mit.edu/projects/pal/overview/
 
 ## Open source
 
-- **[tokio-rs/loom](https://github.com/tokio-rs/loom)** (2.7k stars) — [aligned loom's `Notify`
-  API with `tokio::sync::Notify`](https://github.com/tokio-rs/loom/pull/415) so code under test
-  need not diverge between the real and model-checked implementations. PR open.
-- **[Osmantic/ODS](https://github.com/Osmantic/ODS)** (2.9k stars) — audited the dashboard API,
-  reported four bugs and sent a fix for each: a [race condition in async HTTP client singleton
-  creation](https://github.com/Osmantic/ODS/pull/1584), a [symlink check running after the file
-  was already followed](https://github.com/Osmantic/ODS/pull/1586), a [bare int passed where
-  aiohttp expects a `ClientTimeout`](https://github.com/Osmantic/ODS/pull/1585), and a [cache
-  with no public invalidation](https://github.com/Osmantic/ODS/pull/1587). One merged, three open.
-- **[agent-orchestrator](https://github.com/AgentWrapper/agent-orchestrator)** (8.2k stars) —
-  patched a [critical SSRF vulnerability](https://github.com/AgentWrapper/agent-orchestrator/pull/1092)
-  in a transitive axios dependency, and added the project's
-  [diff-coverage gate](https://github.com/AgentWrapper/agent-orchestrator/pull/837) enforcing 80%
-  on changed lines only. Merged.
-- **[PhonePe/phonepe-pg-sdk-java](https://github.com/PhonePe/phonepe-pg-sdk-java)** and
-  **[PhonePe/epoch-cli](https://github.com/PhonePe/epoch-cli)** — the payment gateway SDK I led,
-  and the CLI for the Epoch scheduler I owned.
+- **[PhonePe/phonepe-pg-sdk-java](https://github.com/PhonePe/phonepe-pg-sdk-java)** — the public
+  Java SDK for PhonePe's B2B payment gateway. I designed and implemented it and am its
+  [largest contributor](https://github.com/PhonePe/phonepe-pg-sdk-java/graphs/contributors)
+  (40 commits): the release workflow, the developer-facing API, and the CI that ships it.
+- **[PhonePe/epoch-cli](https://github.com/PhonePe/epoch-cli)** — CLI for Epoch, the cron for the
+  Drove container orchestrator. Largest contributor (27 commits): added the cluster management
+  commands, `pause-all`, topology filtering, and removed the PhonePe-specific constructs so the
+  tool could stand on its own.
+- **[pyjanitor](https://github.com/pyjanitor-devs/pyjanitor)** (1.5k stars) — clean APIs for data
+  cleaning in pandas. Two merged features:
+  [`drop_constant_columns`](https://github.com/pyjanitor-devs/pyjanitor/pull/852) and a
+  [reset-index flag on `row_to_names`](https://github.com/pyjanitor-devs/pyjanitor/pull/849), plus
+  the [follow-up issue](https://github.com/pyjanitor-devs/pyjanitor/issues/853) to tidy that
+  function's tests.
 - **[RA_Bschool](https://github.com/fireddd/RA_Bschool)** — research assistant work from UNSW
   Business School.
 
