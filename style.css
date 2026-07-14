@@ -871,3 +871,6 @@ h2[id] { scroll-margin-top: 24px; }
   color: var(--faint);
 }
 .gifcard img { max-width: 100%; }
+
+/* a post can carry more than one logo — e.g. where the story started and where it ended */
+.hero-logos { display: flex; gap: 8px; flex: none; }

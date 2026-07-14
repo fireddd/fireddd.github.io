@@ -115,7 +115,7 @@ Project: https://www.media.mit.edu/projects/pal/overview/
 
 ## Hackathons & competitions
 
-- **Terminal-One AI Hackathon** (2020) — Runner-up. Hosted by Citadel. Represented MIT against Harvard
+- **Terminal One — MIT vs Harvard** (2020) — Runner-up. Run by Citadel and Correlation One, across a field of 30,000+ engineers and data scientists. Represented MIT against Harvard
   as a team of two with [Akash Vaish](https://www.linkedin.com/in/akash-vaish-712872aa/). Built
   **Go Get It** (go1, go2, go3 by the end), an algorithm that plays
   [Citadel's Terminal](https://terminal.c1games.com/) against other algorithms, adapting its offence
