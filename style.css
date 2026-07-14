@@ -373,21 +373,35 @@ aside .card {
 }
 
 /* ---------- certificates ---------- */
+/* The two screenshots have different aspect ratios (4:3 certificate, 2:1 dashboard).
+   Equal-ratio boxes with a white backdrop keep the tiles uniform and let each image
+   show in full — cropping to a shared ratio would cut the leaderboard panel out of
+   the dashboard, which is the whole point of that screenshot. */
 .certs {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 10px;
   margin-top: 14px;
 }
 .certs a {
-  flex: 1 1 190px;
-  max-width: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 3 / 2;
+  padding: 8px;
+  background: #fff;
   border: 1px solid var(--rule);
   border-radius: 8px;
   overflow: hidden;
-  background: var(--chip);
-  line-height: 0;
   transition: border-color .15s ease, transform .15s ease;
 }
 .certs a:hover { border-color: var(--accent); transform: translateY(-2px); text-decoration: none; }
-.certs img { width: 100%; height: auto; display: block; }
+.certs img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border-radius: 3px;
+}
