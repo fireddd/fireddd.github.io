@@ -167,22 +167,30 @@
         and always feels.
       </p>
 
-      <p>
-        The library exposes <strong>singletons, abstract classes and factory builders</strong>, so
-        the merchant does not have to assemble anything. They ask for a client and they get one,
-        correctly configured, without knowing how it was put together. The seams are there for
-        <em>our</em> benefit, not theirs: when auth changes tomorrow — and auth always changes — the
-        implementation moves behind the factory and nobody's integration has to notice. Extensibility
-        is a promise you make to your future self, and the merchant is the person you keep it from.
-      </p>
+      <ul>
+        <li>
+          <strong>Singletons, abstract classes, factory builders.</strong> The merchant asks for a
+          client and gets one, correctly configured. They assemble nothing.
+        </li>
+        <li>
+          <strong>The seams are for us, not them.</strong> When auth changes — and auth always
+          changes — the implementation moves behind the factory, and nobody's integration notices.
+        </li>
+        <li>
+          <strong>Events go into an in-memory persistent queue</strong>, shipped to our events API in
+          batches. Never inline with the payment call: a merchant's checkout does not wait on our
+          analytics.
+        </li>
+        <li>
+          <strong>Telemetry is switchable off at initialisation.</strong> Some merchants run on
+          genuinely constrained resources, and our curiosity is not their problem.
+        </li>
+      </ul>
 
-      <p>
-        The SDK also emits <strong>events</strong>, into an <strong>in-memory persistent queue</strong>
-        shipped to our events API in <strong>batches</strong> — never inline with the payment call,
-        because a merchant's checkout should not wait on our analytics. And because some merchants
-        run on genuinely constrained resources, event reporting is
-        <strong>switchable off at initialisation</strong>. What those events told us comes later.
-      </p>
+      <blockquote class="pull">
+        Extensibility is a promise you make to your future self. The merchant is the person you keep
+        it from.
+      </blockquote>
 
       <p>
         So the first thing I did was read somebody else's homework.
