@@ -123,6 +123,9 @@ Project: https://www.media.mit.edu/projects/pal/overview/
   to the opponent's attack. Reached the final and lost 5–4.
   [Write-up](https://fireddd.github.io/blog/citadel-terminal-one/) ·
   [Certificate](https://www.credential.net/601670ae-8b54-4cd6-837e-b305efc385c3).
+- **Auquan Spring Challenge** (2019) — one of the winning competitors. Scored above 0.03, placing
+  in the top prize bracket, with a cash prize.
+  [Confirmation](https://fireddd.github.io/img/certs/auquan-2019.jpg).
 - **WorldQuant Spring Alphathon 2017** — Gold, Level 2. Ranked 23rd internationally and 2nd in
   India, leaderboard score 32,091.
   [Certificate](https://fireddd.github.io/img/certs/worldquant-alphathon-2017.jpg) ·
