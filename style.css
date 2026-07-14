@@ -405,3 +405,22 @@ aside .card {
   display: block;
   border-radius: 3px;
 }
+
+/* ---------- inline screenshots in posts ---------- */
+.shot { margin: 26px 0; }
+.shot a {
+  display: block;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  overflow: hidden;
+  line-height: 0;
+  transition: border-color .15s ease;
+}
+.shot a:hover { border-color: var(--accent); }
+.shot img { width: 100%; height: auto; display: block; }
+.shot figcaption {
+  margin-top: 9px;
+  font-size: 13.5px;
+  color: var(--faint);
+  line-height: 1.5;
+}

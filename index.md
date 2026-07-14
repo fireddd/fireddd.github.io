@@ -117,8 +117,9 @@ Project: https://www.media.mit.edu/projects/pal/overview/
 ## Hackathons & competitions
 
 - **Terminal-One AI Hackathon, hosted by Citadel** — runner-up. Represented MIT against Harvard
-  as a team of two with [Akash Vaish](https://www.linkedin.com/in/akash-vaish-712872aa/), building
-  a bot that adapted its offence to the opponent's attack. Reached the final and lost 5–4.
+  as a team of two with [Akash Vaish](https://www.linkedin.com/in/akash-vaish-712872aa/). Built
+  **G03**, an algorithm that plays [Citadel's Terminal](https://terminal.c1games.com/) against other
+  algorithms, adapting its offence to the opponent's attack. Reached the final and lost 5–4.
   [Write-up](https://fireddd.github.io/blog/citadel-terminal-one/) ·
   [Certificate](https://www.credential.net/601670ae-8b54-4cd6-837e-b305efc385c3).
 - **WorldQuant Spring Alphathon 2017** — Gold, Level 2. Ranked 23rd internationally and 2nd in
