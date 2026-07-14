@@ -81,6 +81,7 @@
         <li><a href="#the-release-i-held-back">The release I held back</a></li>
         <li><a href="#the-launch-broke">The launch broke</a></li>
         <li><a href="#weeks-to-a-day">Weeks to a day</a></li>
+        <li><a href="#how-we-knew-it-was-working">How we knew it was working</a></li>
         <li><a href="#four-sdks-one-behaviour">Four SDKs, one behaviour</a></li>
         <li><a href="#making-it-public">Making it public</a></li>
       </ol>
@@ -107,6 +108,7 @@
       <li>DPoP (RFC 9449)</li>
       <li>Payments</li>
       <li>Prior art: Stripe</li>
+      <li>Funnel analytics</li>
       <li class="ch-hi">Tens of crores in TPV</li>
     </ul>
 
@@ -290,6 +292,39 @@
           <span class="l">fewer integration issues</span>
         </div>
       </div>
+
+      <h2 class="post-h2" id="how-we-knew-it-was-working">How we knew it was working</h2>
+
+      <p>
+        Every number in the section above came from somewhere, and building that somewhere was part
+        of the job.
+      </p>
+
+      <p>
+        We instrumented the SDK with <strong>events</strong>, so we could see the
+        <strong>integration funnel</strong>: where a merchant's engineer picked it up, where they
+        got stuck, where they dropped, and where they finally put a live transaction through. A
+        funnel turns "integration is painful" — which is an opinion — into a specific step that
+        loses people, which is a thing you can go and fix.
+      </p>
+
+      <p>
+        On top of the events I built an <strong>internal dashboard</strong> with the analytics around
+        it: <strong>weekly and monthly</strong> success rates, so adoption was something we watched
+        rather than something we assumed. If a release made things worse, we would see it in a week
+        instead of hearing it in a support ticket a month later.
+      </p>
+
+      <blockquote class="pull">
+        An SDK you cannot measure is an SDK you are guessing about.
+      </blockquote>
+
+      <p>
+        This is the part that gets skipped, and it is the part that made the rest possible. The
+        self-serve test keys were not a hunch — the funnel showed us where merchants were stalling,
+        and it was the credential step. You fix the step the data points at, and then you watch the
+        same dashboard tell you whether it worked.
+      </p>
 
       <h2 class="post-h2" id="four-sdks-one-behaviour">Four SDKs, one behaviour</h2>
 
