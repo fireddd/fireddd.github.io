@@ -850,3 +850,24 @@ h2[id] { scroll-margin-top: 24px; }
   box-shadow: 0 8px 26px rgba(0,0,0,.26);
   display: inline-block;
 }
+
+/* book cover — hotlinked from the publisher */
+.book { margin: 26px 0; text-align: center; }
+.book a {
+  display: inline-block;
+  border-radius: 6px;
+  overflow: hidden;
+  line-height: 0;
+  box-shadow: 0 10px 30px rgba(0,0,0,.34);
+  transition: transform .15s ease;
+}
+.book a:hover { transform: translateY(-3px); text-decoration: none; }
+.book img { width: 190px; height: auto; display: block; }
+.book figcaption {
+  margin: 14px auto 0;
+  max-width: 46ch;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--faint);
+}
+.gifcard img { max-width: 100%; }
