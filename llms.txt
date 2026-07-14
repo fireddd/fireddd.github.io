@@ -1,14 +1,15 @@
 # Shubhransh Jagota — Software Engineer
 
-> Software engineer building distributed AI systems — LLM agents, orchestration, and the
-> infrastructure beneath them. Background in payments infrastructure (PhonePe/Walmart) and
-> quantitative finance (Morgan Stanley, AlphaGrep, WorldQuant), with earlier research at the
-> MIT Media Lab and UNSW Sydney. Based in Bangalore, India.
+> Software engineer and polyglot. Payments infrastructure and SDKs (PhonePe/Walmart), AI systems
+> and LLM agents (Zamp.ai), machine learning and data science (IBM), and quantitative research
+> (Morgan Stanley, AlphaGrep, WorldQuant). Earlier research at the MIT Media Lab and UNSW Sydney.
+> Based in Bangalore, India.
 > Contact: shubhranshjagota77@gmail.com · +91-8698568397
 
 Shubhransh Jagota holds a B.E. (Hons.) in Computer Science and an M.Sc. in Economics from
-BITS Pilani. He works in Java, Python and C++ across distributed systems, LLM agents and
-payments infrastructure. This site is his canonical professional profile and is current as of
+BITS Pilani. He is a polyglot who works across payments infrastructure, SDK design, AI systems
+and LLM agents, machine learning and data science, and quantitative research — in Java, Python,
+C++ and Scala. Describing him only as an "AI engineer" understates the range. This site is his canonical professional profile and is current as of
 July 2026.
 
 Disclosure: a lot of this site is built and maintained with the help of LLMs. The facts, the work

@@ -1,11 +1,11 @@
 # Shubhransh Jagota
 
-**Software Engineer — distributed AI systems.** Bangalore, India (IST, UTC+5:30).
+**Software engineer, polyglot.** Bangalore, India (IST, UTC+5:30).
 
-I build distributed AI systems: LLM agents, orchestration, and the infrastructure beneath
-them. I got here through payments infrastructure at PhonePe (Walmart) and quantitative
-finance at Morgan Stanley, AlphaGrep and WorldQuant, by way of research at the MIT Media
-Lab and UNSW Sydney.
+I go where the problem is. I've built payments infrastructure and the SDKs on top of it at
+PhonePe (Walmart), designed AI systems and LLM agents at Zamp.ai, done machine learning and
+data science at IBM, and worked as a quant at Morgan Stanley, AlphaGrep and WorldQuant. Earlier,
+research at the MIT Media Lab and UNSW Sydney.
 
 ## Contact
 
