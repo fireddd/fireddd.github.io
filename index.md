@@ -44,7 +44,7 @@ Repository: https://github.com/PhonePe/phonepe-pg-sdk-java
 - Owned the Epoch scheduling framework for online merchant services; introduced structural
   reforms to its scripts and fixed a long-standing org-wide missing-logs problem. Wrote the
   reconciliation and reporting jobs that close pending transactions.
-- Implemented disaster recovery for online merchant services and led the DR drill end to end with SREs and stakeholders, including the infrastructure upgrade and
+- Implemented disaster recovery for online merchant services and led the DR drills end to end with SREs and stakeholders, including the infrastructure upgrade and
   migration to the Mahape data centre.
 - Built end-to-end accounting and template management for partner integrations, plus
   backend error codes, PG offering events, and merchant-level kill switches on live traffic.
