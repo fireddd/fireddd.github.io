@@ -67,21 +67,19 @@ Project: https://www.media.mit.edu/projects/pal/overview/
 
 ## Open source
 
-- **[PhonePe/phonepe-pg-sdk-java](https://github.com/PhonePe/phonepe-pg-sdk-java)** — **author** of the
-  public Java SDK for PhonePe's B2B payment gateway (40 commits): the developer-facing API, the
-  release workflow, and the CI that ships it.
-- **[PhonePe/epoch-cli](https://github.com/PhonePe/epoch-cli)** — **author** of the CLI for Epoch, the
-  cron for the Drove container orchestrator (27 commits): the cluster management commands,
-  `pause-all`, topology filtering, and removing the PhonePe-specific constructs so the tool could
-  stand on its own.
-- **[pyjanitor](https://github.com/pyjanitor-devs/pyjanitor)** (1.5k stars) — clean APIs for data
-  cleaning in pandas. Two merged features:
+- **[PhonePe/phonepe-pg-sdk-java](https://github.com/PhonePe/phonepe-pg-sdk-java)** — Author. The
+  public Java SDK for PhonePe's B2B payment gateway: the developer-facing API, the release
+  workflow, and the CI that ships it. 40 commits.
+- **[PhonePe/epoch-cli](https://github.com/PhonePe/epoch-cli)** — Author. The CLI for Epoch, the
+  cron for the Drove container orchestrator: cluster management commands, `pause-all`, topology
+  filtering, and removing the PhonePe-specific constructs so the tool could stand on its own.
+  27 commits.
+- **[pyjanitor](https://github.com/pyjanitor-devs/pyjanitor)** — Contributor. Clean APIs for data
+  cleaning in pandas, 1.5k stars. Two merged features:
   [`drop_constant_columns`](https://github.com/pyjanitor-devs/pyjanitor/pull/852) and a
-  [reset-index flag on `row_to_names`](https://github.com/pyjanitor-devs/pyjanitor/pull/849), plus
-  the [follow-up issue](https://github.com/pyjanitor-devs/pyjanitor/issues/853) to tidy that
-  function's tests.
-- **[RA_Bschool](https://github.com/fireddd/RA_Bschool)** — research assistant work from UNSW
-  Business School.
+  [reset-index flag on `row_to_names`](https://github.com/pyjanitor-devs/pyjanitor/pull/849).
+- **[RA_Bschool](https://github.com/fireddd/RA_Bschool)** — Author. Research assistant work at
+  UNSW Business School, 2019.
 
 ## Experience
 
