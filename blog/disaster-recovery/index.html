@@ -163,6 +163,91 @@
         payments, it is decided for you.
       </p>
 
+      <figure class="diagram">
+        <svg viewBox="0 0 680 360" role="img" aria-labelledby="ap-title ap-desc" xmlns="http://www.w3.org/2000/svg">
+          <title id="ap-title">Active-passive versus active-active</title>
+          <desc id="ap-desc">Two arrangements side by side. On the left, active-passive: the API gateway sends all traffic to DC A, the primary, which holds the app and the MariaDB that takes every write; DC B sits as a standby, kept current by one-way asynchronous replication, and the gateway only points at it on the day of a failover. On the right, active-active: the gateway sends traffic to both DC A and DC B, both run the app, both databases take writes, and they replicate in both directions — which means two writers can change the same account and somebody has to decide which write wins.</desc>
+          <defs>
+            <marker id="ap-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0 0 L8 4 L0 8 z" fill="currentColor"/>
+            </marker>
+          </defs>
+
+          <line class="grp" x1="340" y1="8" x2="340" y2="352"/>
+
+          <!-- active-passive -->
+          <text class="t bold" x="170" y="20">Active-passive</text>
+          <text class="t xs" x="170" y="36">what we ran</text>
+
+          <rect class="b accent" x="110" y="52" width="120" height="32" rx="8"/>
+          <text class="t" x="170" y="72">API gateway</text>
+
+          <path class="a" style="marker-end:url(#ap-arrow)" d="M170 84 L170 108 L95 108 L95 148"/>
+          <path class="a dash" style="marker-end:url(#ap-arrow)" d="M170 108 L245 108 L245 148"/>
+          <text class="t xs" x="262" y="103">only on the day</text>
+
+          <rect class="b lead" x="30" y="148" width="130" height="142" rx="10"/>
+          <text class="t bold" x="95" y="170">DC A</text>
+          <text class="t xs" x="95" y="184">primary</text>
+          <rect class="b" x="48" y="196" width="94" height="30" rx="6"/>
+          <text class="t sm" x="95" y="215">App</text>
+          <rect class="b" x="48" y="242" width="94" height="30" rx="6"/>
+          <text class="t sm" x="95" y="261">MariaDB</text>
+
+          <rect class="grp" x="180" y="148" width="130" height="142" rx="10"/>
+          <text class="t bold" x="245" y="170">DC B</text>
+          <text class="t xs" x="245" y="184">standby</text>
+          <rect class="b" x="198" y="196" width="94" height="30" rx="6"/>
+          <text class="t sm" x="245" y="215">App</text>
+          <rect class="b" x="198" y="242" width="94" height="30" rx="6"/>
+          <text class="t sm" x="245" y="261">MariaDB</text>
+
+          <path class="a" style="marker-end:url(#ap-arrow)" d="M142 257 L198 257"/>
+          <text class="t xs" x="170" y="288">replication, one way</text>
+
+          <text class="t sm" x="170" y="322">One writer.</text>
+          <text class="t xs" x="170" y="338">Your RPO is its replication lag.</text>
+
+          <!-- active-active -->
+          <text class="t bold" x="510" y="20">Active-active</text>
+          <text class="t xs" x="510" y="36">the alternative</text>
+
+          <rect class="b accent" x="450" y="52" width="120" height="32" rx="8"/>
+          <text class="t" x="510" y="72">API gateway</text>
+
+          <path class="a" style="marker-end:url(#ap-arrow)" d="M510 84 L510 108 L435 108 L435 148"/>
+          <path class="a" style="marker-end:url(#ap-arrow)" d="M510 108 L585 108 L585 148"/>
+
+          <rect class="b lead" x="370" y="148" width="130" height="142" rx="10"/>
+          <text class="t bold" x="435" y="170">DC A</text>
+          <text class="t xs" x="435" y="184">live</text>
+          <rect class="b" x="388" y="196" width="94" height="30" rx="6"/>
+          <text class="t sm" x="435" y="215">App</text>
+          <rect class="b" x="388" y="242" width="94" height="30" rx="6"/>
+          <text class="t sm" x="435" y="261">DB</text>
+
+          <rect class="b lead" x="520" y="148" width="130" height="142" rx="10"/>
+          <text class="t bold" x="585" y="170">DC B</text>
+          <text class="t xs" x="585" y="184">live</text>
+          <rect class="b" x="538" y="196" width="94" height="30" rx="6"/>
+          <text class="t sm" x="585" y="215">App</text>
+          <rect class="b" x="538" y="242" width="94" height="30" rx="6"/>
+          <text class="t sm" x="585" y="261">DB</text>
+
+          <path class="a" style="marker-start:url(#ap-arrow);marker-end:url(#ap-arrow)" d="M482 211 L538 211"/>
+          <path class="a bad-line" style="marker-start:url(#ap-arrow);marker-end:url(#ap-arrow)" d="M482 257 L538 257"/>
+          <text class="t xs bad" x="510" y="288">both ways — which write wins?</text>
+
+          <text class="t sm" x="510" y="322">Two writers.</text>
+          <text class="t xs" x="510" y="338">Every conflict is somebody&apos;s money.</text>
+        </svg>
+        <figcaption>
+          The same trade-off the write-up draws in AWS terms, in ours. Active-passive keeps one
+          writer and buys a simple failure story; active-active keeps both sites live and hands you
+          a conflict to resolve. We chose the boring one.
+        </figcaption>
+      </figure>
+
       <p>
         Two numbers describe how good your failover is, and they measure completely different things.
       </p>
@@ -330,13 +415,17 @@
 
       <p>
         And before any of it, somebody has to go round and ask everyone whether they are actually
-        turning up. A colleague made this, and it is the most accurate artefact of the whole exercise:
+        turning up. <a href="https://www.linkedin.com/in/nishant-jain-219ba9175/">Nishant Jain</a>
+        made this, and it is the most accurate artefact of the whole exercise:
       </p>
       <figure class="vid">
         <video src="/img/dr/dr-meme.mp4?v=2" poster="/img/dr/dr-meme-poster.jpg"
                autoplay muted loop playsinline controls preload="metadata"
-               aria-label="A meme made by a colleague, captioned: POV — Manoj asking everyone if they will be coming in for the DR."></video>
-        <figcaption>It has sound — unmute it</figcaption>
+               aria-label="A meme made by Nishant Jain, captioned: POV — Manoj asking everyone if they will be coming in for the DR."></video>
+        <figcaption>
+          It has sound — unmute it. Made by
+          <a href="https://www.linkedin.com/in/nishant-jain-219ba9175/">Nishant Jain</a>.
+        </figcaption>
       </figure>
 
       <h2 class="post-h2" id="what-id-tell-you-it-taught-me">What I'd tell you it taught me</h2>
