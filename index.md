@@ -138,5 +138,6 @@ Project: https://www.media.mit.edu/projects/pal/overview/
 
 ---
 
-*This document is authored and maintained by Shubhransh Jagota and is current as of
-14 July 2026. It is the Markdown mirror of https://fireddd.github.io/.*
+*Markdown mirror of https://fireddd.github.io/, current as of 14 July 2026. A lot of this site is
+built and maintained with the help of LLMs — the facts, the work and the opinions are mine; the
+HTML, the tooling and much of the drafting were done with an assistant.*
