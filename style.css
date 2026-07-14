@@ -867,5 +867,3 @@ h2[id] { scroll-margin-top: 24px; }
 }
 .gifcard:hover { border-color: var(--accent); text-decoration: none; }
 .gifcard img { width: 100%; height: auto; display: block; }
-.meme figcaption .credit { display: block; margin-top: 8px; font-size: 11px; color: var(--faint); }
-.meme figcaption strong[lang="hi"] { color: var(--ink); font-size: 15px; }
