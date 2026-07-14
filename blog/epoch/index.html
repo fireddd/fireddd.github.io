@@ -1,0 +1,156 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Epoch — Shubhransh Jagota</title>
+<meta name="description" content="Epoch is the cron for Drove, PhonePe's distributed container orchestrator. I owned it for online merchant services and wrote its command-line client from scratch.">
+<meta name="author" content="Shubhransh Jagota">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://fireddd.github.io/blog/epoch/">
+<link rel="stylesheet" href="/style.css?v=14">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Epoch — the cron for a container orchestrator">
+<meta property="og:description" content="Owning PhonePe's job scheduler for online merchant services, and writing its CLI from the first commit.">
+<meta property="og:url" content="https://fireddd.github.io/blog/epoch/">
+<meta property="og:image" content="https://fireddd.github.io/img/avatar.jpg">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-family='monospace'>%E2%97%86</text></svg>">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://fireddd.github.io/blog/epoch/#post",
+      "headline": "Epoch — the cron for a container orchestrator",
+      "description": "Epoch is the time-based job scheduler for Drove, PhonePe's distributed container orchestrator. Owning it for online merchant services, and writing its command-line client from the first commit.",
+      "url": "https://fireddd.github.io/blog/epoch/",
+      "datePublished": "2026-07-14",
+      "dateModified": "2026-07-14",
+      "inLanguage": "en",
+      "keywords": "Epoch, Drove, PhonePe, container orchestration, job scheduling, cron, CLI, payments infrastructure",
+      "author": { "@id": "https://fireddd.github.io/#person" },
+      "publisher": { "@id": "https://fireddd.github.io/#person" },
+      "isPartOf": { "@id": "https://fireddd.github.io/#website" },
+      "mainEntityOfPage": "https://fireddd.github.io/blog/epoch/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://fireddd.github.io/#person",
+      "name": "Shubhransh Jagota",
+      "url": "https://fireddd.github.io/",
+      "jobTitle": "Software Engineer",
+      "email": "mailto:shubhranshjagota77@gmail.com",
+      "sameAs": [
+        "https://github.com/fireddd",
+        "https://www.linkedin.com/in/shubhranshjagota/",
+        "https://leetcode.com/u/fireddd/",
+        "https://www.quora.com/profile/Shubhransh-Jagota",
+        "https://www.media.mit.edu/people/sjagota/overview/"
+      ]
+    }
+  ]
+}
+</script>
+
+<div class="wrap">
+
+  <nav>
+    <a class="brand" href="/">Shubhransh Jagota</a>
+    <a href="/blog/">Writing</a>
+    <a href="/resume/">Résumé</a>
+    <a href="/contact/">Contact</a>
+    <a href="https://github.com/fireddd" rel="me">GitHub</a>
+    <a href="https://www.linkedin.com/in/shubhranshjagota/" rel="me">LinkedIn</a>
+  </nav>
+
+  <article>
+    <header>
+      <h1>Epoch</h1>
+      <p class="tagline">phonepe · 2022–2025 · the cron for a container orchestrator</p>
+    </header>
+
+    <div class="prose post">
+      <p>
+        PhonePe runs its containers on <a href="https://github.com/PhonePe/drove">Drove</a>, a
+        distributed container orchestrator built in-house.
+        <a href="https://github.com/PhonePe/epoch">Epoch</a> is the piece that schedules work onto
+        it: a time-based container job scheduler. If Drove is the thing that runs containers, Epoch
+        is the cron that decides <em>when</em>.
+      </p>
+
+      <p>
+        I owned Epoch for <strong>online merchant services</strong> — the systems behind PhonePe's
+        merchant-facing payments.
+      </p>
+
+      <h2 class="post-h2">The scripts nobody owned</h2>
+
+      <p>
+        A scheduler accumulates scripts. Every job that has to run nightly, hourly, or after some
+        other job ends up living in it, and over time nobody quite owns the pile. I introduced
+        <strong>structural reforms</strong> to how the scripts in online merchant services were
+        written, so they stopped being one-off shell files and started having a shape.
+      </p>
+
+      <p>
+        The most valuable thing I fixed there wasn't a feature. It was the
+        <strong>missing-logs issue</strong> — jobs would run and leave nothing useful behind, which
+        meant that when something went wrong the answer to "what happened?" was a shrug. That was an
+        org-wide problem, not just ours.
+      </p>
+
+      <p>
+        On top of it I wrote the <strong>reconciliation and reporting jobs</strong>: the ones that
+        go through pending transactions, work out what actually settled, and close them out. In
+        payments, a transaction stuck in limbo is not a cosmetic problem — it is somebody's money.
+      </p>
+
+      <h2 class="post-h2">Writing the CLI</h2>
+
+      <p>
+        Epoch had no command-line client. I wrote
+        <a href="https://github.com/PhonePe/epoch-cli">epoch-cli</a> from the first commit — it's
+        open source and in Python.
+      </p>
+
+      <p>
+        The interesting part of a CLI for a scheduler is that it has to make a distributed system
+        feel like a local one. What went in:
+      </p>
+
+      <ul>
+        <li>a <strong>topology plugin</strong>, and filtering on it, so you can see what's actually
+          scheduled where;</li>
+        <li><strong>cluster management commands</strong>, including <code>pause-all</code> — the
+          command you want to exist at 3am;</li>
+        <li><code>skip</code> and <code>override</code>, for the times a job should not run, or
+          should run differently, right now;</li>
+        <li><strong>logs for runs</strong>, so a failed job can be diagnosed without going to find
+          the container it died in;</li>
+        <li>Poetry packaging and a developer setup, so the next person could actually contribute;</li>
+        <li>naming made consistent with <code>drove-cli</code>, because two tools for one system
+          should not have two vocabularies.</li>
+      </ul>
+
+      <p>
+        I also <strong>stripped the PhonePe-specific constructs</strong> out of it. That's the work
+        that turns an internal tool into something that can stand on its own — and it's why the CLI
+        is public today.
+      </p>
+    </div>
+  </article>
+
+  <footer>
+    <span><a href="/blog/">← All writing</a></span>
+    <span class="socials">
+      <a href="mailto:shubhranshjagota77@gmail.com">Email</a>
+      <a href="https://github.com/fireddd" rel="me">GitHub</a>
+    </span>
+    <span class="colophon">Built and maintained with the help of LLMs.</span>
+  </footer>
+
+  <img src="https://hits.sh/fireddd.github.io.svg" alt=""
+       style="position:absolute;left:-9999px;width:1px;height:1px" aria-hidden="true">
+</div>
