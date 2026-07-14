@@ -29,7 +29,7 @@
       "datePublished": "2026-07-14",
       "dateModified": "2026-07-14",
       "inLanguage": "en",
-      "keywords": "payment gateway, SDK, Java, API design, merchant integration, DPoP, RFC 9449, open source, PhonePe",
+      "keywords": "payment gateway, SDK, Java, API design, merchant integration, developer experience, documentation, open source, PhonePe",
       "author": { "@id": "https://fireddd.github.io/#person" },
       "publisher": { "@id": "https://fireddd.github.io/#person" },
       "isPartOf": { "@id": "https://fireddd.github.io/#website" },
@@ -81,7 +81,7 @@
         <li><a href="#multiple-sdks-one-behaviour">Multiple SDKs, one behaviour</a></li>
         <li><a href="#the-launch-broke">The launch broke</a></li>
         <li><a href="#how-we-knew-it-was-working">How we knew it was working</a></li>
-        <li><a href="#weeks-to-a-day">Weeks to a day</a></li>
+        <li><a href="#integration-in-under-a-day">Integration in under a day</a></li>
         <li><a href="#making-it-public">Making it public</a></li>
       </ol>
     </nav>
@@ -104,10 +104,10 @@
       <li>Java</li>
       <li><a href="https://github.com/PhonePe/phonepe-pg-sdk-java">Open source</a></li>
       <li>API design</li>
-      <li>DPoP (RFC 9449)</li>
       <li>Payments</li>
       <li>Prior art: Stripe</li>
       <li>Funnel analytics</li>
+      <li>Design docs</li>
       <li class="ch-hi">Tens of crores in TPV</li>
     </ul>
 
@@ -163,25 +163,12 @@
       </p>
 
       <p>
-        So the first thing I did was go and read somebody else's homework.
+        So the first thing I did was read somebody else's homework.
         <strong><a href="https://github.com/stripe/stripe-java">Stripe</a></strong> and the other
         giants had solved this years earlier, in public. I went through their SDKs — not to copy the
-        shape, but to work out <em>why</em> each thing was shaped the way it was. Why errors are
-        modelled that way. Why the client is constructed like that. Why the surface a merchant
-        touches is as small as it is.
-      </p>
-
-      <p>
-        A payments SDK has a lot of decisions in it that only look arbitrary until you understand
-        what they are defending against. Somebody has already paid for those lessons, and they
-        published the answers. Not reading them would have been vanity.
-      </p>
-
-      <p>
-        That groundwork is what made the calls that followed possible. Owning the whole thing gave me
-        the standing to make them; reading the people who had already solved it is what told me which
-        way to go. If I had only been writing the client, the shape of the library would have been
-        someone else's problem to weigh. It was mine.
+        shape, but to work out <em>why</em> each thing was shaped the way it was. Those decisions
+        only look arbitrary until you understand what they are defending against, and somebody had
+        already paid for the lesson and published the answer. Not reading it would have been vanity.
       </p>
 
       <figure class="meme">
@@ -208,14 +195,21 @@
         an editor, and the implementations converge on their own.
       </p>
 
+      <p>
+        Two things made that hold in practice. I <strong>published a design document</strong> anyone
+        could follow while writing their SDK, so the shared structure was written down rather than
+        living in my head and being rediscovered in review. And I
+        <strong>reviewed the code</strong> across the language offerings, to keep that basic
+        structure consistent — because a document tells people what to do, and a review is how you
+        find out whether it happened.
+      </p>
+
       <h2 class="post-h2" id="the-launch-broke">The launch broke</h2>
 
       <p>
         At launch, our first merchants' transactions were <strong>blocked by the fraud and risk
         service</strong>. The cause was small and stupid, as these always are: a missing merchant-id
-        header. Support surfaced it, and I identified and rolled a fix within a couple of days. I
-        also folded the regulator's requested guidelines into the SDK, and traced an API-key mapping
-        problem at the gateway that showed up when a merchant rotated their production keys.
+        header.
       </p>
 
       <figure class="meme">
@@ -227,22 +221,38 @@
       </figure>
 
       <p>
-        The fix is not the interesting part. This is: <strong>I should have caught it before a
-        merchant did.</strong>
+        Support surfaced it, and I rolled a fix within a couple of days. I also folded the
+        regulator's requested guidelines into the SDK.
       </p>
 
       <p>
-        What I should have run was a closed user group with a handful of <em>real</em> merchants, and
-        a dev-assisted live onboarding of the very first one, before general availability. Real
-        merchants are not whitelisted. They would have hit the fraud check in a controlled room,
-        instead of in front of the customer we most wanted to impress.
+        But the fix is not the interesting part. <em>Why nobody saw it coming</em> is.
       </p>
 
       <p>
-        The lesson I actually took is broader than the header. <strong>A test environment that is
-        friendlier than production is not a test environment.</strong> Whitelisting made our tests
-        pass and made them worthless, and I did not notice because passing tests feel like evidence.
-        It is now the first thing I check: what does my test setup make impossible to see?
+        We had tested against <strong>internal, whitelisted merchants</strong> — and the fraud checks
+        <em>do not apply to whitelisted merchants</em>. The exact path that broke in production was
+        the one path our test setup was structurally incapable of exercising. Every test passed, and
+        every test was blind in the same place.
+      </p>
+
+      <p>
+        And underneath that: <strong>nobody knew the check was there.</strong> We hadn't ignored a
+        documented requirement — the requirement wasn't written down anywhere we could find. The
+        behaviour lived in a service we didn't own, it never fired in our environment, and so for us
+        it existed only as an absence, right up until the moment it fired at a merchant.
+      </p>
+
+      <blockquote class="pull">
+        Not a bug. A piece of knowledge that lived in one person's head, on a path our tests could
+        not reach.
+      </blockquote>
+
+      <p>
+        So the fix I actually care about is that I <strong>wrote it down</strong>. I documented the
+        check: what triggers it, why whitelisted merchants never see it, and what an integration has
+        to send. The next person to build against this does not get to discover it the way we did —
+        which is the only version of this story that is worth anything to anyone but me.
       </p>
 
       <h2 class="post-h2" id="how-we-knew-it-was-working">How we knew it was working</h2>
@@ -273,52 +283,50 @@
 
       <p>
         This is the part that gets skipped, and it is the part that made everything after it
-        possible. Because once you can see the funnel, it tells you where to go next — and ours was
-        pointing hard at one step.
+        possible. Once you can see the funnel, it stops being a matter of opinion where the SDK is
+        costing people time — you can see the step they are stuck on, go and remove it, and then
+        watch the same dashboard tell you whether removing it helped.
       </p>
 
-      <h2 class="post-h2" id="weeks-to-a-day">Weeks to a day</h2>
+      <h2 class="post-h2" id="integration-in-under-a-day">Integration in under a day</h2>
 
       <p>
-        Merchants were stalling on <strong>credentials</strong>.
-      </p>
-
-      <p>
-        They couldn't generate their own test keys. Every sandbox credential had to be requested from
-        the integrations team by hand. That is a queue — and a queue between a developer and their
-        first successful API call is where integrations go to die. The funnel had been telling us
-        this for weeks; it was just waiting for someone to look.
+        The point of the library is what a merchant's engineer <em>doesn't</em> have to think about.
       </p>
 
       <p>
-        I built a self-serve toggle so a merchant could mint their own test credentials from the
-        production dashboard. The security question is obvious — you have just let people create
-        credentials — so it is secured with a
-        <strong>public/private key and <a href="https://datatracker.ietf.org/doc/html/rfc9449">DPoP</a></strong>
-        (RFC 9449): a short-TTL proof-of-possession token bound to the HTTP method, the URL and a
-        timestamp, verified at the gateway before auth even runs. The merchant id is embedded in the
-        token, so a merchant can only ever mint their <em>own</em> test credentials.
+        Endpoints, request signing, auth, retries, error handling, the shape of every payload — all
+        of it is <strong>abstracted away</strong>. None of it is their problem, because none of it is
+        their business. A merchant integrating a payment gateway wants to think about
+        <strong>their own business logic</strong>: what they are charging, for what, and what to do
+        when it succeeds or fails. Everything between that intent and our servers is plumbing, and
+        plumbing is what an SDK is for.
       </p>
 
-      <p>
-        Landing it meant design, product, integrations, infra, appsec and UI. It is the least
-        glamorous list in this post and it was most of the work.
-      </p>
+      <blockquote class="pull">
+        Every hour a merchant's engineer spends learning our request signing is an hour they did not
+        spend selling anything.
+      </blockquote>
 
       <p>
-        And then we watched the same dashboard tell us whether it had worked.
+        Once that surface was small enough, the <strong>code-level integration came down to under a
+        day</strong>. Not because anyone got faster — because there was much less to get right.
       </p>
 
       <div class="stats">
         <div class="stat-card accent">
-          <span class="n">weeks → a day</span>
-          <span class="l">merchant integration time</span>
+          <span class="n">&lt; 1 day</span>
+          <span class="l">code-level integration,<br>down from weeks</span>
         </div>
         <div class="stat-card">
           <span class="n">~50%</span>
-          <span class="l">fewer integration issues</span>
+          <span class="l">fewer integration<br>issues</span>
         </div>
       </div>
+
+      <p>
+        And then we watched the same dashboard tell us whether it had worked.
+      </p>
 
       <h2 class="post-h2" id="making-it-public">Making it public</h2>
 
