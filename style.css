@@ -838,3 +838,15 @@ h2[id] { scroll-margin-top: 24px; }
   color: var(--faint);
   max-width: 58ch;
 }
+
+/* short looping clips — behave like a GIF, no JS */
+.vid { margin: 26px 0; text-align: center; }
+.vid video {
+  max-width: 320px;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  box-shadow: 0 8px 26px rgba(0,0,0,.26);
+  display: inline-block;
+}
