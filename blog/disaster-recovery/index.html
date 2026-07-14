@@ -76,7 +76,6 @@
         <li><a href="#making-the-expensive-call">Making the expensive call</a></li>
         <li><a href="#what-a-drill-actually-looks-like">What a drill actually looks like</a></li>
         <li><a href="#the-numbers">The numbers</a></li>
-        <li><a href="#the-part-i-got-wrong">The part I got wrong</a></li>
         <li><a href="#what-id-tell-you-it-taught-me">What I'd tell you it taught me</a></li>
       </ol>
     </nav>
@@ -465,25 +464,6 @@
         whatever number you like in the document; the database's asynchronous replication lag is the
         number that will actually be true on the day. Everything else — the caches, the queues whose
         state you can rebuild from the database — is noise by comparison.
-      </p>
-
-      <h2 class="post-h2" id="the-part-i-got-wrong">The part I got wrong</h2>
-
-      <p>
-        I committed to a December date. It slipped twice, about two weeks each time.
-      </p>
-
-      <p>
-        The cause was that ours was the first service to require its upstream and downstream callers
-        to reach it a new way, and a couple of those teams hadn't migrated in time. I had started
-        chasing them a month earlier — and that's exactly the problem. <strong>I treated "I've
-        asked" as "they'll do it."</strong>
-      </p>
-
-      <p>
-        They didn't report to me, but that isn't an excuse; it's the whole job. Now I track
-        dependency migrations as line items on my own plan, and I chase them as if they were my
-        deliverable — because they are.
       </p>
 
       <h2 class="post-h2" id="what-id-tell-you-it-taught-me">What I'd tell you it taught me</h2>
