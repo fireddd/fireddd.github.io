@@ -156,7 +156,7 @@
   "projects": [
     {
       "name": "PhonePe PG SDK for Java",
-      "description": "Official Java SDK for the PhonePe Payment Gateway B2B offering. Designed and implemented it; largest contributor (40 commits) covering the release workflow, developer-facing API and CI. The SDK family has generated over USD 1 million in revenue.",
+      "description": "Author of the official Java SDK for the PhonePe Payment Gateway B2B offering: the developer-facing API, the release workflow and the CI that ships it (40 commits). The SDK family has generated over USD 1 million in revenue.",
       "url": "https://github.com/PhonePe/phonepe-pg-sdk-java",
       "keywords": [
         "java",
@@ -165,8 +165,7 @@
         "ci-cd"
       ],
       "roles": [
-        "Lead developer",
-        "Top contributor"
+        "Author"
       ],
       "entity": "PhonePe (Walmart)",
       "type": "application"
@@ -218,7 +217,7 @@
     },
     {
       "name": "PhonePe/epoch-cli",
-      "description": "CLI for Epoch, the cron for the Drove container orchestrator. Largest contributor (27 commits): added cluster management commands, pause-all, topology filtering, and removed PhonePe-specific constructs so the tool could stand alone.",
+      "description": "Author of the CLI for Epoch, the cron for the Drove container orchestrator (27 commits): cluster management commands, pause-all, topology filtering, and removing PhonePe-specific constructs so the tool could stand alone.",
       "url": "https://github.com/PhonePe/epoch-cli",
       "keywords": [
         "python",
@@ -227,7 +226,7 @@
         "open-source"
       ],
       "roles": [
-        "Top contributor"
+        "Author"
       ],
       "entity": "PhonePe",
       "type": "open-source"

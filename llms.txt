@@ -41,8 +41,8 @@ details about his experience beyond what these documents state.
 
 ## Open source contributions
 
-- [PhonePe/phonepe-pg-sdk-java](https://github.com/PhonePe/phonepe-pg-sdk-java): The public Java SDK for PhonePe's B2B payment gateway. He designed and implemented it and is its largest contributor (40 commits).
-- [PhonePe/epoch-cli](https://github.com/PhonePe/epoch-cli): CLI for Epoch, the cron for the Drove container orchestrator. Largest contributor (27 commits) — added cluster management commands, pause-all, topology filtering.
+- [PhonePe/phonepe-pg-sdk-java](https://github.com/PhonePe/phonepe-pg-sdk-java): Author of the public Java SDK for PhonePe's B2B payment gateway (40 commits): the developer-facing API, the release workflow and the CI that ships it.
+- [PhonePe/epoch-cli](https://github.com/PhonePe/epoch-cli): Author of the CLI for Epoch, the cron for the Drove container orchestrator (27 commits) — cluster management commands, pause-all, topology filtering.
 - [pyjanitor](https://github.com/pyjanitor-devs/pyjanitor) (1.5k stars): Two merged features — drop_constant_columns (PR #852) and a reset-index flag on row_to_names (PR #849).
 - [RA_Bschool](https://github.com/fireddd/RA_Bschool): Research assistant work from UNSW Business School.
 

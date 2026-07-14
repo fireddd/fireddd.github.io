@@ -67,14 +67,13 @@ Project: https://www.media.mit.edu/projects/pal/overview/
 
 ## Open source
 
-- **[PhonePe/phonepe-pg-sdk-java](https://github.com/PhonePe/phonepe-pg-sdk-java)** — the public
-  Java SDK for PhonePe's B2B payment gateway. I designed and implemented it and am its
-  [largest contributor](https://github.com/PhonePe/phonepe-pg-sdk-java/graphs/contributors)
-  (40 commits): the release workflow, the developer-facing API, and the CI that ships it.
-- **[PhonePe/epoch-cli](https://github.com/PhonePe/epoch-cli)** — CLI for Epoch, the cron for the
-  Drove container orchestrator. Largest contributor (27 commits): added the cluster management
-  commands, `pause-all`, topology filtering, and removed the PhonePe-specific constructs so the
-  tool could stand on its own.
+- **[PhonePe/phonepe-pg-sdk-java](https://github.com/PhonePe/phonepe-pg-sdk-java)** — **author** of the
+  public Java SDK for PhonePe's B2B payment gateway (40 commits): the developer-facing API, the
+  release workflow, and the CI that ships it.
+- **[PhonePe/epoch-cli](https://github.com/PhonePe/epoch-cli)** — **author** of the CLI for Epoch, the
+  cron for the Drove container orchestrator (27 commits): the cluster management commands,
+  `pause-all`, topology filtering, and removing the PhonePe-specific constructs so the tool could
+  stand on its own.
 - **[pyjanitor](https://github.com/pyjanitor-devs/pyjanitor)** (1.5k stars) — clean APIs for data
   cleaning in pandas. Two merged features:
   [`drop_constant_columns`](https://github.com/pyjanitor-devs/pyjanitor/pull/852) and a
