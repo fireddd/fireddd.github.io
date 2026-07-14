@@ -131,6 +131,24 @@
 
       <p>
         So the SDK was not a convenience library. It was the golden path, made hard to leave.
+      </p>
+
+      <p>
+        The point of it is what a merchant's engineer <em>doesn't</em> have to think about.
+        Endpoints, request signing, auth, retries, error handling, the shape of every payload — all
+        of it <strong>abstracted away</strong>. None of it is their problem, because none of it is
+        their business. A merchant integrating a payment gateway wants to think about
+        <strong>their own business logic</strong>: what they are charging, for what, and what to do
+        when it succeeds or fails. Everything between that intent and our servers is plumbing, and
+        plumbing is what an SDK is for.
+      </p>
+
+      <blockquote class="pull">
+        Every hour a merchant's engineer spends learning our request signing is an hour they did not
+        spend selling anything.
+      </blockquote>
+
+      <p>
         <a href="https://github.com/PhonePe/phonepe-pg-sdk-java">It's now public</a>, and tens of
         crores in total payment volume have gone through the SDK family.
       </p>
@@ -315,25 +333,7 @@
       <h3 class="post-h3">Integration in under a day</h3>
 
       <p>
-        The point of the library is what a merchant's engineer <em>doesn't</em> have to think about.
-      </p>
-
-      <p>
-        Endpoints, request signing, auth, retries, error handling, the shape of every payload — all
-        of it is <strong>abstracted away</strong>. None of it is their problem, because none of it is
-        their business. A merchant integrating a payment gateway wants to think about
-        <strong>their own business logic</strong>: what they are charging, for what, and what to do
-        when it succeeds or fails. Everything between that intent and our servers is plumbing, and
-        plumbing is what an SDK is for.
-      </p>
-
-      <blockquote class="pull">
-        Every hour a merchant's engineer spends learning our request signing is an hour they did not
-        spend selling anything.
-      </blockquote>
-
-      <p>
-        Once that surface was small enough, the <strong>code-level integration came down to under a
+        Once the surface was small enough, the <strong>code-level integration came down to under a
         day</strong>. Not because anyone got faster — because there was much less to get right.
       </p>
 
