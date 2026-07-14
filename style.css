@@ -606,7 +606,7 @@ aside .card {
   color: var(--ink);
 }
 .pull.accent { border-left-color: var(--accent); }   /* accent the RULE, never the text */
-li > .shot { margin: 18px 0 8px; }   /* an image nested inside a point */
+li > .shot { margin: 18px auto 8px; }   /* nested in a point — keep .shot's auto centring */
 
 /* ---------- terminal ---------- */
 .term { margin: 26px 0; }
@@ -879,9 +879,11 @@ h2[id] { scroll-margin-top: 24px; }
   color: var(--faint);
 }
 .vid video {
-  max-width: 320px;
-  width: 100%;
+  max-width: 100%;
+  max-height: 400px;      /* portrait clip — bound the height, not the width */
+  width: auto;
   height: auto;
+  aspect-ratio: 540 / 954;
   border: 1px solid var(--rule);
   border-radius: 10px;
   box-shadow: 0 8px 26px rgba(0,0,0,.26);
