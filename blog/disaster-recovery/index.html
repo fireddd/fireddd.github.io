@@ -114,7 +114,7 @@
 
       <p>
         I have <strong>taken part in several DR drills</strong> at PhonePe, and
-        <strong>led one end to end</strong>. Most engineers never will — you can spend a career
+        <strong>led several of them end to end</strong>. Most engineers never will — you can spend a career
         shipping features and never once be in the room when someone deliberately turns off a
         production data centre.
       </p>
@@ -223,38 +223,60 @@
 
       <ol class="steps">
         <li>
-          <strong>Stop the writes.</strong> Engage the API killer at the gateway so nothing new
-          enters the primary. Until writes stop, the standby is chasing a moving target.
+          <strong>Stop the writes.</strong> Nothing new enters the primary. Until writes stop, the
+          standby is chasing a moving target and you can never say it has caught up.
         </li>
         <li>
-          <strong>Let replication settle.</strong> Wait for the standby to catch up, and only then
-          declare its database state authoritative. Skip this and you have just chosen your data
-          loss instead of measuring it.
+          <strong>Verify there are no writes at the database.</strong> Not "we told the services to
+          stop" — <em>look at the database and confirm nothing is landing</em>. This step exists
+          because the previous one is a request, and this one is evidence.
         </li>
         <li>
-          <strong>Move service discovery.</strong> Callers have to be able to <em>find</em> the
-          service in the other data centre. This is where the interesting failure lives, and it's
-          the subject of the rest of this post.
+          <strong>Mark the database read-only.</strong> Now it is enforced rather than agreed. A
+          stray write from something you forgot about can no longer create a divergence you will
+          discover a day later, in a reconciliation.
         </li>
         <li>
-          <strong>Switch traffic at the gateway.</strong> Repoint the routing layer at the secondary.
+          <strong>Bring up the other instance, in read-only mode.</strong> The standby comes up, but
+          it cannot take writes yet — because two databases that both accept writes is the failure
+          you are trying to avoid, not the one you are recovering from.
         </li>
         <li>
-          <strong>Bring the service up, and prove it.</strong> Not "the containers are running" —
-          real traffic, served correctly, verified.
+          <strong>Give the database user read-write.</strong> This is the actual moment of failover.
+          Everything before it was preparation; after it, the secondary is the truth.
+        </li>
+        <li>
+          <strong>Disable the API killer, if one is engaged.</strong> Traffic is allowed to flow
+          again.
+        </li>
+        <li>
+          <strong>Redirect the API gateway.</strong> Point traffic at the secondary, and watch real
+          requests being served correctly. Not "the containers are up" — served, verified.
         </li>
       </ol>
 
       <p>
-        A lot of that was still manual when I inherited it, and manual steps are where RTO goes to
-        die. Automating them is how the number came down.
+        The order is the whole thing. Steps two and three look like bureaucracy and they are the
+        reason you can state an RPO honestly instead of hoping for one: you stopped, you
+        <em>checked</em> you had stopped, and then you made it impossible to start again.
+      </p>
+
+      <p>
+        A lot of that was still manual, and manual steps are where RTO goes to die. Automating them
+        is how the number came down.
       </p>
 
       <h2 class="post-h2" id="the-plan-would-have-passed">The plan would have passed</h2>
 
       <p>
-        Step three — moving service discovery — is where it gets interesting, and where the drill I
-        led nearly went wrong.
+        <strong>Step seven</strong> — getting traffic to the surviving data centre — is where it gets
+        interesting, and where a drill I led nearly went wrong.
+      </p>
+
+      <p>
+        Redirecting the gateway sounds like the easy step. It is the one that decides whether any of
+        the six before it mattered, because a perfectly failed-over database that nobody can reach is
+        just an expensive backup.
       </p>
 
       <p>
