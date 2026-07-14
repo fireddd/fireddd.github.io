@@ -99,7 +99,7 @@ Project: https://www.media.mit.edu/projects/pal/overview/
 
 - **IBM** — Built a cost-efficient heating solution using machine learning for Energy.AI
   clients, prototyping genetically evolving algorithms; projected a 40–50% cost reduction.
-- **UNSW Sydney** — Research assistant work alongside studying there. Built a system to assess
+- **UNSW Sydney** — Thesis placement from BITS Pilani, with research assistant work alongside it. Built a system to assess
   event impacts on assets under Professor Fethi Rabhi; contributed to research on dark pool and
   hedge fund activity at the ASX. Part of this work is open source:
   https://github.com/fireddd/RA_Bschool
