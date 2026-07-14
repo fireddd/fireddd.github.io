@@ -62,6 +62,9 @@ nav a[aria-current="page"] { color: var(--ink); font-weight: 550; }
   /* margin-right:auto absorbs the free space on the first line and pushes the
      trailing links off-screen instead of wrapping them — give the brand its own row */
   nav .brand { margin-right: 0; flex: 0 0 100%; }
+  /* and the badge gets its own row too — at 430px it lands past the right edge, where
+     the overflow-x guard silently clips it instead of wrapping it */
+  nav .hits { flex: 0 0 100%; margin-top: 2px; }
 }
 
 /* ---------- hero ---------- */
