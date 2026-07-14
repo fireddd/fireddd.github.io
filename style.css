@@ -301,7 +301,6 @@ footer {
   justify-content: space-between;
 }
 footer a { color: var(--muted); }
-footer .socials { display: flex; gap: 14px; }
 
 /* ---------- right rail: live stats ---------- */
 aside .card {
