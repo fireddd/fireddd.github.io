@@ -272,18 +272,9 @@
       <h3 class="post-h3">After every step, a screenshot</h3>
 
       <p>
-        Most of what you actually <em>do</em> on the night is produce evidence. After each step: a
-        screenshot with the <strong>timestamp</strong> visible — Grafana, the <strong>logs</strong>,
-        a <strong>Swagger</strong> call — showing the thing happened and the service is answering
-        correctly.
-      </p>
-
-      <p>
-        It is tedious and it is not optional. The drill is <strong>audited</strong>, and a
-        regulator's expectation is not met by an engineer's memory of a good night. It is also the
-        only way to tell afterwards <em>which step cost the time</em>: an RTO of forty minutes is a
-        number, but forty minutes with a timestamp on every step is a list of things to automate. And
-        a lot of it was still manual — manual steps are where RTO goes to die.
+        After each step: a screenshot with the <strong>timestamp</strong> visible — Grafana, the
+        logs, a Swagger call. The drill is <strong>audited</strong>, and a regulator's expectation is
+        not met by an engineer's memory of a good night.
       </p>
 
       <h3 class="post-h3">Then you go back</h3>
@@ -366,96 +357,6 @@
         you were relying on to redirect traffic away from the failure.
       </p>
 
-      <figure class="diagram">
-        <svg viewBox="0 0 680 500" role="img" aria-labelledby="dr-diagram-title dr-diagram-desc" xmlns="http://www.w3.org/2000/svg">
-          <title id="dr-diagram-title">Why the plan passes the drill and fails the disaster</title>
-          <desc id="dr-diagram-desc">Two scenarios. In the drill, only the service in data centre A is taken down. The API gateway and the redirect layer in data centre A are still alive, so they redirect traffic to the healthy service in data centre B, and the drill passes. In a real disaster, the whole of data centre A is lost — which includes the gateway and the redirect layer. The component that was supposed to perform the redirect has died along with everything else, so there is no path to data centre B, even though the service there is perfectly healthy. The lesson: whatever redirects traffic away from a failure must not live inside the failure domain.</desc>
-
-          <defs>
-            <marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M0 0 L8 4 L0 8 z" fill="currentColor"/>
-            </marker>
-          </defs>
-
-          <!-- ============ PANEL 1: THE DRILL ============ -->
-          <text class="t lbl" x="16" y="16" text-anchor="start">THE DRILL — ONE SERVICE IS TAKEN DOWN</text>
-
-          <rect class="b" x="16" y="78" width="74" height="40" rx="8"/>
-          <text class="t" x="53" y="98">Clients</text>
-
-          <rect class="grp" x="112" y="34" width="246" height="146" rx="10"/>
-          <text class="t lbl" x="124" y="52" text-anchor="start">DATA CENTRE A</text>
-
-          <rect class="b" x="130" y="64" width="104" height="40" rx="8"/>
-          <text class="t" x="182" y="84">API gateway</text>
-
-          <rect class="b" x="130" y="118" width="104" height="42" rx="8"/>
-          <text class="t sm" x="182" y="133">redirect</text>
-          <text class="t sm" x="182" y="147">layer</text>
-
-          <rect class="b dead" x="252" y="90" width="90" height="44" rx="8"/>
-          <text class="t" x="297" y="106">Service</text>
-          <text class="t xs bad" x="297" y="122">down</text>
-
-          <rect class="grp" x="392" y="34" width="272" height="146" rx="10"/>
-          <text class="t lbl" x="404" y="52" text-anchor="start">DATA CENTRE B — STANDBY</text>
-
-          <rect class="b ok" x="440" y="90" width="110" height="44" rx="8"/>
-          <text class="t" x="495" y="106">Service</text>
-          <text class="t xs good" x="495" y="122">healthy</text>
-
-          <path class="a" d="M90 96 L126 88"/>
-          <path class="a" d="M234 88 L248 100"/>
-          <path class="a" d="M182 104 L182 114"/>
-          <path class="a ok-line" d="M234 139 L400 139 L400 118 L436 114"/>
-          <text class="t xs good" x="316" y="152">redirect works — the layer is still alive</text>
-
-          <text class="t verdict good" x="664" y="196" text-anchor="end">PASSES ✓</text>
-
-          <line class="rule" x1="16" y1="222" x2="664" y2="222"/>
-
-          <!-- ============ PANEL 2: THE DISASTER ============ -->
-          <text class="t lbl" x="16" y="252" text-anchor="start">THE DISASTER — THE WHOLE DATA CENTRE IS LOST</text>
-
-          <rect class="b" x="16" y="330" width="74" height="40" rx="8"/>
-          <text class="t" x="53" y="350">Clients</text>
-
-          <rect class="grp dead" x="112" y="286" width="246" height="146" rx="10"/>
-          <text class="t lbl bad" x="124" y="304" text-anchor="start">DATA CENTRE A — GONE</text>
-
-          <g class="fade">
-            <rect class="b dead" x="130" y="316" width="104" height="40" rx="8"/>
-            <text class="t" x="182" y="336">API gateway</text>
-            <rect class="b dead" x="130" y="370" width="104" height="42" rx="8"/>
-            <text class="t sm" x="182" y="385">redirect</text>
-            <text class="t sm" x="182" y="399">layer</text>
-            <rect class="b dead" x="252" y="342" width="90" height="44" rx="8"/>
-            <text class="t" x="297" y="366">Service</text>
-          </g>
-
-          <rect class="grp" x="392" y="286" width="272" height="146" rx="10"/>
-          <text class="t lbl" x="404" y="304" text-anchor="start">DATA CENTRE B — STANDBY</text>
-
-          <rect class="b ok" x="440" y="342" width="110" height="44" rx="8"/>
-          <text class="t" x="495" y="358">Service</text>
-          <text class="t xs good" x="495" y="374">healthy</text>
-          <text class="t xs bad" x="495" y="400">but unreachable</text>
-
-          <path class="a bad-line" d="M90 348 L126 340"/>
-          <text class="t xs bad side" x="112" y="452" text-anchor="start">the thing that was meant to redirect died with the data centre</text>
-
-          <path class="a dash bad-line" d="M348 380 L432 372"/>
-          <text class="t xs bad" x="392" y="404" text-anchor="middle">no path</text>
-
-          <text class="t verdict bad" x="664" y="450" text-anchor="end">FAILS ✗</text>
-        </svg>
-        <figcaption>
-          The drill takes one service down; a real disaster takes the whole data centre — and the
-          redirect layer goes with it. Whatever moves traffic away from a failure cannot live inside
-          the failure domain. That's the entire argument, and it is why passing the drill was the
-          wrong goal
-        </figcaption>
-      </figure>
 
       <p>
         If your recovery plan is only exercised against a failure smaller than the one you're
