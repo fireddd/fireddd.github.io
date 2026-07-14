@@ -132,7 +132,8 @@
       "endDate": "2019-05-31",
       "highlights": [
         "Developed alphas based on technical and fundamental analysis as trading signals; selected alphas were traded in the market."
-      ]
+      ],
+      "summary": "Research consultant, offered off the back of placing in WorldQuant's 2017 Spring Alphathon."
     }
   ],
   "education": [
@@ -264,7 +265,7 @@
       "title": "Gold Level 2, WorldQuant Spring Alphathon",
       "awarder": "WorldQuant",
       "date": "2017",
-      "summary": "Ranked 23rd internationally and 2nd in India, leaderboard score 32,091. Certificate: https://fireddd.github.io/img/certs/worldquant-alphathon-2017.jpg"
+      "summary": "Ranked 23rd internationally and 2nd in India, leaderboard score 32,091. Alphas were written in WorldQuant's expression language and backtested in WebSim. The Alphathon led directly to his research consultant position at WorldQuant (2017-2019). Write-up: https://fireddd.github.io/blog/worldquant-alphathon/ · Certificate: https://fireddd.github.io/img/certs/worldquant-alphathon-2017.jpg"
     }
   ],
   "skills": [

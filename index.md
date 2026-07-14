@@ -125,7 +125,8 @@ Project: https://www.media.mit.edu/projects/pal/overview/
   in the top prize bracket, with a cash prize.
   [Confirmation](https://fireddd.github.io/img/certs/auquan-2019.jpg).
 - **WorldQuant Spring Alphathon** (2017) — Gold, Level 2. Ranked 23rd internationally and 2nd in
-  India, leaderboard score 32,091.
+  India, leaderboard score 32,091. Led directly to the research consultant offer at WorldQuant.
+  [Write-up](https://fireddd.github.io/blog/worldquant-alphathon/).
   [Certificate](https://fireddd.github.io/img/certs/worldquant-alphathon-2017.jpg) ·
   [Leaderboard](https://fireddd.github.io/img/certs/worldquant-alphathon-dashboard.jpg).
 
