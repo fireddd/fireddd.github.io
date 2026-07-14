@@ -78,6 +78,7 @@
       <ol>
         <li><a href="#why-an-sdk-at-all">Why an SDK at all</a></li>
         <li><a href="#my-first-project-at-phonepe">My first project at PhonePe</a></li>
+        <li><a href="#instrumenting-somebody-elses-server">Instrumenting somebody else's server</a></li>
         <li><a href="#multiple-sdks-one-behaviour">Multiple SDKs, one behaviour</a></li>
         <li><a href="#the-launch-broke">The launch broke</a></li>
         <li><a href="#how-we-knew-it-was-working">How we knew it was working</a></li>
@@ -180,6 +181,39 @@
         </a>
       </figure>
 
+      <h2 class="post-h2" id="instrumenting-somebody-elses-server">Instrumenting somebody else's server</h2>
+
+      <p>
+        The SDK emits <strong>events</strong>, because a library you cannot see is a library you are
+        guessing about. What those events told us comes later; how they get out is a design problem
+        worth its own section.
+      </p>
+
+      <p>
+        The awkward part of instrumenting an SDK is that it does not run on your machines. It runs
+        inside a merchant's application, on their hardware, in their hot path. Anything the SDK does
+        badly, it does badly to <em>them</em>.
+      </p>
+
+      <p>
+        So events go into an <strong>in-memory persistent queue</strong> inside the SDK and are
+        shipped to our public events API in <strong>batches</strong> — never inline with the payment
+        call. A merchant's checkout does not wait on our analytics, and a blip on our side cannot
+        become a blip on theirs.
+      </p>
+
+      <p>
+        And some merchants run on genuinely constrained resources, where even a queue and a
+        background flush is a cost they did not ask for. So event reporting is
+        <strong>switchable off at SDK initialisation</strong>. If you don't want to pay for our
+        telemetry, you don't have to.
+      </p>
+
+      <blockquote class="pull">
+        Analytics I want is not a good enough reason to spend memory a merchant did not agree to
+        give me.
+      </blockquote>
+
       <h2 class="post-h2" id="multiple-sdks-one-behaviour">Multiple SDKs, one behaviour</h2>
 
       <p>
@@ -241,17 +275,6 @@
       </p>
 
       <p>
-        And underneath that: <strong>nobody knew the check was there.</strong> We hadn't ignored a
-        documented requirement — the requirement wasn't written down anywhere we could find. The
-        behaviour lived in a service we didn't own.
-      </p>
-
-      <blockquote class="pull">
-        Not a bug. A piece of knowledge that lived in one person's head, on a path our tests could
-        not reach.
-      </blockquote>
-
-      <p>
         So the fix I actually care about is that I <strong>wrote it down</strong>. I documented the
         check: what triggers it, why whitelisted merchants never see it, and what an integration has
         to send. The next person to build against this does not get to discover it the way we did —
@@ -274,39 +297,12 @@
       </figure>
 
       <p>
-        We instrumented the SDK with <strong>events</strong>, so we could see the
-        <strong>integration funnel</strong>: where a merchant's engineer picked it up, where they
-        got stuck, where they dropped, and where they finally put a live transaction through. A
-        funnel turns "integration is painful" — which is an opinion — into a specific step that
-        loses people, which is a thing you can go and fix.
+        Those events gave us the <strong>integration funnel</strong>: where a merchant's engineer
+        picked the SDK up, where they got stuck, where they dropped, and where they finally put a
+        live transaction through. A funnel turns "integration is painful" — which is an opinion —
+        into a specific step that loses people, which is a thing you can go and fix.
       </p>
 
-      <h3 class="post-h3">Instrumenting somebody else's server</h3>
-
-      <p>
-        The awkward part of instrumenting an SDK is that it does not run on your machines. It runs
-        inside a merchant's application, on their hardware, in their hot path. Anything the SDK does
-        badly, it does badly to <em>them</em>.
-      </p>
-
-      <p>
-        So events go into an <strong>in-memory persistent queue</strong> inside the SDK and are
-        shipped to our public events API in <strong>batches</strong> — never inline with the payment
-        call. A merchant's checkout does not wait on our analytics, and a blip on our side cannot
-        become a blip on theirs.
-      </p>
-
-      <p>
-        And some merchants run on genuinely constrained resources, where even a queue and a
-        background flush is a cost they did not ask for. So event reporting is
-        <strong>switchable off at SDK initialisation</strong>. If you don't want to pay for our
-        telemetry, you don't have to.
-      </p>
-
-      <blockquote class="pull">
-        Analytics I want is not a good enough reason to spend memory a merchant did not agree to
-        give me.
-      </blockquote>
 
       <p>
         On top of the events I built an <strong>internal dashboard</strong> with the analytics around
