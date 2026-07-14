@@ -5,7 +5,7 @@
 <meta name="author" content="Shubhransh Jagota">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://fireddd.github.io/blog/payment-gateway-sdk/">
-<link rel="stylesheet" href="/style.css?v=35">
+<link rel="stylesheet" href="/style.css?v=36">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="The SDK that merchants bet their checkout on">
@@ -107,6 +107,7 @@
       <li>Payments</li>
       <li>Prior art: Stripe</li>
       <li>Funnel analytics</li>
+      <li>Batched telemetry</li>
       <li>Design docs</li>
       <li class="ch-hi">Tens of crores in TPV</li>
     </ul>
@@ -131,8 +132,8 @@
 
       <p>
         So the SDK was not a convenience library. It was the golden path, made hard to leave.
-        <a href="https://github.com/PhonePe/phonepe-pg-sdk-java">It's public</a>, and tens of crores
-        in total payment volume have gone through the SDK family.
+        <a href="https://github.com/PhonePe/phonepe-pg-sdk-java">It's now public</a>, and tens of
+        crores in total payment volume have gone through the SDK family.
       </p>
 
       <h2 class="post-h2" id="my-first-project-at-phonepe">My first project at PhonePe</h2>
@@ -195,13 +196,20 @@
         an editor, and the implementations converge on their own.
       </p>
 
+      <figure class="meme">
+        <a class="gifcard" href="https://tenor.com/view/same-different-but-still-gif-18224441">
+          <img src="https://media1.tenor.com/m/BRckVcpUYlUAAAAC/same-different.gif"
+               alt="Same same, but different"
+               loading="lazy" referrerpolicy="no-referrer">
+        </a>
+      </figure>
+
       <p>
-        Two things made that hold in practice. I <strong>published a design document</strong> anyone
-        could follow while writing their SDK, so the shared structure was written down rather than
-        living in my head and being rediscovered in review. And I
-        <strong>reviewed the code</strong> across the language offerings, to keep that basic
-        structure consistent — because a document tells people what to do, and a review is how you
-        find out whether it happened.
+        Two things made that hold in practice. A <strong>design document</strong>, published for
+        anyone to follow while writing their SDK, so the shared structure was written down rather
+        than living in one head and being rediscovered in review. And <strong>code review</strong>
+        across the language offerings, to keep that basic structure consistent — because a document
+        tells people what to do, and a review is how you find out whether it happened.
       </p>
 
       <h2 class="post-h2" id="the-launch-broke">The launch broke</h2>
@@ -226,10 +234,6 @@
       </p>
 
       <p>
-        But the fix is not the interesting part. <em>Why nobody saw it coming</em> is.
-      </p>
-
-      <p>
         We had tested against <strong>internal, whitelisted merchants</strong> — and the fraud checks
         <em>do not apply to whitelisted merchants</em>. The exact path that broke in production was
         the one path our test setup was structurally incapable of exercising. Every test passed, and
@@ -239,8 +243,7 @@
       <p>
         And underneath that: <strong>nobody knew the check was there.</strong> We hadn't ignored a
         documented requirement — the requirement wasn't written down anywhere we could find. The
-        behaviour lived in a service we didn't own, it never fired in our environment, and so for us
-        it existed only as an absence, right up until the moment it fired at a merchant.
+        behaviour lived in a service we didn't own.
       </p>
 
       <blockquote class="pull">
@@ -262,6 +265,16 @@
         job.
       </p>
 
+      <blockquote class="pull">
+        If you cannot measure it, you cannot improve it.
+      </blockquote>
+
+      <p style="margin-top:-14px;font-size:14px;color:var(--faint);">
+        Everyone attributes that to Lord Kelvin.
+        <a href="https://skeptics.stackexchange.com/questions/42436/did-lord-kelvin-say-if-you-can-not-measure-it-you-can-not-improve-it">He
+        almost certainly never said it.</a> It is still true.
+      </p>
+
       <p>
         We instrumented the SDK with <strong>events</strong>, so we could see the
         <strong>integration funnel</strong>: where a merchant's engineer picked it up, where they
@@ -269,6 +282,33 @@
         funnel turns "integration is painful" — which is an opinion — into a specific step that
         loses people, which is a thing you can go and fix.
       </p>
+
+      <h3 class="post-h3">Instrumenting somebody else's server</h3>
+
+      <p>
+        The awkward part of instrumenting an SDK is that it does not run on your machines. It runs
+        inside a merchant's application, on their hardware, in their hot path. Anything the SDK does
+        badly, it does badly to <em>them</em>.
+      </p>
+
+      <p>
+        So events go into an <strong>in-memory persistent queue</strong> inside the SDK and are
+        shipped to our public events API in <strong>batches</strong> — never inline with the payment
+        call. A merchant's checkout does not wait on our analytics, and a blip on our side cannot
+        become a blip on theirs.
+      </p>
+
+      <p>
+        And some merchants run on genuinely constrained resources, where even a queue and a
+        background flush is a cost they did not ask for. So event reporting is
+        <strong>switchable off at SDK initialisation</strong>. If you don't want to pay for our
+        telemetry, you don't have to.
+      </p>
+
+      <blockquote class="pull">
+        Analytics I want is not a good enough reason to spend memory a merchant did not agree to
+        give me.
+      </blockquote>
 
       <p>
         On top of the events I built an <strong>internal dashboard</strong> with the analytics around
