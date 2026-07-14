@@ -328,6 +328,25 @@
         moving its Epoch topologies too, and teams now do that cutover through epoch-cli. A tool I
         proposed to close a DR gap became the standard way people do the thing I was worried about.
       </p>
+
+      <h2 class="post-h2">The day it paid off</h2>
+
+      <p>
+        Later, a large cross-datacentre migration had to happen — not as a drill, and not on a
+        comfortable timeline. Services had to come up in the secondary data centre, and every one of
+        them that ran scheduled work needed its topologies to come with it.
+      </p>
+
+      <p>
+        <strong>epoch-cli already had import and export of topologies.</strong> Nobody had to write
+        anything, and nobody had to move schedules by hand under time pressure. The capability was
+        just there, because it had been built months earlier for a problem that hadn't happened yet.
+      </p>
+
+      <p>
+        That is the whole argument for closing a gap while it's still theoretical. When it stopped
+        being theoretical, the work was already done.
+      </p>
     </div>
   </article>
 
