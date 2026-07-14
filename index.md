@@ -116,7 +116,7 @@ Project: https://www.media.mit.edu/projects/pal/overview/
 
 ## Hackathons & competitions
 
-- **Terminal-One AI Hackathon, hosted by Citadel** — runner-up. Represented MIT against Harvard
+- **Terminal-One AI Hackathon, hosted by Citadel** (March 2020) — runner-up. Represented MIT against Harvard
   as a team of two with [Akash Vaish](https://www.linkedin.com/in/akash-vaish-712872aa/). Built
   **Go Get It** (go1, go2, go3 by the end), an algorithm that plays
   [Citadel's Terminal](https://terminal.c1games.com/) against other algorithms, adapting its offence
