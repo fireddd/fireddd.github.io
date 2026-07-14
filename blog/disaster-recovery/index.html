@@ -69,7 +69,9 @@
     <nav class="toc" aria-label="On this page">
       <p class="toc-t">On this page</p>
       <ol>
-        <li><a href="#learning-infrastructure-i-didnt-own">Learning infrastructure I didn't own</a></li>
+        <li><a href="#active-passive-rto-and-rpo">Active-passive, RTO and RPO</a></li>
+        <li><a href="#what-we-ran-and-how-it-replicates">What we ran, and how it replicates</a></li>
+        <li><a href="#the-steps-of-a-drill">The steps of a drill</a></li>
         <li><a href="#the-plan-would-have-passed">The plan would have passed</a></li>
         <li><a href="#making-the-expensive-call">Making the expensive call</a></li>
         <li><a href="#what-a-drill-actually-looks-like">What a drill actually looks like</a></li>
@@ -111,32 +113,145 @@
       </p>
 
       <p>
-        I led the DR for <strong>OMX</strong>, one of our online merchant services. When these
-        systems are down, it isn't an internal inconvenience — it's merchants unable to collect
+        I have <strong>taken part in several DR drills</strong> at PhonePe, and I
+        <strong>led the one for OMX</strong>, one of our online merchant services. When these
+        systems are down it isn't an internal inconvenience — it's merchants unable to collect
         money.
       </p>
 
-      <h2 class="post-h2" id="learning-infrastructure-i-didnt-own">Learning infrastructure I didn't own</h2>
+      <p>
+        I owned the application, not the plumbing. To lead a drill credibly I had to learn the
+        plumbing anyway. This is what I learnt, roughly in the order you need it.
+      </p>
+
+      <h2 class="post-h2" id="active-passive-rto-and-rpo">Active-passive, RTO and RPO</h2>
 
       <p>
-        I owned the application, not the plumbing. To lead the drill credibly I had to understand
-        the plumbing anyway: <strong>cross-datacentre replication</strong>, how the
-        <strong>API gateway routes</strong>, how <strong>service discovery</strong> resolves across
-        data centres, and what a drill actually consists of — the steps, the end state, and the
-        ways it fails.
+        Start with the shape. We ran <strong>active-passive</strong>: two data centres, but only
+        <em>one of them takes writes at a time</em>. The other is a warm standby, kept up to date by
+        replication, doing nothing until the day it has to do everything.
       </p>
 
       <p>
-        I read the DR documentation end to end and sat in on other teams' knowledge-transfer
-        sessions to see how their failovers really behaved. That ramp is the only reason I caught
-        what came next. I would never have seen it from the application layer.
+        The alternative — active-active, both sites taking writes — sounds better and is much harder.
+        The moment two data centres can both accept a write for the same account, you own a conflict
+        resolution problem, and in payments the conflicts are somebody's money. Active-passive trades
+        that away and buys you a much simpler failure story: <em>everything is over there now</em>.
+      </p>
+
+      <p>
+        Two numbers describe how good your failover is, and they measure completely different things.
+      </p>
+
+      <ul>
+        <li>
+          <strong>RTO — recovery time objective.</strong> How long you are down. From the moment the
+          primary is lost to the moment traffic is being served from the secondary. This is a
+          <em>time</em>, and it is mostly a function of how much of your cutover is still manual.
+        </li>
+        <li>
+          <strong>RPO — recovery point objective.</strong> How much data you lose. If the primary
+          vanishes right now, how far behind is the standby? This is <em>not</em> a time you get to
+          choose. It is handed to you by your slowest-replicating datastore, and no amount of
+          planning changes it.
+        </li>
+      </ul>
+
+      <p>
+        That distinction is the one people get wrong. RTO is an engineering problem — automate the
+        steps and it comes down. <strong>RPO is a property of your storage</strong>. You can write
+        any number you like in the document; what will actually be true on the day is your
+        database's replication lag.
+      </p>
+
+      <h2 class="post-h2" id="what-we-ran-and-how-it-replicates">What we ran, and how it replicates</h2>
+
+      <p>
+        Every component in the stack fails over differently, and your RPO is the worst of them.
+      </p>
+
+      <ul>
+        <li>
+          <strong>MariaDB</strong> — the transactional store, and the one that matters. Active-passive
+          with <strong>asynchronous replication</strong>, lagging the primary by a couple of minutes.
+          This is the binding constraint. <em>MariaDB's replication lag was our RPO</em>; nothing else
+          in the stack moved that number.
+        </li>
+        <li>
+          <strong>Aerospike</strong> — run in AP mode with bidirectional cross-datacentre replication
+          in the low hundreds of milliseconds. Effectively real time. Its contribution to data loss is
+          negligible.
+        </li>
+        <li>
+          <strong>RabbitMQ</strong> — asynchronous processing only. The durable state lives in the
+          database, so messages in flight are <em>reconstructable</em> from persisted state. RMQ is
+          not a data-loss surface on its own, which is a nice property to have designed in before you
+          need it.
+        </li>
+        <li>
+          <strong><a href="https://zookeeper.apache.org/">ZooKeeper</a></strong> — coordination and
+          leader election. Also what <a href="https://github.com/appform-io/ranger">Ranger</a>, the
+          open-source service-discovery library, stores its service registry in.
+        </li>
+        <li>
+          <strong><a href="https://github.com/PhonePe/drove">Drove</a></strong> and
+          <a href="https://github.com/PhonePe/drove-gateway">drove-gateway</a> — container
+          orchestration, and the NGINX layer that routes traffic to wherever the containers actually
+          are. Both are open source.
+        </li>
+      </ul>
+
+      <p>
+        So the honest RPO was <strong>about two minutes, set entirely by MariaDB</strong>. Aerospike
+        and RabbitMQ don't get a vote. If you want a better RPO you do not buy a better runbook — you
+        change how the database replicates.
+      </p>
+
+      <h2 class="post-h2" id="the-steps-of-a-drill">The steps of a drill</h2>
+
+      <p>
+        What actually happens, in order:
+      </p>
+
+      <ol class="steps">
+        <li>
+          <strong>Stop the writes.</strong> Engage the API killer at the gateway so nothing new
+          enters the primary. Until writes stop, the standby is chasing a moving target.
+        </li>
+        <li>
+          <strong>Let replication settle.</strong> Wait for the standby to catch up, and only then
+          declare its database state authoritative. Skip this and you have just chosen your data
+          loss instead of measuring it.
+        </li>
+        <li>
+          <strong>Move service discovery.</strong> Callers have to be able to <em>find</em> the
+          service in the other data centre. This is where the interesting failure lives, and it's
+          the subject of the rest of this post.
+        </li>
+        <li>
+          <strong>Switch traffic at the gateway.</strong> Repoint the routing layer at the secondary.
+        </li>
+        <li>
+          <strong>Bring the service up, and prove it.</strong> Not "the containers are running" —
+          real traffic, served correctly, verified.
+        </li>
+      </ol>
+
+      <p>
+        A lot of that was still manual when I inherited it, and manual steps are where RTO goes to
+        die. Automating them is how the number came down.
       </p>
 
       <h2 class="post-h2" id="the-plan-would-have-passed">The plan would have passed</h2>
 
       <p>
-        The proposed failover plan worked like this: leave the API gateway where it was, and let a
-        deployed sidecar redirect traffic to the surviving instance.
+        Step three — moving service discovery — is where the whole thing turned.
+      </p>
+
+      <p>
+        The proposed failover plan worked like this: leave the routing layer where it was, and let a
+        sidecar deployed <em>inside the primary data centre</em> redirect traffic to the surviving
+        instance.
       </p>
 
       <p>
