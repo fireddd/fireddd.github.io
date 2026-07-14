@@ -65,7 +65,7 @@
         "Led SDK development for PhonePe's B2B payment gateway offering: designed and implemented the Java SDK, wrote the CI/CD pipelines, and mentored development of SDKs for other languages. The SDK family has carried tens of crores in total payment volume (TPV).",
         "Owned the Epoch scheduling framework for online merchant services; introduced structural reforms for its scripts and fixed a long-standing org-wide missing-logs issue.",
         "Wrote reconciliation and reporting scripts to analyze and close pending transactions.",
-        "Implemented disaster recovery changes for online merchant services and ran the DR drill for the OMX service alongside SREs and stakeholders; upgraded infrastructure and migrated services to the Mahape data centre.",
+        "Implemented disaster recovery changes for online merchant services and led the DR drill end to end alongside SREs and stakeholders; upgraded infrastructure and migrated services to the Mahape data centre.",
         "Designed and implemented end-to-end accounting and template management for partner integrations, plus backend error codes, events for PG offerings, and merchant-level kill switches on live traffic."
       ]
     },

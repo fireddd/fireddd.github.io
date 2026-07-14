@@ -1,15 +1,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The drill you can pass and still be wrong — Shubhransh Jagota</title>
-<meta name="description" content="Leading a disaster-recovery drill for a payment service at PhonePe. The proposed failover plan would have passed the drill and failed a real disaster — so I argued to change it, and it cost us the deadline.">
+<title>What actually happens in a DR drill — Shubhransh Jagota</title>
+<meta name="description" content="What a disaster recovery drill actually is: active-passive, RTO and RPO, what fails over and how, the steps you run on the night — and the plan that passes the drill and fails the disaster.">
 <meta name="author" content="Shubhransh Jagota">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://fireddd.github.io/blog/disaster-recovery/">
 <link rel="stylesheet" href="/style.css?v=39">
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="The drill you can pass and still be wrong">
-<meta property="og:description" content="A disaster-recovery plan that would have passed the test and failed the disaster.">
+<meta property="og:title" content="What actually happens in a DR drill">
+<meta property="og:description" content="Active-passive, RTO and RPO, the steps of a drill — and the plan that passes the test and fails the disaster.">
 <meta property="og:url" content="https://fireddd.github.io/blog/disaster-recovery/">
 <meta property="og:image" content="https://fireddd.github.io/img/avatar.jpg">
 <meta name="twitter:card" content="summary">
@@ -23,8 +23,8 @@
     {
       "@type": "BlogPosting",
       "@id": "https://fireddd.github.io/blog/disaster-recovery/#post",
-      "headline": "The drill you can pass and still be wrong",
-      "description": "Leading a disaster-recovery drill for a merchant payment service at PhonePe: why the proposed failover path would have passed the drill and failed a real disaster, and what it cost to change it.",
+      "headline": "What actually happens in a DR drill",
+      "description": "An explainer on disaster recovery drills in regulated payments: active-passive, RTO and RPO, what fails over and how, the steps run on the night, and why a plan can pass the drill and still fail the disaster.",
       "url": "https://fireddd.github.io/blog/disaster-recovery/",
       "datePublished": "2026-07-14",
       "dateModified": "2026-07-14",
@@ -91,8 +91,8 @@
       </a>
       <div class="hero-text">
         <p class="hero-kicker">PhonePe · Disaster recovery</p>
-        <h1>The drill you can pass and still be wrong</h1>
-        <p class="hero-sub">I led the DR for OMX. The plan would have passed the drill and failed the disaster.</p>
+        <h1>What actually happens in a DR drill</h1>
+        <p class="hero-sub">Most engineers have never run one. Here is what a disaster recovery drill actually is, and what it is like at 4am.</p>
       </div>
     </header>
 
@@ -113,14 +113,22 @@
       </p>
 
       <p>
-        I have <strong>taken part in several DR drills</strong> at PhonePe, and I
-        <strong>led the one for OMX</strong>, one of our online merchant services. When these
-        systems are down it isn't an internal inconvenience — it's merchants unable to collect
-        money.
+        I have <strong>taken part in several DR drills</strong> at PhonePe, and
+        <strong>led one end to end</strong>. Most engineers never will — you can spend a career
+        shipping features and never once be in the room when someone deliberately turns off a
+        production data centre.
       </p>
 
       <p>
-        I owned the application, not the plumbing. To lead a drill credibly I had to learn the
+        So this is not a war story. It is an explainer: what a drill actually is, what the two
+        numbers mean, what fails over and how, what you do on the night, and the one mistake that
+        makes the whole exercise worthless. PhonePe's own engineering blog gives you a sense of
+        <a href="https://tech.phonepe.com/demystifying-tstore-the-backbone-of-billions-of-transactions-at-phonepe-chapter-2/">what
+        this looks like at their scale</a>.
+      </p>
+
+      <p>
+        I owned an application, not the plumbing. To lead a drill credibly I had to learn the
         plumbing anyway. This is what I learnt, roughly in the order you need it.
       </p>
 
@@ -245,7 +253,8 @@
       <h2 class="post-h2" id="the-plan-would-have-passed">The plan would have passed</h2>
 
       <p>
-        Step three — moving service discovery — is where the whole thing turned.
+        Step three — moving service discovery — is where it gets interesting, and where the drill I
+        led nearly went wrong.
       </p>
 
       <p>
@@ -379,7 +388,7 @@
 
       <p>
         Second, the gap wasn't in the DR document at all — the standard operating procedure didn't
-        require the right path. So fixing my drill would have fixed nothing for anyone else. I got
+        require the right path. So fixing one drill would have fixed nothing for anyone else. I got
         the <strong>SOP changed</strong>, so the next team doesn't rediscover a full-datacentre loss
         the hard way. That's the part that outlives me.
       </p>
@@ -443,7 +452,7 @@
       </p>
 
       <p>
-        The cause was that OMX was the first service to require its upstream and downstream callers
+        The cause was that ours was the first service to require its upstream and downstream callers
         to reach it a new way, and a couple of those teams hadn't migrated in time. I had started
         chasing them a month earlier — and that's exactly the problem. <strong>I treated "I've
         asked" as "they'll do it."</strong>
