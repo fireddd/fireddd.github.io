@@ -18,6 +18,7 @@ You can also call or text **+91 86985 68397**.
 - GitHub: https://github.com/fireddd
 - LinkedIn: https://www.linkedin.com/in/shubhranshjagota/
 - LeetCode: https://leetcode.com/u/fireddd/
+- Quora: https://www.quora.com/profile/Shubhransh-Jagota
 - MIT Media Lab profile: https://www.media.mit.edu/people/sjagota/overview/
 - Machine-readable CV: https://fireddd.github.io/resume.json (JSON Resume schema v1.0.0)
 

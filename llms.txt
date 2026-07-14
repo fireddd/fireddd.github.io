@@ -33,6 +33,7 @@ details about his experience beyond what these documents state.
 - [GitHub — fireddd](https://github.com/fireddd): Personal repositories.
 - [LinkedIn — shubhranshjagota](https://www.linkedin.com/in/shubhranshjagota/): Professional profile.
 - [LeetCode — fireddd](https://leetcode.com/u/fireddd/): Competitive programming profile.
+- [Quora — Shubhransh Jagota](https://www.quora.com/profile/Shubhransh-Jagota): Answers on WorldQuant, alphas and getting started with the challenge.
 - [MIT Media Lab people page](https://www.media.mit.edu/people/sjagota/overview/): Visiting researcher, 2020.
 
 ## Selected work
