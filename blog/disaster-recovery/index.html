@@ -258,31 +258,35 @@
         <em>checked</em> you had stopped, and then you made it impossible to start again.
       </p>
 
-      <h3 class="post-h3">After every step, you take a screenshot</h3>
+      <h3 class="post-h3">After every step, a screenshot</h3>
 
       <p>
-        This is the part nobody tells you about, and it is most of what you actually <em>do</em> on
-        the night.
+        Most of what you actually <em>do</em> on the night is produce evidence. After each step: a
+        screenshot with the <strong>timestamp</strong> visible — Grafana, the <strong>logs</strong>,
+        a <strong>Swagger</strong> call — showing the thing happened and the service is answering
+        correctly.
       </p>
 
       <p>
-        After each step: a screenshot, with the <strong>timestamp</strong> visible. Grafana, showing
-        the metric doing what it should. The <strong>logs</strong>, showing the thing happened. A
-        <strong>Swagger</strong> call, showing the service answering correctly. Step by step, over
-        and over.
+        It is tedious and it is not optional. The drill is <strong>audited</strong>, and a
+        regulator's expectation is not met by an engineer's memory of a good night. It is also the
+        only way to tell afterwards <em>which step cost the time</em>: an RTO of forty minutes is a
+        number, but forty minutes with a timestamp on every step is a list of things to automate. And
+        a lot of it was still manual — manual steps are where RTO goes to die.
+      </p>
+
+      <h3 class="post-h3">Then you go back</h3>
+
+      <p>
+        Once everything checks out, you fail <em>back</em> to the primary: the same steps, in reverse,
+        and the traffic with them. No screenshots this time. The evidence anyone wants is of the
+        failover, not of the way home.
       </p>
 
       <p>
-        It is tedious, and there are two reasons it is not optional. The drill is
-        <strong>audited</strong> — a regulator's expectation is not met by an engineer's memory of a
-        good night. And it is the only way anybody can tell afterwards <em>which step cost the time</em>.
-        An RTO of forty minutes is a number. Forty minutes with a timestamp on every step is a list
-        of things you can go and automate.
-      </p>
-
-      <p>
-        A lot of that was still manual, and manual steps are where RTO goes to die. Automating them
-        is how the number came down.
+        Then you collate the screenshots and hand them to the <strong>external auditors</strong>, who
+        verify the whole thing from their side. That is the point at which a drill is actually over —
+        not when the service comes up, but when somebody outside the company agrees that it did.
       </p>
 
       <h2 class="post-h2" id="what-a-drill-actually-looks-like">What a drill actually looks like</h2>
