@@ -63,7 +63,7 @@
       "endDate": "2025-07-31",
       "summary": "Payment gateway SDKs, online merchant services, and payments infrastructure.",
       "highlights": [
-        "Led SDK development for PhonePe's B2B payment gateway offering: designed and implemented the Java SDK, wrote the CI/CD pipelines, and mentored development of SDKs for other languages. The SDK family has generated over USD 1 million in revenue.",
+        "Led SDK development for PhonePe's B2B payment gateway offering: designed and implemented the Java SDK, wrote the CI/CD pipelines, and mentored development of SDKs for other languages. The SDK family has carried tens of crores in total payment volume (TPV).",
         "Owned the Epoch scheduling framework for online merchant services; introduced structural reforms for its scripts and fixed a long-standing org-wide missing-logs issue.",
         "Wrote reconciliation and reporting scripts to analyze and close pending transactions.",
         "Implemented disaster recovery changes for online merchant services and ran the DR drill for the OMX service alongside SREs and stakeholders; upgraded infrastructure and migrated services to the Mahape data centre.",
@@ -164,7 +164,7 @@
   "projects": [
     {
       "name": "PhonePe PG SDK for Java",
-      "description": "Author of the official Java SDK for the PhonePe Payment Gateway B2B offering: the developer-facing API, the release workflow and the CI that ships it (40 commits). The SDK family has generated over USD 1 million in revenue.",
+      "description": "Author of the official Java SDK for the PhonePe Payment Gateway B2B offering: the developer-facing API, the release workflow and the CI that ships it (40 commits). The SDK family has carried tens of crores in total payment volume (TPV).",
       "url": "https://github.com/PhonePe/phonepe-pg-sdk-java",
       "keywords": [
         "java",

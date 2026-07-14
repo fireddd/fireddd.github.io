@@ -1,0 +1,282 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The SDK that merchants bet their checkout on — Shubhransh Jagota</title>
+<meta name="description" content="Building PhonePe's public Java SDK for the B2B payment gateway: the restructure I insisted on before release, the launch incident that blocked our first merchants, and cutting integration time from weeks to a day.">
+<meta name="author" content="Shubhransh Jagota">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://fireddd.github.io/blog/payment-gateway-sdk/">
+<link rel="stylesheet" href="/style.css?v=31">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="The SDK that merchants bet their checkout on">
+<meta property="og:description" content="Building PhonePe's public Java SDK for the B2B payment gateway — and the release I held back.">
+<meta property="og:url" content="https://fireddd.github.io/blog/payment-gateway-sdk/">
+<meta property="og:image" content="https://fireddd.github.io/img/avatar.jpg">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-family='monospace'>%E2%97%86</text></svg>">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://fireddd.github.io/blog/payment-gateway-sdk/#post",
+      "headline": "The SDK that merchants bet their checkout on",
+      "description": "Building PhonePe's public Java SDK for the B2B payment gateway: the restructure held back before release, the launch incident, and cutting merchant integration time from weeks to a day.",
+      "url": "https://fireddd.github.io/blog/payment-gateway-sdk/",
+      "datePublished": "2026-07-14",
+      "dateModified": "2026-07-14",
+      "inLanguage": "en",
+      "keywords": "payment gateway, SDK, Java, API design, merchant integration, DPoP, RFC 9449, open source, PhonePe",
+      "author": { "@id": "https://fireddd.github.io/#person" },
+      "publisher": { "@id": "https://fireddd.github.io/#person" },
+      "isPartOf": { "@id": "https://fireddd.github.io/#website" },
+      "mainEntityOfPage": "https://fireddd.github.io/blog/payment-gateway-sdk/"
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "name": "PhonePe PG SDK for Java",
+      "codeRepository": "https://github.com/PhonePe/phonepe-pg-sdk-java",
+      "programmingLanguage": "Java",
+      "author": { "@id": "https://fireddd.github.io/#person" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://fireddd.github.io/#person",
+      "name": "Shubhransh Jagota",
+      "url": "https://fireddd.github.io/",
+      "jobTitle": "Software Engineer",
+      "email": "mailto:shubhranshjagota77@gmail.com",
+      "sameAs": [
+        "https://github.com/fireddd",
+        "https://www.linkedin.com/in/shubhranshjagota/",
+        "https://leetcode.com/u/fireddd/",
+        "https://www.quora.com/profile/Shubhransh-Jagota",
+        "https://www.media.mit.edu/people/sjagota/overview/"
+      ]
+    }
+  ]
+}
+</script>
+
+<div class="post-shell">
+
+  <nav>
+    <a class="brand" href="/">Shubhransh Jagota</a>
+    <a href="/blog/">Writing</a>
+    <a href="/resume/">Résumé</a>
+    <a href="/contact/">Contact</a>
+    <a href="https://github.com/fireddd" rel="me">GitHub</a>
+    <a href="https://www.linkedin.com/in/shubhranshjagota/" rel="me">LinkedIn</a>
+  </nav>
+
+  <aside class="toc-rail">
+    <nav class="toc" aria-label="On this page">
+      <p class="toc-t">On this page</p>
+      <ol>
+        <li><a href="#why-an-sdk-at-all">Why an SDK at all</a></li>
+        <li><a href="#the-release-i-held-back">The release I held back</a></li>
+        <li><a href="#the-launch-broke">The launch broke</a></li>
+        <li><a href="#weeks-to-a-day">Weeks to a day</a></li>
+        <li><a href="#four-sdks-one-behaviour">Four SDKs, one behaviour</a></li>
+        <li><a href="#making-it-public">Making it public</a></li>
+      </ol>
+    </nav>
+  </aside>
+
+  <main>
+  <article>
+    <header class="post-hero brand-phonepe">
+      <a class="hero-logo" href="https://www.phonepe.com">
+        <img src="/logos/phonepe.png?v=31" alt="PhonePe" width="44" height="44">
+      </a>
+      <div class="hero-text">
+        <p class="hero-kicker">PhonePe</p>
+        <h1>The SDK that merchants bet their checkout on</h1>
+        <p class="hero-sub">I owned PhonePe's B2B payment gateway SDKs and wrote the Java one. Then I refused to ship it.</p>
+      </div>
+    </header>
+
+    <ul class="chips">
+      <li>Java</li>
+      <li><a href="https://github.com/PhonePe/phonepe-pg-sdk-java">Open source</a></li>
+      <li>API design</li>
+      <li>DPoP (RFC 9449)</li>
+      <li>Payments</li>
+      <li class="ch-hi">Tens of crores in TPV</li>
+    </ul>
+
+    <div class="prose post">
+
+      <h2 class="post-h2" id="why-an-sdk-at-all">Why an SDK at all</h2>
+
+      <p>
+        PhonePe's B2B payment gateway onboards external merchants who put our payment APIs inside
+        their own checkout. Before the SDK, every one of them integrated against raw REST: reading
+        the docs, hand-rolling request signing, auth, retries, error handling.
+      </p>
+
+      <p>
+        Every merchant re-derived the same solution, and every merchant got it slightly wrong in a
+        different way. Those mistakes did not stay theirs — an integration bug surfaces as a
+        <strong>customer failing to pay</strong>, which is a PhonePe problem and a support ticket
+        and a merchant who is now less sure about us. Integration friction was a direct drag on
+        merchant activation.
+      </p>
+
+      <p>
+        So the SDK was not a convenience library. It was the golden path, made hard to leave.
+        <a href="https://github.com/PhonePe/phonepe-pg-sdk-java">It's public</a>, and tens of crores
+        in total payment volume have gone through the SDK family.
+      </p>
+
+      <h2 class="post-h2" id="the-release-i-held-back">The release I held back</h2>
+
+      <p>
+        We built against <strong>v1</strong> of the payment APIs, deliberately: most merchants were
+        on v1, and the newer path had uncertainty around it. That was the right call at the time.
+      </p>
+
+      <p>
+        Then, right at release, the <strong>v2 APIs started landing</strong> — and the SDK, as
+        structured, did not account for the v2 contract. Business wanted it out. Fast.
+      </p>
+
+      <blockquote class="pull">
+        A broken integration inside a public SDK is a one-way door with an external blast radius.
+      </blockquote>
+
+      <p>
+        Here is what that means concretely. If I ship, merchants build against my structure. When
+        v2's contracts change underneath them, their integrations break — and I cannot fix that for
+        them, because the code is now in <em>their</em> repository, in production, taking real money.
+        There is no rollback for a design that other companies have already built on.
+      </p>
+
+      <p>
+        So I said no, and restructured the SDK first so integrations would survive the v2 change.
+      </p>
+
+      <p>
+        Two things made that stick rather than making me the person blocking the release. I got the
+        <strong>architect aligned</strong> on why the restructure was non-negotiable — the argument
+        was the one-way door, not my preference. And I scoped it so it
+        <strong>shipped within a week</strong>. The business timeline held. The durability was free,
+        in the end, because I fought for it at the only moment it was still cheap.
+      </p>
+
+      <h2 class="post-h2" id="the-launch-broke">The launch broke</h2>
+
+      <p>
+        At launch, our first merchants' transactions were <strong>blocked by the fraud and risk
+        service</strong>. The cause was small and stupid, as these always are: a missing merchant-id
+        header. Support surfaced it, and I identified and rolled a fix within a couple of days. I
+        also folded the regulator's requested guidelines into the SDK, and traced an API-key mapping
+        problem at the gateway that showed up when a merchant rotated their production keys.
+      </p>
+
+      <p>
+        The fix is not the interesting part. This is: <strong>I should have caught it before a
+        merchant did.</strong>
+      </p>
+
+      <p>
+        What I should have run was a closed user group with a handful of merchants, and a
+        dev-assisted live onboarding of the very first one, before general availability. That
+        catches a missing header in a controlled room instead of in front of the customer you most
+        wanted to impress. It is now how I would launch anything customer-facing, and I would rather
+        say that plainly than pretend the launch was clean.
+      </p>
+
+      <h2 class="post-h2" id="weeks-to-a-day">Weeks to a day</h2>
+
+      <p>
+        Merchants couldn't generate their own test credentials. Every sandbox key had to be requested
+        from the integrations team by hand. That is a queue, and a queue between a developer and
+        their first successful API call is where integrations go to die.
+      </p>
+
+      <p>
+        I built a self-serve toggle so a merchant could mint their own test credentials from the
+        production dashboard. The security question is obvious — you have just let people create
+        credentials — so it is secured with a
+        <strong>public/private key and <a href="https://datatracker.ietf.org/doc/html/rfc9449">DPoP</a></strong>
+        (RFC 9449): a short-TTL proof-of-possession token bound to the HTTP method, the URL and a
+        timestamp, verified at the gateway before auth even runs. The merchant id is embedded in the
+        token, so a merchant can only ever mint their <em>own</em> test credentials.
+      </p>
+
+      <p>
+        Landing it meant design, product, integrations, infra, appsec and UI. It is the least
+        glamorous list in this post and it was most of the work.
+      </p>
+
+      <div class="stats">
+        <div class="stat-card accent">
+          <span class="n">weeks → a day</span>
+          <span class="l">merchant integration time</span>
+        </div>
+        <div class="stat-card">
+          <span class="n">~50%</span>
+          <span class="l">fewer integration issues</span>
+        </div>
+      </div>
+
+      <h2 class="post-h2" id="four-sdks-one-behaviour">Four SDKs, one behaviour</h2>
+
+      <p>
+        I owned the SDK offerings, not just the Java one. The Python, .NET and JavaScript SDKs were
+        built by three or four engineers — juniors and interns — and I mentored them rather than
+        writing the SDKs myself.
+      </p>
+
+      <p>
+        The trap there is obvious in hindsight and invisible at the time: four SDKs written by four
+        people become <strong>four dialects</strong>. Same gateway, four different ideas about what
+        an error means, four retry policies, four ways of naming the same field. So I gated at the
+        <em>design</em> level, not the code level. Get the behaviour agreed before anyone opens an
+        editor, and the implementations converge on their own.
+      </p>
+
+      <h2 class="post-h2" id="making-it-public">Making it public</h2>
+
+      <p>
+        Once the Java SDK was solid, it was living in an internal repository, serving only the
+        merchants already in our sales funnel. That felt like a waste of the thing.
+      </p>
+
+      <p>
+        A public SDK is a channel. It reaches developers who will never talk to a salesperson, and it
+        lets a merchant's engineers read the code before they commit to the payment gateway that will
+        handle their money — which is exactly what a good engineer does before making that decision.
+      </p>
+
+      <p>
+        So I drove the open-source release: appsec approval, the architects' approvals, and the public
+        repository. It is on GitHub at
+        <a href="https://github.com/PhonePe/phonepe-pg-sdk-java">PhonePe/phonepe-pg-sdk-java</a>.
+      </p>
+
+      <p>
+        That is the part I am most glad about, and not for the reasons I expected. It means that when
+        I tell you I designed a payment SDK that merchants bet their checkout on, you do not have to
+        take my word for it. <strong>You can go and read it.</strong>
+      </p>
+
+    </div>
+  </article>
+  </main>
+
+  <footer>
+    <span><a href="/blog/">← All writing</a></span>
+    <span class="socials">
+      <a href="https://github.com/fireddd" rel="me">GitHub</a>
+    </span>
+    <span class="colophon">Built and maintained with the help of LLMs.</span>
+  </footer>
+
+  <img src="https://hits.sh/fireddd.github.io.svg" alt=""
+       style="position:absolute;left:-9999px;width:1px;height:1px" aria-hidden="true">
+</div>

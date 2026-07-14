@@ -40,7 +40,7 @@ Repository: https://github.com/PhonePe/phonepe-pg-sdk-java
 
 - Led SDK development for PhonePe's B2B payment gateway. Designed and implemented the Java
   SDK, wrote the CI/CD pipelines, and mentored the teams building SDKs for other languages.
-  The SDK family has driven **over USD 1 million in revenue**.
+  The SDK family has carried **tens of crores in total payment volume**.
 - Owned the Epoch scheduling framework for online merchant services; introduced structural
   reforms to its scripts and fixed a long-standing org-wide missing-logs problem. Wrote the
   reconciliation and reporting jobs that close pending transactions.
