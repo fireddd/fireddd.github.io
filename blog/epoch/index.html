@@ -180,7 +180,7 @@
         </figcaption>
       </figure>
 
-      <h2 class="post-h2">Getting off Mesos</h2>
+      <h2 class="post-h2">Standing it up</h2>
 
       <p>
         The org's scheduled work — reconciliation, reporting, cluster health, the operational
@@ -189,15 +189,20 @@
       </p>
 
       <p>
-        Standing up the Epoch infrastructure took about a week. Migrating the jobs took
-        <strong>three to four weeks</strong> — and almost none of that was the technical port. It
-        was coordination: <strong>20+ scheduled jobs, each with a different owner</strong>, each of
-        whom had to be found and walked through moving their job safely.
+        First it had to exist. I <strong>stood up my team's Epoch instance from nothing</strong>:
+        onboarded onto the platform, built the Epoch infrastructure components, and got the
+        <strong>Drove and auth permissions</strong> — along with every approval those required —
+        before a single job could run. Then a <strong>dedicated staging environment</strong>, because
+        you do not validate money-adjacent scheduled jobs by running them in production, and finally
+        the production instance.
       </p>
 
       <p>
-        I scoped that work as an engineering task when it was mostly a socialisation task. That's
-        the thing I'd change if I did it again.
+        Then the migration: <strong>20+ scheduled jobs, each owned by a different person</strong>.
+        The infrastructure took about a week. The migration took three to four weeks, and the
+        technical port was the small part of it — most of the time went into reaching every job's
+        owner and moving their job across safely. That is the real shape of a migration inside a
+        large organisation, and it is the part that gets under-planned.
       </p>
 
       <h2 class="post-h2">Rewriting the framework instead of lifting and shifting</h2>
@@ -219,8 +224,22 @@
 
       <p>
         Operational overhead on those scripts dropped by roughly <strong>80%</strong> — mostly
-        because people could finally test end to end before shipping. The user guide I wrote for it
-        ended up being used across the org for onboarding people onto Epoch.
+        because people could finally test end to end before shipping.
+      </p>
+
+      <h2 class="post-h2">The documentation outgrew my team</h2>
+
+      <p>
+        I wrote the user guide and the documentation for it — how to run it, how to check cluster
+        health, how to keep the repository sane. That was meant for the people on my team.
+      </p>
+
+      <p>
+        It got <strong>circulated widely across the org</strong>, and became the thing people used to
+        onboard onto Epoch and to debug it. <strong>Other teams stood up their own Epoch instances
+        off it</strong>, and I helped them do it. The setup I'd fought through once — the components,
+        the permissions, the approvals — was written down well enough that nobody else had to fight
+        through it from scratch.
       </p>
 
       <h2 class="post-h2">The logs weren't being backed up</h2>
