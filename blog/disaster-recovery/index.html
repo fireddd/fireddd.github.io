@@ -5,7 +5,7 @@
 <meta name="author" content="Shubhransh Jagota">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://fireddd.github.io/blog/disaster-recovery/">
-<link rel="stylesheet" href="/style.css?v=41">
+<link rel="stylesheet" href="/style.css?v=42">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="What actually happens in a DR drill">
@@ -281,7 +281,7 @@
 
       <ul class="stack">
         <li>
-          <img class="tl" src="/logos/tech/mariadb.png?v=41" alt="" width="34" height="34" loading="lazy" aria-hidden="true">
+          <img class="tl" src="/logos/tech/mariadb.svg?v=41" alt="" width="34" height="34" loading="lazy" aria-hidden="true">
           <span><strong><a href="https://mariadb.org/">MariaDB</a></strong> — the transactional store, and the one that matters. Active-passive
           with <strong>asynchronous replication</strong>, lagging the primary by a couple of minutes.
           This is the binding constraint. <em>MariaDB's replication lag was our RPO</em>; nothing else
@@ -449,6 +449,12 @@
         <li>
           <strong>Excellence does not arrive on its own.</strong> You earn it, one unglamorous step at
           a time, on nights nobody sees.
+          <blockquote class="pull accent">
+            &ldquo;We are what we repeatedly do. Excellence, then, is not an act but a habit.&rdquo;
+            <cite>Aristotle, by way of a
+            <a href="https://www.nonprofitcopywriter.com/quotes-about-excellence.html">collection worth
+            reading</a></cite>
+          </blockquote>
         </li>
         <li>
           <strong>You come away appreciating the architecture.</strong> You cannot lead a drill from

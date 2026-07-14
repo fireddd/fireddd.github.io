@@ -606,6 +606,16 @@ aside .card {
   color: var(--ink);
 }
 .pull.accent { border-left-color: var(--accent); }   /* accent the RULE, never the text */
+.pull cite {
+  display: block;
+  margin-top: 9px;
+  font-size: .82rem;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--faint);
+}
+li > .pull { margin: 16px 0 6px; font-size: 1.06rem; }   /* a quote nested inside a point */
 
 /* ---------- terminal ---------- */
 .term { margin: 26px 0; }
