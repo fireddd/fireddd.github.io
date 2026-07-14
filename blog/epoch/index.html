@@ -5,7 +5,7 @@
 <meta name="author" content="Shubhransh Jagota">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://fireddd.github.io/blog/epoch/">
-<link rel="stylesheet" href="/style.css?v=21">
+<link rel="stylesheet" href="/style.css?v=23">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Epoch — the cron for a container orchestrator">
@@ -54,7 +54,7 @@
 }
 </script>
 
-<div class="wrap">
+<div class="post-shell">
 
   <nav>
     <a class="brand" href="/">Shubhransh Jagota</a>
@@ -65,6 +65,23 @@
     <a href="https://www.linkedin.com/in/shubhranshjagota/" rel="me">LinkedIn</a>
   </nav>
 
+  <aside class="toc-rail">
+    <nav class="toc" aria-label="On this page">
+      <p class="toc-t">On this page</p>
+      <ol>
+        <li><a href="#standing-it-up">Standing it up</a></li>
+        <li><a href="#rewriting-the-framework-instead-of-lifting-and-s">Rewriting the framework instead of lifting and shifting</a></li>
+        <li><a href="#the-documentation-outgrew-my-team">The documentation outgrew my team</a></li>
+        <li><a href="#the-logs-werent-being-backed-up">The logs weren't being backed up</a></li>
+        <li><a href="#the-unpopular-quality-gate">The unpopular quality gate</a></li>
+        <li><a href="#why-the-cli-existed-at-all">Why the CLI existed at all</a></li>
+        <li><a href="#the-day-it-paid-off">The day it paid off</a></li>
+      </ol>
+    </nav>
+
+  </aside>
+
+  <main>
   <article>
     <header class="post-hero brand-phonepe">
       <a class="hero-logo" href="https://www.phonepe.com">
@@ -88,19 +105,6 @@
     </ul>
 
     <div class="prose post">
-      <nav class="toc" aria-label="On this page">
-        <p class="toc-t">On this page</p>
-        <ol>
-          <li><a href="#standing-it-up">Standing it up</a></li>
-          <li><a href="#rewriting-the-framework-instead-of-lifting-and-s">Rewriting the framework instead of lifting and shifting</a></li>
-          <li><a href="#the-documentation-outgrew-my-team">The documentation outgrew my team</a></li>
-          <li><a href="#the-logs-werent-being-backed-up">The logs weren't being backed up</a></li>
-          <li><a href="#the-unpopular-quality-gate">The unpopular quality gate</a></li>
-          <li><a href="#why-the-cli-existed-at-all">Why the CLI existed at all</a></li>
-          <li><a href="#the-day-it-paid-off">The day it paid off</a></li>
-        </ol>
-      </nav>
-
       <p>
         PhonePe runs its containers on <a href="https://github.com/PhonePe/drove">Drove</a>, a
         distributed container orchestrator built in-house.
@@ -422,6 +426,7 @@
 
     </div>
   </article>
+  </main>
 
   <footer>
     <span><a href="/blog/">← All writing</a></span>

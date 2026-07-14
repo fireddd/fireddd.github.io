@@ -126,6 +126,19 @@ heading and sometimes beside it. The second: the Open source list put an author 
 star count and a year in the same slot. **Check the whole list, not the item you just
 added.**
 
+### Layout conventions
+
+- **Every blog post carries an index, and it lives in a sticky left rail** — never at the
+  top of the article. Posts use `.post-shell` (a two-column grid: a 186px `.toc-rail`,
+  then the article), not `.wrap`. Below 900px the rail stacks above the article and gets
+  its box back.
+- **Every `<h2>` in a post is anchored** (`id` on the heading), so any section is a
+  linkable URL. The index is plain `<a href="#...">` anchors — no JavaScript.
+- If you add a section to a post, **add it to that post's index too**. An index that is
+  missing an entry is worse than no index.
+- Careful: the index is a `<nav>`, and the global `nav { display: flex }` rule will catch
+  it. `.toc` sets `display: block` explicitly for exactly this reason. Don't remove it.
+
 ### The rest
 
 1. **No JavaScript.** AI crawlers download JS and never execute it, so anything rendered

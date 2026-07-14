@@ -706,6 +706,9 @@ aside .card {
 
 /* ---------- table of contents ---------- */
 .toc {
+  display: block;          /* the global `nav { display:flex }` was catching this */
+  align-items: initial;
+  gap: 0;
   margin: 26px 0 30px;
   padding: 16px 18px;
   border: 1px solid var(--rule);
@@ -755,3 +758,55 @@ aside .card {
 
 /* anchored headings shouldn't hide under the top of the viewport */
 h2[id] { scroll-margin-top: 24px; }
+
+/* ---------- post layout: index in a left rail ---------- */
+.post-shell {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 22px 80px;
+  display: grid;
+  grid-template-columns: 186px minmax(0, 1fr);
+  gap: 0 46px;
+}
+.post-shell > nav,
+.post-shell > footer { grid-column: 1 / -1; }
+.post-shell > main { min-width: 0; }
+.toc-rail {
+  position: sticky;
+  top: 26px;
+  align-self: start;
+  padding-top: 6px;
+}
+/* in the rail the index is a quiet list, not a boxed callout */
+.toc-rail .toc {
+  display: block;
+  margin: 0;
+  padding: 0 0 0 14px;
+  background: none;
+  border: 0;
+  border-left: 2px solid var(--rule);
+  border-radius: 0;
+}
+.toc-rail .toc ol {
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.toc-rail .toc ol li { margin-bottom: 9px; }
+.toc-rail .toc ol li:last-child { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .post-shell { grid-template-columns: minmax(0, 1fr); max-width: 680px; }
+  .toc-rail { position: static; padding-top: 0; }
+  /* stacked above the article, so give it its box back */
+  .toc-rail .toc {
+    margin: 8px 0 26px;
+    padding: 16px 18px;
+    background: var(--chip);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+  }
+  .toc-rail .toc ol { list-style: decimal; padding-left: 1.1em; font-size: 14.5px; line-height: 1.75; }
+}
