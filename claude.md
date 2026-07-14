@@ -139,6 +139,17 @@ added.**
 - Careful: the index is a `<nav>`, and the global `nav { display: flex }` rule will catch
   it. `.toc` sets `display: block` explicitly for exactly this reason. Don't remove it.
 
+### Humour: draw it, don't borrow it
+
+The Epoch page carries a mock "Run `recon-nightly` against **production**?" confirmation
+dialog, with an *It'll be fine* button glowing red. It is built from HTML and CSS — no
+image, no JavaScript, and it themes with the page.
+
+Do it this way, not with a meme image. Every meme worth using is somebody else's
+copyrighted picture, it will render badly in dark mode, and a borrowed template on a page
+about money-moving jobs reads as unserious to exactly the person you want to impress. A
+joke you drew yourself reads as craft. Same laugh, none of the cost.
+
 ### The rest
 
 1. **No JavaScript.** AI crawlers download JS and never execute it, so anything rendered

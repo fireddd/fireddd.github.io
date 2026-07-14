@@ -5,7 +5,7 @@
 <meta name="author" content="Shubhransh Jagota">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://fireddd.github.io/blog/epoch/">
-<link rel="stylesheet" href="/style.css?v=23">
+<link rel="stylesheet" href="/style.css?v=24">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Epoch — the cron for a container orchestrator">
@@ -279,9 +279,32 @@
         because people could finally test end to end before shipping.
       </p>
 
-      <blockquote class="pull">
-        You do not validate money-adjacent scheduled jobs by running them in production.
-      </blockquote>
+      <figure class="meme">
+        <div class="dlg" role="img" aria-label="A mock confirmation dialog. Title: Run recon-nightly against production? Body: This job settles merchant transactions. There is no staging environment. Buttons: Cancel, and 'It'll be fine' — with the second button highlighted as the default.">
+          <div class="dlg-top">
+            <span class="dlg-dot"></span><span class="dlg-dot"></span><span class="dlg-dot"></span>
+          </div>
+          <div class="dlg-main">
+            <div class="dlg-warn">!</div>
+            <div>
+              <p class="dlg-t">Run <code>recon-nightly</code> against <b>production</b>?</p>
+              <p class="dlg-s">
+                This job settles merchant transactions. There is no staging environment.
+                It has not been reviewed. Its logs are not being kept.
+              </p>
+            </div>
+          </div>
+          <div class="dlg-btns">
+            <span class="dlg-btn">Cancel</span>
+            <span class="dlg-btn go">It&rsquo;ll be fine</span>
+          </div>
+        </div>
+        <figcaption>
+          Everyone has a test environment. Some people are lucky enough to have a
+          <em>separate</em> environment to run production in. We were not those people — so I built
+          one
+        </figcaption>
+      </figure>
 
       <h2 class="post-h2" id="the-documentation-outgrew-my-team">The documentation outgrew my team</h2>
 
