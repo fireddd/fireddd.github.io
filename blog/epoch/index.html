@@ -5,7 +5,7 @@
 <meta name="author" content="Shubhransh Jagota">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://fireddd.github.io/blog/epoch/">
-<link rel="stylesheet" href="/style.css?v=16">
+<link rel="stylesheet" href="/style.css?v=18">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Epoch — the cron for a container orchestrator">
@@ -170,7 +170,7 @@
           <path class="a dash" d="M516 321 L456 321"/>
 
           <!-- notes -->
-          <text class="t xs side" x="40" y="398" text-anchor="start">Topology = a task + a Quartz cron expression. The leader schedules runs in memory (Kaal); Drove does the actual work.</text>
+          <text class="t xs side" x="40" y="398" text-anchor="start">topology = a task + a Quartz cron. The leader schedules in memory; Drove does the running.</text>
         </svg>
         <figcaption>
           Epoch, as documented in its <a href="https://github.com/PhonePe/epoch">public repository</a>.
@@ -179,6 +179,25 @@
           running
         </figcaption>
       </figure>
+
+      <div class="stats">
+        <div class="stat-card">
+          <span class="n">20+</span>
+          <span class="l">scheduled jobs migrated<br>off Apache Mesos</span>
+        </div>
+        <div class="stat-card">
+          <span class="n">~1 wk</span>
+          <span class="l">to stand up the<br>infrastructure</span>
+        </div>
+        <div class="stat-card">
+          <span class="n">3–4 wks</span>
+          <span class="l">to migrate — mostly<br>chasing job owners</span>
+        </div>
+        <div class="stat-card accent">
+          <span class="n">~80%</span>
+          <span class="l">less operational<br>overhead</span>
+        </div>
+      </div>
 
       <h2 class="post-h2">Standing it up</h2>
 
@@ -226,6 +245,10 @@
         Operational overhead on those scripts dropped by roughly <strong>80%</strong> — mostly
         because people could finally test end to end before shipping.
       </p>
+
+      <blockquote class="pull">
+        You do not validate money-adjacent scheduled jobs by running them in production.
+      </blockquote>
 
       <h2 class="post-h2">The documentation outgrew my team</h2>
 
@@ -317,6 +340,24 @@
           should not have two vocabularies.</li>
       </ul>
 
+      <figure class="term">
+        <div class="term-bar"><span></span><span></span><span></span><span class="term-t">epoch-cli</span></div>
+        <pre><code><span class="c"># what's scheduled, and where</span>
+<span class="p">$</span> epoch topology list
+<span class="p">$</span> epoch topology get <span class="s">recon-nightly</span>
+
+<span class="c"># the command you want to exist at 3am</span>
+<span class="p">$</span> epoch cluster pause-all
+
+<span class="c"># and the one that saved a datacentre cutover</span>
+<span class="p">$</span> epoch topology export <span class="s">--all</span> &gt; topologies.json
+<span class="p">$</span> epoch topology create <span class="s">--file</span> topologies.json <span class="s">--cluster</span> secondary</code></pre>
+        <figcaption>
+          Three plugins — <code>cluster</code>, <code>runs</code>, <code>topology</code>. The last
+          two lines are the whole reason the tool mattered when it mattered
+        </figcaption>
+      </figure>
+
       <p>
         I also <strong>stripped the PhonePe-specific constructs</strong> out of it. That's the work
         that turns an internal tool into something that can stand on its own — and it's why the CLI
@@ -343,10 +384,11 @@
         just there, because it had been built months earlier for a problem that hadn't happened yet.
       </p>
 
-      <p>
-        That is the whole argument for closing a gap while it's still theoretical. When it stopped
-        being theoretical, the work was already done.
-      </p>
+      <blockquote class="pull accent">
+        Close the gap while it's still theoretical. When it stops being theoretical, the work is
+        already done.
+      </blockquote>
+
     </div>
   </article>
 
