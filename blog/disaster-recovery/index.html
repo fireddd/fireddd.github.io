@@ -343,16 +343,18 @@
           you are trying to avoid, not the one you are recovering from.
         </li>
         <li>
-          <strong>Give the database user read-write.</strong> This is the actual moment of failover.
-          Everything before it was preparation; after it, the secondary is the truth.
+          <strong>Give the database user read-write.</strong> The secondary can now accept writes —
+          it is the source of truth for the data. Nobody is sending it any yet.
         </li>
         <li>
           <strong>Disable the API killer, if one is engaged.</strong> Traffic is allowed to flow
           again.
         </li>
         <li>
-          <strong>Redirect the API gateway.</strong> Point traffic at the secondary, and watch real
-          requests being served correctly. Not "the containers are up" — served, verified.
+          <strong>Redirect the API gateway.</strong> <em>This</em> is the moment of failover.
+          Everything before it was preparation — a writable database nobody is talking to is not a
+          recovery. Point traffic at the secondary, and watch real requests being served correctly.
+          Not "the containers are up" — served, verified.
         </li>
       </ol>
 
