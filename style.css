@@ -413,6 +413,8 @@ aside .card {
   margin: 26px auto;
   max-width: 440px;
 }
+/* screenshots that need room to be legible — a repo page, a dashboard */
+.shot.wide { max-width: 100%; }
 .shot a {
   display: block;
   border: 1px solid var(--rule);
