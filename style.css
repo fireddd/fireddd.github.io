@@ -461,3 +461,51 @@ aside .card {
   .item.with-logo { grid-template-columns: 38px minmax(0, 1fr); gap: 0 12px; }
   .item-logo { width: 38px; height: 38px; }
 }
+
+/* ---------- inline architecture diagrams ---------- */
+.diagram { margin: 28px 0; }
+.diagram svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  color: var(--faint);   /* arrowheads inherit this via currentColor */
+  background: var(--chip);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 6px;
+}
+.diagram figcaption {
+  margin-top: 9px;
+  font-size: 13.5px;
+  color: var(--faint);
+  line-height: 1.5;
+}
+.diagram .b { fill: var(--bg); stroke: var(--rule); stroke-width: 1.2; }
+.diagram .b.lead { stroke: var(--accent); stroke-width: 1.8; }
+.diagram .b.accent { stroke: var(--accent); stroke-width: 1.5; }
+.diagram .grp { fill: none; stroke: var(--rule); stroke-width: 1; stroke-dasharray: 4 4; }
+.diagram .a {
+  fill: none;
+  stroke: var(--faint);
+  stroke-width: 1.4;
+  marker-end: url(#arrow);
+}
+.diagram .a.dash { stroke-dasharray: 4 3; }
+.diagram .t {
+  fill: var(--ink);
+  font-family: var(--sans);
+  font-size: 12px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+.diagram .t.bold { font-weight: 600; }
+.diagram .t.sm { font-size: 10.5px; fill: var(--muted); }
+.diagram .t.xs { font-size: 9.5px; fill: var(--faint); }
+.diagram .t.em { font-style: italic; fill: var(--accent); }
+.diagram .t.side { font-family: var(--mono); font-size: 9px; fill: var(--faint); }
+.diagram .t.lbl {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .12em;
+  fill: var(--faint);
+}

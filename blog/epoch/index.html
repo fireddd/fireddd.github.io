@@ -5,7 +5,7 @@
 <meta name="author" content="Shubhransh Jagota">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://fireddd.github.io/blog/epoch/">
-<link rel="stylesheet" href="/style.css?v=14">
+<link rel="stylesheet" href="/style.css?v=15">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Epoch — the cron for a container orchestrator">
@@ -84,6 +84,101 @@
         I owned Epoch for <strong>online merchant services</strong> — the systems behind PhonePe's
         merchant-facing payments.
       </p>
+
+      <p>
+        The shape of it is worth understanding, because it explains what the job actually is. A
+        <strong>task</strong> is a unit of work packaged as a Docker image. A
+        <strong>topology</strong> is that task plus a cron expression saying when to run it. Epoch
+        holds the topologies and fires them; <strong>Drove runs them</strong>. One Epoch node is
+        elected leader through ZooKeeper and does all the state management and scheduling, and the
+        other nodes simply route requests to it — which is fine, because the expensive part
+        (actually running a container) was never Epoch's job.
+      </p>
+
+      <figure class="diagram">
+        <svg viewBox="0 0 680 430" role="img" aria-labelledby="epoch-diagram-title epoch-diagram-desc" xmlns="http://www.w3.org/2000/svg">
+          <title id="epoch-diagram-title">Epoch architecture</title>
+          <defs>
+            <marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0 0 L8 4 L0 8 z" fill="currentColor"/>
+            </marker>
+          </defs>
+          <desc id="epoch-diagram-desc">Clients (epoch-cli and the self-serve UI) talk to a cluster of Epoch nodes. ZooKeeper elects one leader; the other nodes route requests to it through a servlet filter. The leader holds all topology state and schedules runs in memory using Kaal, from Quartz cron expressions. When a topology fires, the leader asks Drove to run the task, and Drove pulls the task's Docker image from a registry and executes it as a container.</desc>
+
+          <!-- clients -->
+          <rect class="b accent" x="86" y="12" width="150" height="42" rx="8"/>
+          <text class="t bold" x="161" y="33">epoch-cli</text>
+          <text class="t sm" x="161" y="47">the CLI I wrote</text>
+
+          <rect class="b" x="270" y="12" width="150" height="42" rx="8"/>
+          <text class="t bold" x="345" y="38">Self-serve UI</text>
+
+          <path class="a" d="M161 54 L161 84"/>
+          <path class="a" d="M345 54 L345 84"/>
+
+          <!-- epoch cluster -->
+          <rect class="grp" x="40" y="84" width="440" height="126" rx="10"/>
+          <text class="t lbl" x="52" y="103" text-anchor="start">EPOCH CLUSTER</text>
+
+          <rect class="b lead" x="60" y="118" width="150" height="74" rx="8"/>
+          <text class="t bold" x="135" y="140">Epoch node</text>
+          <text class="t sm em" x="135" y="156">leader</text>
+          <text class="t xs" x="135" y="174">topology state</text>
+          <text class="t xs" x="135" y="186">+ scheduling</text>
+
+          <rect class="b" x="230" y="130" width="110" height="50" rx="8"/>
+          <text class="t" x="285" y="152">Epoch node</text>
+          <text class="t xs" x="285" y="167">routes to leader</text>
+
+          <rect class="b" x="352" y="130" width="110" height="50" rx="8"/>
+          <text class="t" x="407" y="152">Epoch node</text>
+          <text class="t xs" x="407" y="167">routes to leader</text>
+
+          <path class="a" d="M230 155 L216 155"/>
+          <path class="a" d="M352 155 L346 155 L346 200 L135 200 L135 196"/>
+
+          <!-- zookeeper -->
+          <rect class="b" x="516" y="118" width="128" height="56" rx="8"/>
+          <text class="t bold" x="580" y="140">ZooKeeper</text>
+          <text class="t xs" x="580" y="157">leader election</text>
+          <path class="a dash" d="M516 146 L484 146"/>
+
+          <!-- to drove -->
+          <path class="a" d="M135 210 L135 258"/>
+          <text class="t xs side" x="145" y="238" text-anchor="start">run this task now</text>
+
+          <!-- drove -->
+          <rect class="grp" x="40" y="258" width="440" height="112" rx="10"/>
+          <text class="t lbl" x="52" y="277" text-anchor="start">DROVE — CONTAINER ORCHESTRATOR</text>
+
+          <rect class="b" x="60" y="292" width="120" height="58" rx="8"/>
+          <text class="t" x="120" y="316">Task</text>
+          <text class="t xs" x="120" y="332">container</text>
+
+          <rect class="b" x="196" y="292" width="120" height="58" rx="8"/>
+          <text class="t" x="256" y="316">Task</text>
+          <text class="t xs" x="256" y="332">container</text>
+
+          <rect class="b" x="332" y="292" width="120" height="58" rx="8"/>
+          <text class="t" x="392" y="316">Task</text>
+          <text class="t xs" x="392" y="332">container</text>
+
+          <!-- registry -->
+          <rect class="b" x="516" y="292" width="128" height="58" rx="8"/>
+          <text class="t bold" x="580" y="314">Docker</text>
+          <text class="t bold" x="580" y="330">registry</text>
+          <path class="a dash" d="M516 321 L456 321"/>
+
+          <!-- notes -->
+          <text class="t xs side" x="40" y="398" text-anchor="start">Topology = a task + a Quartz cron expression. The leader schedules runs in memory (Kaal); Drove does the actual work.</text>
+        </svg>
+        <figcaption>
+          Epoch, as documented in its <a href="https://github.com/PhonePe/epoch">public repository</a>.
+          One node is elected leader through ZooKeeper and holds all the state; the rest just route to
+          it. Epoch never runs your container itself — it decides <em>when</em>, and Drove does the
+          running
+        </figcaption>
+      </figure>
 
       <h2 class="post-h2">Getting off Mesos</h2>
 
