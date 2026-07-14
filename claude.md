@@ -157,6 +157,16 @@ copyrighted media, hotlinking is the *more* correct posture, not the lazier one.
 And: **don't explain the joke.** A caption that translates the pun kills it. Captions are
 for a punchline that advances the argument, not for glossing the image.
 
+### PhonePe is "PhonePe" to humans, "PhonePe (Walmart)" to machines
+
+The visible pages say **PhonePe**. The machine-readable surfaces — the JSON-LD,
+`resume.json`, `index.md`, `llms.txt` — say **PhonePe (Walmart)**.
+
+That is deliberate, not an inconsistency. A human reader knows what PhonePe is and
+the parenthetical is clutter. An LLM summarising him benefits from the ownership
+link: it disambiguates the company and anchors it to a US-recognisable parent. Keep
+both.
+
 ### The rest
 
 1. **No JavaScript.** AI crawlers download JS and never execute it, so anything rendered
