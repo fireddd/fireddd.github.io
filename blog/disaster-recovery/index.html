@@ -73,7 +73,6 @@
         <li><a href="#what-we-ran-and-how-it-replicates">What we ran, and how it replicates</a></li>
         <li><a href="#the-steps-of-a-drill">The steps of a drill</a></li>
         <li><a href="#what-a-drill-actually-looks-like">What a drill actually looks like</a></li>
-        <li><a href="#the-numbers">The numbers</a></li>
         <li><a href="#what-id-tell-you-it-taught-me">What I'd tell you it taught me</a></li>
       </ol>
     </nav>
@@ -296,18 +295,6 @@
         the only window in which you are allowed to take a payment system down on purpose.
       </p>
 
-      <p>
-        Before any of it, somebody has to go round and ask everyone whether they are actually
-        turning up. A colleague made this, and it is the most accurate artefact of the whole
-        exercise:
-      </p>
-
-      <figure class="vid">
-        <video src="/img/dr/dr-meme.mp4?v=2" poster="/img/dr/dr-meme-poster.jpg"
-               autoplay muted loop playsinline controls preload="metadata"
-               aria-label="A meme made by a colleague, captioned: POV — Manoj asking everyone if they will be coming in for the DR."></video>
-        <figcaption>It has sound — unmute it</figcaption>
-      </figure>
 
       <figure class="shot">
         <img src="/img/dr/office-4am.jpg" alt="The office, empty and half-lit, in the middle of the night during the disaster recovery drill" loading="lazy">
@@ -326,8 +313,6 @@
         <figcaption>The people who turned up</figcaption>
       </figure>
 
-      <h2 class="post-h2" id="the-numbers">The numbers</h2>
-
       <p>
         We completed the drill on the correct path, with a measured recovery time.
         <strong>RTO came down from about an hour to under seven minutes</strong>, and it was still
@@ -335,32 +320,28 @@
       </p>
 
       <p>
-        The thing people get wrong about RPO is treating it as a target you choose. It isn't. Your
-        RPO is <em>set for you</em> by the slowest-replicating store you depend on. You can write
-        whatever number you like in the document; the database's asynchronous replication lag is the
-        number that will actually be true on the day. Everything else — the caches, the queues whose
-        state you can rebuild from the database — is noise by comparison.
+        And before any of it, somebody has to go round and ask everyone whether they are actually
+        turning up. A colleague made this, and it is the most accurate artefact of the whole exercise:
       </p>
+      <figure class="vid">
+        <video src="/img/dr/dr-meme.mp4?v=2" poster="/img/dr/dr-meme-poster.jpg"
+               autoplay muted loop playsinline controls preload="metadata"
+               aria-label="A meme made by a colleague, captioned: POV — Manoj asking everyone if they will be coming in for the DR."></video>
+        <figcaption>It has sound — unmute it</figcaption>
+      </figure>
 
       <h2 class="post-h2" id="what-id-tell-you-it-taught-me">What I'd tell you it taught me</h2>
 
       <p>
-        A drill is a test, and tests can be gamed — usually by accident, by people who are trying
-        hard and want to pass. The most dangerous thing in reliability work isn't a failure. It's a
-        <strong>green result you didn't earn</strong>.
+        A drill takes <em>one service</em> down. A real disaster takes <em>the whole data centre</em>
+        — including, quite possibly, the very thing you were relying on to redirect traffic away from
+        the failure. If your recovery plan is only exercised against a failure smaller than the one
+        you're actually afraid of, you don't have a recovery plan. You have a rehearsal.
       </p>
 
       <p>
-        The trap is specific, and it is easy to walk into. A drill takes <em>one service</em> down. A
-        real disaster takes <em>the whole data centre</em> — including, quite possibly, the very thing
-        you were relying on to redirect traffic away from the failure.
-      </p>
-
-
-      <p>
-        If your recovery plan is only exercised against a failure smaller than the one you're
-        actually afraid of, you don't have a recovery plan. You have a rehearsal. Excellence does not
-        arrive on its own. You earn it, one unglamorous step at a time, on nights nobody sees.
+        Excellence does not arrive on its own. You earn it, one unglamorous step at a time, on nights
+        nobody sees.
       </p>
 
       <p>
