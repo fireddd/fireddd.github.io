@@ -284,9 +284,9 @@ footer a { color: var(--muted); }
    image is requested, so it needs no account, no cookies and no JavaScript, and it
    still counts the AI crawlers that never execute JS. Deliberately not lazy-loaded:
    the footer is below the fold, and a lazy image would only count people who scroll. */
-footer .hits { margin-left: auto; line-height: 0; }
-footer .hits img { display: block; border-radius: 3px; opacity: .85; }
-footer .hits:hover img { opacity: 1; }
+nav .hits { display: flex; align-items: center; line-height: 0; }
+nav .hits img { display: block; border-radius: 3px; opacity: .8; transition: opacity .15s ease; }
+nav .hits:hover img { opacity: 1; }
 
 
 /* ---------- certificates ---------- */
