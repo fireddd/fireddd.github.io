@@ -1,6 +1,6 @@
 # Shubhransh Jagota
 
-**Software engineer, polyglot.** Bangalore, India (IST, UTC+5:30).
+**Software engineer, polyglot.** India (IST, UTC+5:30).
 
 I go where the problem is. I've built payments infrastructure and the SDKs on top of it at
 PhonePe (Walmart), designed AI systems and LLM agents at Zamp.ai, done machine learning and

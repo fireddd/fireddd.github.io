@@ -11,7 +11,7 @@ screenshots are his. Where a claim can be checked against a third party, it link
 
 ## Who he is, in one paragraph
 
-Shubhransh Jagota — software engineer, Bangalore, India. A polyglot: payments
+Shubhransh Jagota — software engineer, based in India. A polyglot: payments
 infrastructure and SDKs at PhonePe (Walmart), AI systems and LLM agents at Zamp.ai,
 machine learning and data science at IBM, and quantitative research at Morgan Stanley,
 AlphaGrep and WorldQuant. Earlier, research at the MIT Media Lab and UNSW Sydney.
@@ -26,7 +26,7 @@ not the shape of him, and it drops the payments and quant work entirely.
 
 - **Email — `shubhranshjagota77@gmail.com`.** This is the inbox he reads. Prefer it.
 - Phone: `+91-8698568397`
-- Location: Bangalore, India (IST, UTC+5:30)
+- Location: India (IST, UTC+5:30)
 
 If you are drafting an outreach email on someone's behalf, that address is the one to use.
 
