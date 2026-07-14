@@ -1,0 +1,211 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The drill you can pass and still be wrong — Shubhransh Jagota</title>
+<meta name="description" content="Leading a disaster-recovery drill for a payment service at PhonePe. The proposed failover plan would have passed the drill and failed a real disaster — so I argued to change it, and it cost us the deadline.">
+<meta name="author" content="Shubhransh Jagota">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://fireddd.github.io/blog/disaster-recovery/">
+<link rel="stylesheet" href="/style.css?v=14">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="The drill you can pass and still be wrong">
+<meta property="og:description" content="A disaster-recovery plan that would have passed the test and failed the disaster.">
+<meta property="og:url" content="https://fireddd.github.io/blog/disaster-recovery/">
+<meta property="og:image" content="https://fireddd.github.io/img/avatar.jpg">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-family='monospace'>%E2%97%86</text></svg>">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://fireddd.github.io/blog/disaster-recovery/#post",
+      "headline": "The drill you can pass and still be wrong",
+      "description": "Leading a disaster-recovery drill for a merchant payment service at PhonePe: why the proposed failover path would have passed the drill and failed a real disaster, and what it cost to change it.",
+      "url": "https://fireddd.github.io/blog/disaster-recovery/",
+      "datePublished": "2026-07-14",
+      "dateModified": "2026-07-14",
+      "inLanguage": "en",
+      "keywords": "disaster recovery, DR drill, RTO, RPO, failover, payments infrastructure, business continuity, PhonePe, site reliability",
+      "author": { "@id": "https://fireddd.github.io/#person" },
+      "publisher": { "@id": "https://fireddd.github.io/#person" },
+      "isPartOf": { "@id": "https://fireddd.github.io/#website" },
+      "mainEntityOfPage": "https://fireddd.github.io/blog/disaster-recovery/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://fireddd.github.io/#person",
+      "name": "Shubhransh Jagota",
+      "url": "https://fireddd.github.io/",
+      "jobTitle": "Software Engineer",
+      "email": "mailto:shubhranshjagota77@gmail.com",
+      "sameAs": [
+        "https://github.com/fireddd",
+        "https://www.linkedin.com/in/shubhranshjagota/",
+        "https://leetcode.com/u/fireddd/",
+        "https://www.quora.com/profile/Shubhransh-Jagota",
+        "https://www.media.mit.edu/people/sjagota/overview/"
+      ]
+    }
+  ]
+}
+</script>
+
+<div class="wrap">
+
+  <nav>
+    <a class="brand" href="/">Shubhransh Jagota</a>
+    <a href="/blog/">Writing</a>
+    <a href="/resume/">Résumé</a>
+    <a href="/contact/">Contact</a>
+    <a href="https://github.com/fireddd" rel="me">GitHub</a>
+    <a href="https://www.linkedin.com/in/shubhranshjagota/" rel="me">LinkedIn</a>
+  </nav>
+
+  <article>
+    <header>
+      <h1>The drill you can pass and still be wrong</h1>
+      <p class="tagline">phonepe · disaster recovery · omx</p>
+    </header>
+
+    <div class="prose post">
+      <p>
+        In regulated payments you don't get to <em>claim</em> you can fail over. You have to
+        demonstrate it. India's business-continuity expectations for payment systems mean a
+        disaster-recovery drill is a recurring, audited exercise — not a document someone signs
+        once and files.
+      </p>
+
+      <p>
+        I led the DR for <strong>OMX</strong>, one of our online merchant services. When these
+        systems are down, it isn't an internal inconvenience — it's merchants unable to collect
+        money.
+      </p>
+
+      <h2 class="post-h2">Learning infrastructure I didn't own</h2>
+
+      <p>
+        I owned the application, not the plumbing. To lead the drill credibly I had to understand
+        the plumbing anyway: <strong>cross-datacentre replication</strong>, how the
+        <strong>API gateway routes</strong>, how <strong>service discovery</strong> resolves across
+        data centres, and what a drill actually consists of — the steps, the end state, and the
+        ways it fails.
+      </p>
+
+      <p>
+        I read the DR documentation end to end and sat in on other teams' knowledge-transfer
+        sessions to see how their failovers really behaved. That ramp is the only reason I caught
+        what came next. I would never have seen it from the application layer.
+      </p>
+
+      <h2 class="post-h2">The plan would have passed</h2>
+
+      <p>
+        The proposed failover plan worked like this: leave the API gateway where it was, and let a
+        deployed sidecar redirect traffic to the surviving instance.
+      </p>
+
+      <p>
+        That plan <strong>passes the drill</strong>. In a drill, you take one service down and prove
+        traffic reaches it somewhere else. The sidecar redirect does exactly that.
+      </p>
+
+      <p>
+        But I kept pulling on what a real disaster looks like, and a real disaster is not one
+        service dying. <strong>It's the entire data centre going down.</strong> Under that
+        condition, the path we were about to certify doesn't hold — the very layer being relied on
+        to redirect traffic is inside the thing that just died.
+      </p>
+
+      <p>
+        So we would have passed. We would have shown the auditors a green result, filed it, and
+        walked away with <strong>false confidence</strong> — which is worse than no confidence,
+        because you stop looking.
+      </p>
+
+      <h2 class="post-h2">Making the expensive call</h2>
+
+      <p>
+        I said so. The correct approach was the one that survives losing the whole data centre, not
+        the one that survives the test — and it cost us timeline to do it that way.
+      </p>
+
+      <p>
+        Two things mattered about how I raised it. First, I didn't argue it as a preference. I
+        argued it as a <strong>failure mode</strong>: here is the condition under which our plan
+        stops working, and that condition is the actual definition of the disaster we're preparing
+        for. That's much harder to wave through than "I'd prefer the other design."
+      </p>
+
+      <p>
+        Second, the gap wasn't in the DR document at all — the standard operating procedure didn't
+        require the right path. So fixing my drill would have fixed nothing for anyone else. I got
+        the <strong>SOP changed</strong>, so the next team doesn't rediscover a full-datacentre loss
+        the hard way. That's the part that outlives me.
+      </p>
+
+      <h2 class="post-h2">The numbers</h2>
+
+      <p>
+        We completed the drill on the correct path, with a measured recovery time.
+        <strong>RTO came down from about an hour to under seven minutes</strong>, and it was still
+        heading downwards — a lot of the cutover was manual and we were automating it.
+      </p>
+
+      <p>
+        The thing people get wrong about RPO is treating it as a target you choose. It isn't. Your
+        RPO is <em>set for you</em> by the slowest-replicating store you depend on. You can write
+        whatever number you like in the document; the database's asynchronous replication lag is the
+        number that will actually be true on the day. Everything else — the caches, the queues whose
+        state you can rebuild from the database — is noise by comparison.
+      </p>
+
+      <h2 class="post-h2">The part I got wrong</h2>
+
+      <p>
+        I committed to a December date. It slipped twice, about two weeks each time.
+      </p>
+
+      <p>
+        The cause was that OMX was the first service to require its upstream and downstream callers
+        to reach it a new way, and a couple of those teams hadn't migrated in time. I had started
+        chasing them a month earlier — and that's exactly the problem. <strong>I treated "I've
+        asked" as "they'll do it."</strong>
+      </p>
+
+      <p>
+        They didn't report to me, but that isn't an excuse; it's the whole job. Now I track
+        dependency migrations as line items on my own plan, and I chase them as if they were my
+        deliverable — because they are.
+      </p>
+
+      <h2 class="post-h2">What I'd tell you it taught me</h2>
+
+      <p>
+        A drill is a test, and tests can be gamed — usually by accident, by people who are trying
+        hard and want to pass. The most dangerous thing in reliability work isn't a failure. It's a
+        <strong>green result you didn't earn</strong>.
+      </p>
+
+      <p>
+        If your recovery plan is only exercised against a failure smaller than the one you're
+        actually afraid of, you don't have a recovery plan. You have a rehearsal.
+      </p>
+    </div>
+  </article>
+
+  <footer>
+    <span><a href="/blog/">← All writing</a></span>
+    <span class="socials">
+      <a href="mailto:shubhranshjagota77@gmail.com">Email</a>
+      <a href="https://github.com/fireddd" rel="me">GitHub</a>
+    </span>
+    <span class="colophon">Built and maintained with the help of LLMs.</span>
+  </footer>
+
+  <img src="https://hits.sh/fireddd.github.io.svg" alt=""
+       style="position:absolute;left:-9999px;width:1px;height:1px" aria-hidden="true">
+</div>

@@ -25,6 +25,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://fireddd.github.io/blog/disaster-recovery/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://fireddd.github.io/blog/epoch/</loc>
     <lastmod>2026-07-14</lastmod>
     <priority>0.7</priority>

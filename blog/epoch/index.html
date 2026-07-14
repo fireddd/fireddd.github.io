@@ -85,39 +85,108 @@
         merchant-facing payments.
       </p>
 
-      <h2 class="post-h2">The scripts nobody owned</h2>
+      <h2 class="post-h2">Getting off Mesos</h2>
 
       <p>
-        A scheduler accumulates scripts. Every job that has to run nightly, hourly, or after some
-        other job ends up living in it, and over time nobody quite owns the pile. I introduced
-        <strong>structural reforms</strong> to how the scripts in online merchant services were
-        written, so they stopped being one-off shell files and started having a shape.
+        The org's scheduled work — reconciliation, reporting, cluster health, the operational
+        scripts around our accounting and settlement service — ran on <strong>Apache Mesos</strong>,
+        left over from an older era of orchestration. My job was to move all of it onto Epoch.
       </p>
 
       <p>
-        The most valuable thing I fixed there wasn't a feature. It was the
-        <strong>missing-logs issue</strong> — jobs would run and leave nothing useful behind, which
-        meant that when something went wrong the answer to "what happened?" was a shrug. That was an
-        org-wide problem, not just ours.
+        Standing up the Epoch infrastructure took about a week. Migrating the jobs took
+        <strong>three to four weeks</strong> — and almost none of that was the technical port. It
+        was coordination: <strong>20+ scheduled jobs, each with a different owner</strong>, each of
+        whom had to be found and walked through moving their job safely.
       </p>
 
       <p>
-        On top of it I wrote the <strong>reconciliation and reporting jobs</strong>: the ones that
-        go through pending transactions, work out what actually settled, and close them out. In
-        payments, a transaction stuck in limbo is not a cosmetic problem — it is somebody's money.
+        I scoped that work as an engineering task when it was mostly a socialisation task. That's
+        the thing I'd change if I did it again.
       </p>
 
-      <h2 class="post-h2">Writing the CLI</h2>
+      <h2 class="post-h2">Rewriting the framework instead of lifting and shifting</h2>
 
       <p>
-        Epoch had no command-line client. I wrote
-        <a href="https://github.com/PhonePe/epoch-cli">epoch-cli</a> from the first commit — it's
-        open source and in Python.
+        The scripts were written and operated largely by production-support people, not by
+        specialists. The framework had grown fragile around that: hard-coded arguments, and no clean
+        way to test a change before it hit production.
       </p>
 
       <p>
-        The interesting part of a CLI for a scheduler is that it has to make a distributed system
-        feel like a local one. What went in:
+        A straight port would have carried all of that forward. So I rewrote the scripting framework
+        instead — <strong>dynamic refresh</strong> and <strong>parameterised arguments</strong>, so
+        an operator changes behaviour by passing an argument rather than editing and redeploying
+        code. I stood up a <strong>dedicated staging environment</strong>, because you do not
+        validate money-adjacent scheduled jobs by running them in production. And I wired failures
+        to <strong>raise a support ticket automatically</strong>, so they stopped being silent.
+      </p>
+
+      <p>
+        Operational overhead on those scripts dropped by roughly <strong>80%</strong> — mostly
+        because people could finally test end to end before shipping. The user guide I wrote for it
+        ended up being used across the org for onboarding people onto Epoch.
+      </p>
+
+      <h2 class="post-h2">The logs weren't being backed up</h2>
+
+      <p>
+        Mid-migration I went looking for why a failed job had left nothing behind to diagnose, and
+        found that <strong>job logs weren't being persisted at all</strong>. Failures were
+        effectively invisible after the fact.
+      </p>
+
+      <p>
+        That was an infrastructure problem, not my problem. But I was the one going around telling
+        the org that failures were now visible, and that promise is worthless if the logs evaporate.
+        I pulled in the architects and SRE, we root-caused it together, and it got fixed.
+      </p>
+
+      <p>
+        Which is also why I can't give you a clean incident count for the migration, and I think the
+        absence is the interesting part: <strong>we had no way of knowing.</strong> Detection was
+        reactive — someone raised an incident, and then we looked. That invisibility was the thing
+        the whole exercise was trying to kill.
+      </p>
+
+      <h2 class="post-h2">The unpopular quality gate</h2>
+
+      <p>
+        Anyone could merge into the scripts repository. For a body of money-adjacent scheduled jobs,
+        that is not speed — it is speed until the first silent bad merge.
+      </p>
+
+      <p>
+        I protected the branch and restricted merge rights to a small set of owners genuinely
+        accountable for the code. There was <strong>real backlash</strong> — it slows us down — and I
+        didn't back off, but I also didn't just impose it and leave. I ran sessions walking people
+        through why an unreviewed repo of jobs that touch money is a liability. The team came around,
+        and it stuck.
+      </p>
+
+      <p>
+        I also wrote the <strong>reconciliation and reporting jobs</strong> — the ones that walk
+        pending transactions, work out what actually settled, and close them out. In payments, a
+        transaction stuck in limbo isn't a cosmetic problem. It's somebody's money.
+      </p>
+
+      <h2 class="post-h2">Why the CLI existed at all</h2>
+
+      <p>
+        There was <strong>no programmatic way to drive Epoch</strong>. Everything was manual — and a
+        manual cutover is a disaster-recovery risk, because it means human error and long recovery
+        times at precisely the moment you can afford neither.
+      </p>
+
+      <p>
+        I didn't just go and build a tool. I took a one-page problem statement and a few candidate
+        approaches to the chief architect, ran a design review on the trade-offs, and <em>then</em>
+        built <a href="https://github.com/PhonePe/epoch-cli">epoch-cli</a> — from the first commit,
+        in Python. We open-sourced it.
+      </p>
+
+      <p>
+        What went in:
       </p>
 
       <ul>
@@ -138,6 +207,12 @@
         I also <strong>stripped the PhonePe-specific constructs</strong> out of it. That's the work
         that turns an internal tool into something that can stand on its own — and it's why the CLI
         is public today.
+      </p>
+
+      <p>
+        It outgrew what I built it for. Moving a service from one data centre to another means
+        moving its Epoch topologies too, and teams now do that cutover through epoch-cli. A tool I
+        proposed to close a DR gap became the standard way people do the thing I was worried about.
       </p>
     </div>
   </article>
