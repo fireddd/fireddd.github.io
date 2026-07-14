@@ -79,8 +79,8 @@ Project: https://www.media.mit.edu/projects/pal/overview/
   cleaning in pandas, 1.5k stars. Two merged features:
   [`drop_constant_columns`](https://github.com/pyjanitor-devs/pyjanitor/pull/852) and a
   [reset-index flag on `row_to_names`](https://github.com/pyjanitor-devs/pyjanitor/pull/849).
-- **[RA_Bschool](https://github.com/fireddd/RA_Bschool)** — Author. Research assistant work at
-  UNSW Sydney, 2019.
+- **[RA_Bschool](https://github.com/fireddd/RA_Bschool)** — Author. Research assistant work for the
+  UNSW Business School, 2019.
 
 ## Experience
 
@@ -91,7 +91,7 @@ Project: https://www.media.mit.edu/projects/pal/overview/
 | Morgan Stanley         | Quantitative Strategist     | Mumbai    | Jan 2021–Oct 2022 |
 | IBM                    | Data Scientist              | Bangalore | Sep 2020–Jan 2021 |
 | MIT Media Lab          | Visiting Researcher         | Boston    | Jan 2020–Jul 2020 |
-| UNSW Sydney            | Research Assistant          | Sydney    | Aug 2019–Dec 2019 |
+| UNSW Sydney            | Visiting Student; RA, UNSW Business School | Sydney | Aug 2019–Dec 2019 |
 | AlphaGrep Securities   | Quantitative Trading Analyst| Mumbai    | May 2019–Jul 2019 |
 | WorldQuant             | Research Consultant         | Remote    | Jun 2017–May 2019 |
 
@@ -99,7 +99,7 @@ Project: https://www.media.mit.edu/projects/pal/overview/
 
 - **IBM** — Built a cost-efficient heating solution using machine learning for Energy.AI
   clients, prototyping genetically evolving algorithms; projected a 40–50% cost reduction.
-- **UNSW Sydney** — Thesis placement from BITS Pilani, with research assistant work alongside it. Built a system to assess
+- **UNSW Sydney** — Visiting student on a thesis placement from BITS Pilani; also a research assistant for the UNSW Business School. Built a system to assess
   event impacts on assets under Professor Fethi Rabhi; contributed to research on dark pool and
   hedge fund activity at the ASX. Part of this work is open source:
   https://github.com/fireddd/RA_Bschool

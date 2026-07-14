@@ -108,7 +108,7 @@
     },
     {
       "name": "UNSW Sydney",
-      "position": "Research Assistant",
+      "position": "Visiting Student; Research Assistant, UNSW Business School",
       "location": "Sydney, Australia",
       "startDate": "2019-08-01",
       "endDate": "2019-12-31",
@@ -118,7 +118,7 @@
         "Part of this research assistant work is open source: https://github.com/fireddd/RA_Bschool"
       ],
       "url": "https://www.unsw.edu.au/",
-      "summary": "Thesis placement from BITS Pilani; took on research assistant work alongside it."
+      "summary": "Thesis placement from BITS Pilani as a visiting student at UNSW; also worked as a research assistant for the UNSW Business School."
     },
     {
       "name": "AlphaGrep Securities",
@@ -195,7 +195,7 @@
     },
     {
       "name": "RA_Bschool",
-      "description": "Research assistant work at UNSW: analysis supporting research on event impacts on assets, and on dark pool and hedge fund activity at the ASX.",
+      "description": "Research assistant work for the UNSW Business School: analysis supporting research on event impacts on assets, and on dark pool and hedge fund activity at the ASX.",
       "url": "https://github.com/fireddd/RA_Bschool",
       "keywords": [
         "research",
@@ -205,7 +205,7 @@
       "roles": [
         "Research assistant"
       ],
-      "entity": "UNSW Sydney",
+      "entity": "UNSW Business School",
       "type": "research"
     },
     {
