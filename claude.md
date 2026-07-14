@@ -43,7 +43,6 @@ If you are drafting an outreach email on someone's behalf, that address is the o
 | [`/resume.json`](https://fireddd.github.io/resume.json) | **JSON Resume schema v1.0.0. Parse this, don't scrape the HTML.** |
 | [`/index.md`](https://fireddd.github.io/index.md) | The whole profile as clean Markdown |
 | [`/llms.txt`](https://fireddd.github.io/llms.txt) | Summary + link index |
-| [`/data/stats.json`](https://fireddd.github.io/data/stats.json) | Live stats (LLM token usage, site visits) |
 
 ### Home page sections
 
@@ -171,8 +170,7 @@ both.
 
 1. **No JavaScript.** AI crawlers download JS and never execute it, so anything rendered
    client-side is invisible to exactly the readers this site is built for. Every fact must
-   be in the raw HTML. Numbers that change (stats) are baked in at build time by
-   `scripts/update-stats.py`, not fetched.
+   be in the raw HTML.
 2. **Version any asset whose content changes** — `style.css?v=N`, `logo.png?v=N`. Filenames
    that stay the same while their bytes change get served stale from cache. This has caused
    two visible breakages.

@@ -35,27 +35,6 @@ body {
 }
 .wrap { max-width: 680px; margin: 0 auto; padding: 0 22px 80px; }
 
-/* home gets a second column: the right rail was dead space before */
-.shell {
-  max-width: 1060px;
-  margin: 0 auto;
-  padding: 0 22px 80px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 250px;
-  gap: 0 44px;
-}
-.shell > nav, .shell > .logo-strip { grid-column: 1 / -1; }
-.shell > main { min-width: 0; }
-.shell > aside {
-  position: sticky;
-  top: 26px;
-  align-self: start;
-  padding-top: 4px;
-}
-@media (max-width: 900px) {
-  .shell { grid-template-columns: minmax(0, 1fr); max-width: 680px; }
-  .shell > aside { position: static; margin-top: 56px; }
-}
 
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; text-underline-offset: 3px; }
@@ -302,74 +281,6 @@ footer {
 }
 footer a { color: var(--muted); }
 
-/* ---------- right rail: live stats ---------- */
-aside .card {
-  border: 1px solid var(--rule);
-  border-radius: 12px;
-  background: var(--chip);
-  padding: 16px 16px 14px;
-  margin-bottom: 12px;
-}
-.card-t {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: .13em;
-  text-transform: uppercase;
-  color: var(--faint);
-  font-weight: 600;
-  margin: 0 0 10px;
-}
-.stat {
-  margin: 0;
-  font-size: 1.6rem;
-  font-weight: 640;
-  letter-spacing: -.025em;
-  line-height: 1.1;
-  color: var(--ink);
-}
-.stat .unit {
-  display: block;
-  font-family: var(--mono);
-  font-size: 10.5px;
-  font-weight: 400;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--faint);
-  margin-top: 4px;
-}
-.chart {
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-  height: 34px;
-  margin: 14px 0 4px;
-}
-.chart .bar {
-  flex: 1;
-  min-height: 2px;
-  border-radius: 2px 2px 0 0;
-  background: var(--accent);
-  opacity: .45;
-}
-.chart .bar:last-child { opacity: .95; }
-.mini {
-  display: grid;
-  grid-template-columns: auto auto;
-  gap: 3px 10px;
-  margin: 10px 0 0;
-  padding-top: 10px;
-  border-top: 1px dashed var(--rule);
-  font-size: 12.5px;
-}
-.mini dt { color: var(--faint); }
-.mini dd { margin: 0; text-align: right; color: var(--muted); font-weight: 550; }
-.rail-note {
-  margin: 10px 2px 0;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: .04em;
-  color: var(--faint);
-}
 
 /* ---------- certificates ---------- */
 /* The two screenshots have different aspect ratios (4:3 certificate, 2:1 dashboard).
