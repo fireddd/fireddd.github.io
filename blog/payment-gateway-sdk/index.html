@@ -77,11 +77,11 @@
       <p class="toc-t">On this page</p>
       <ol>
         <li><a href="#why-an-sdk-at-all">Why an SDK at all</a></li>
-        <li><a href="#my-first-project-here">My first project here</a></li>
+        <li><a href="#my-first-project-at-phonepe">My first project at PhonePe</a></li>
+        <li><a href="#multiple-sdks-one-behaviour">Multiple SDKs, one behaviour</a></li>
         <li><a href="#the-launch-broke">The launch broke</a></li>
         <li><a href="#weeks-to-a-day">Weeks to a day</a></li>
         <li><a href="#how-we-knew-it-was-working">How we knew it was working</a></li>
-        <li><a href="#four-sdks-one-behaviour">Four SDKs, one behaviour</a></li>
         <li><a href="#making-it-public">Making it public</a></li>
       </ol>
     </nav>
@@ -135,7 +135,7 @@
         in total payment volume have gone through the SDK family.
       </p>
 
-      <h2 class="post-h2" id="my-first-project-here">My first project here</h2>
+      <h2 class="post-h2" id="my-first-project-at-phonepe">My first project at PhonePe</h2>
 
       <p>
         This was my <strong>first project at PhonePe</strong>. I wanted to do everything the thing
@@ -167,8 +167,8 @@
         <strong><a href="https://github.com/stripe/stripe-java">Stripe</a></strong> and the other
         giants had solved this years earlier, in public. I went through their SDKs — not to copy the
         shape, but to work out <em>why</em> each thing was shaped the way it was. Why errors are
-        modelled that way. Why the client is constructed like that. Why idempotency sits where it
-        sits.
+        modelled that way. Why the client is constructed like that. Why the surface a merchant
+        touches is as small as it is.
       </p>
 
       <p>
@@ -191,6 +191,22 @@
                loading="lazy" referrerpolicy="no-referrer">
         </a>
       </figure>
+
+      <h2 class="post-h2" id="multiple-sdks-one-behaviour">Multiple SDKs, one behaviour</h2>
+
+      <p>
+        I owned the SDK offerings, not just the Java one. The Python, .NET and JavaScript SDKs were
+        built by three or four engineers — juniors and interns — and I mentored them rather than
+        writing the SDKs myself.
+      </p>
+
+      <p>
+        The trap there is obvious in hindsight and invisible at the time: several SDKs written by
+        several people become <strong>several dialects</strong>. Same gateway, different ideas about
+        what an error means, different retry policies, different names for the same field. So I gated
+        at the <em>design</em> level, not the code level. Get the behaviour agreed before anyone opens
+        an editor, and the implementations converge on their own.
+      </p>
 
       <h2 class="post-h2" id="the-launch-broke">The launch broke</h2>
 
@@ -294,22 +310,6 @@
         self-serve test keys were not a hunch — the funnel showed us where merchants were stalling,
         and it was the credential step. You fix the step the data points at, and then you watch the
         same dashboard tell you whether it worked.
-      </p>
-
-      <h2 class="post-h2" id="four-sdks-one-behaviour">Four SDKs, one behaviour</h2>
-
-      <p>
-        I owned the SDK offerings, not just the Java one. The Python, .NET and JavaScript SDKs were
-        built by three or four engineers — juniors and interns — and I mentored them rather than
-        writing the SDKs myself.
-      </p>
-
-      <p>
-        The trap there is obvious in hindsight and invisible at the time: four SDKs written by four
-        people become <strong>four dialects</strong>. Same gateway, four different ideas about what
-        an error means, four retry policies, four ways of naming the same field. So I gated at the
-        <em>design</em> level, not the code level. Get the behaviour agreed before anyone opens an
-        editor, and the implementations converge on their own.
       </p>
 
       <h2 class="post-h2" id="making-it-public">Making it public</h2>
