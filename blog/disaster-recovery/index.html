@@ -74,7 +74,6 @@
         <li><a href="#the-steps-of-a-drill">The steps of a drill</a></li>
         <li><a href="#what-a-drill-actually-looks-like">What a drill actually looks like</a></li>
         <li><a href="#the-numbers">The numbers</a></li>
-        <li><a href="#it-does-not-always-go-smoothly">It does not always go smoothly</a></li>
         <li><a href="#what-id-tell-you-it-taught-me">What I'd tell you it taught me</a></li>
       </ol>
     </nav>
@@ -108,6 +107,17 @@
         demonstrate it. India's business-continuity expectations for payment systems mean a
         disaster-recovery drill is a recurring, audited exercise — not a document someone signs
         once and files.
+      </p>
+
+      <p>
+        And at this scale a small mistake is not a small mistake. PhonePe carries something like
+        <strong>half of all UPI transactions in India</strong>. When it stops, people cannot buy
+        groceries and merchants cannot take money — it is not an engineering inconvenience, it is on
+        the news within the hour, and it has been:
+        <a href="https://www.business-standard.com/companies/news/phonepe-upi-outage-after-disaster-recovery-cybersecurity-drills-125051201290_1.html">in
+        May 2025, disaster-recovery drills themselves took UPI payments down for over an hour</a>
+        when peak traffic met a capacity ceiling nobody had found yet. The blast radius of anything
+        you touch here is other people's lives.
       </p>
 
       <p>
@@ -340,37 +350,6 @@
         whatever number you like in the document; the database's asynchronous replication lag is the
         number that will actually be true on the day. Everything else — the caches, the queues whose
         state you can rebuild from the database — is noise by comparison.
-      </p>
-
-      <h2 class="post-h2" id="it-does-not-always-go-smoothly">It does not always go smoothly</h2>
-
-      <p>
-        Everything above describes a drill that works. It is worth being honest that they don't
-        always, and I do not have to reach for a hypothetical — PhonePe's own has been in the papers.
-      </p>
-
-      <p>
-        In May 2025, during disaster-recovery drills, PhonePe was serving
-        <strong>100% of its traffic through a new data centre</strong>. It held — until Monday
-        evening peak, when the load
-        <a href="https://www.moneycontrol.com/technology/several-upi-users-affected-after-phonepe-s-disaster-recovery-measures-created-capacity-constraint-article-13021703.html">exposed
-        a network capacity shortfall</a> and transactions started failing.
-        <a href="https://www.business-standard.com/companies/news/phonepe-upi-outage-after-disaster-recovery-cybersecurity-drills-125051201290_1.html">UPI
-        payments were down for over an hour</a> at a company that carries something like half of all
-        UPI transactions in India. Traffic was moved off, and service came back.
-      </p>
-
-      <p>
-        The lesson in that is not "DR is dangerous". It is that
-        <strong>failing over is not the hard part — carrying the load afterwards is.</strong> A
-        standby that has never taken peak traffic is not a standby. It is a hypothesis, and you find
-        out which on a Monday evening, in public.
-      </p>
-
-      <p>
-        Which is also the argument for doing drills at all. That capacity ceiling existed whether or
-        not anyone went looking for it. The drill is what turned it from an unknown into an
-        incident — and an incident is a thing you can fix.
       </p>
 
       <h2 class="post-h2" id="what-id-tell-you-it-taught-me">What I'd tell you it taught me</h2>
