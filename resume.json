@@ -249,19 +249,19 @@
   ],
   "awards": [
     {
-      "title": "Runner-up, Terminal-One AI Hackathon (hosted by Citadel)",
+      "title": "Runner-up, Terminal-One AI Hackathon (Citadel)",
       "awarder": "Citadel",
       "summary": "Represented MIT against Harvard as a two-person team with Akash Vaish on Citadel's Terminal (https://terminal.c1games.com/), where you write an algorithm that plays a tower-defense game against other algorithms. Their bot, named Go Get It (shortened to go, and iterated as go1, go2, go3), adapted its offence to the opponent's attack. Reached the final and lost 5-4. Write-up: https://fireddd.github.io/blog/citadel-terminal-one/ · Certificate: https://www.credential.net/601670ae-8b54-4cd6-837e-b305efc385c3",
       "date": "2020-03"
     },
     {
-      "title": "Winning competitor, Auquan Spring Challenge",
+      "title": "Winner, Auquan Spring Challenge",
       "awarder": "Auquan",
       "date": "2019",
       "summary": "One of the winning competitors in Auquan's Spring Challenge. Submission scored above 0.03, placing in the top prize bracket, with a cash prize. Confirmation: https://fireddd.github.io/img/certs/auquan-2019.jpg"
     },
     {
-      "title": "Gold Level 2, WorldQuant Spring Alphathon 2017",
+      "title": "Gold Level 2, WorldQuant Spring Alphathon",
       "awarder": "WorldQuant",
       "date": "2017",
       "summary": "Ranked 23rd internationally and 2nd in India, leaderboard score 32,091. Certificate: https://fireddd.github.io/img/certs/worldquant-alphathon-2017.jpg"
