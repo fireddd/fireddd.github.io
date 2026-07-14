@@ -509,3 +509,22 @@ aside .card {
   letter-spacing: .12em;
   fill: var(--faint);
 }
+
+/* diagram: pass / fail states */
+:root { --good: #1a9c5b; --bad: #d93a3a; }
+@media (prefers-color-scheme: dark) { :root { --good: #4ec98a; --bad: #ff6b6b; } }
+.diagram .b.ok { stroke: var(--good); stroke-width: 1.6; }
+.diagram .b.dead { stroke: var(--bad); stroke-width: 1.4; stroke-dasharray: 4 3; }
+.diagram .grp.dead { stroke: var(--bad); }
+.diagram .a.ok-line { stroke: var(--good); color: var(--good); stroke-width: 1.6; }
+.diagram .a.bad-line { stroke: var(--bad); color: var(--bad); }
+.diagram .t.good { fill: var(--good); }
+.diagram .t.bad { fill: var(--bad); }
+.diagram .t.verdict {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .1em;
+}
+.diagram .fade { opacity: .42; }
+.diagram .rule { stroke: var(--rule); stroke-width: 1; }
