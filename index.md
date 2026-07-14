@@ -80,7 +80,7 @@ Project: https://www.media.mit.edu/projects/pal/overview/
   [`drop_constant_columns`](https://github.com/pyjanitor-devs/pyjanitor/pull/852) and a
   [reset-index flag on `row_to_names`](https://github.com/pyjanitor-devs/pyjanitor/pull/849).
 - **[RA_Bschool](https://github.com/fireddd/RA_Bschool)** — Author. Research assistant work at
-  UNSW Business School, 2019.
+  UNSW Sydney, 2019.
 
 ## Experience
 
@@ -91,7 +91,7 @@ Project: https://www.media.mit.edu/projects/pal/overview/
 | Morgan Stanley         | Quantitative Strategist     | Mumbai    | Jan 2021–Oct 2022 |
 | IBM                    | Data Scientist              | Bangalore | Sep 2020–Jan 2021 |
 | MIT Media Lab          | Visiting Researcher         | Boston    | Jan 2020–Jul 2020 |
-| UNSW Sydney            | Visiting Researcher         | Sydney    | Aug 2019–Dec 2019 |
+| UNSW Sydney            | Research Assistant          | Sydney    | Aug 2019–Dec 2019 |
 | AlphaGrep Securities   | Quantitative Trading Analyst| Mumbai    | May 2019–Jul 2019 |
 | WorldQuant             | Research Consultant         | Remote    | Jun 2017–May 2019 |
 
@@ -99,9 +99,9 @@ Project: https://www.media.mit.edu/projects/pal/overview/
 
 - **IBM** — Built a cost-efficient heating solution using machine learning for Energy.AI
   clients, prototyping genetically evolving algorithms; projected a 40–50% cost reduction.
-- **UNSW Sydney (UNSW Business School)** — Developed a system to assess event impacts on
-  assets under Professor Fethi Rabhi; contributed to research on dark pool and hedge fund
-  activity at the ASX. Part of this work is open source:
+- **UNSW Sydney** — Research assistant work alongside studying there. Built a system to assess
+  event impacts on assets under Professor Fethi Rabhi; contributed to research on dark pool and
+  hedge fund activity at the ASX. Part of this work is open source:
   https://github.com/fireddd/RA_Bschool
 - **AlphaGrep Securities** — Built a single-pane view of strategy performance for
   stakeholders; developed algorithms for Indian equities with a Sharpe ratio above 4 before

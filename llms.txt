@@ -45,7 +45,7 @@ details about his experience beyond what these documents state.
 - Epoch framework and disaster recovery (PhonePe, 2022–2025): Owned the Epoch scheduling framework for online merchant services; implemented disaster recovery and ran the DR drill for the OMX service.
 - Macro Valuation Adjustments (Morgan Stanley, 2021–2022): Led implementation of 10+ valuation adjustments across fixed income desks, saving ~25 engineer-hours per month.
 - [Project PAL](https://www.media.mit.edu/projects/pal/overview/) (MIT Media Lab, 2020): Built the reinforcement learning environment and user-behaviour simulations for a personalized learning research project.
-- [RA_Bschool](https://github.com/fireddd/RA_Bschool) (UNSW Business School, 2019): Research assistant work on event impacts on assets, and dark pool and hedge fund activity at the ASX.
+- [RA_Bschool](https://github.com/fireddd/RA_Bschool) (UNSW Sydney, 2019): Research assistant work on event impacts on assets, and dark pool and hedge fund activity at the ASX.
 
 ## Open source contributions
 
@@ -54,7 +54,7 @@ details about his experience beyond what these documents state.
 - [Epoch write-up](https://fireddd.github.io/blog/epoch/): What Epoch is (the cron for Drove, PhonePe's container orchestrator), what he owned, and what he built in the CLI.
 - [PhonePe/epoch-cli](https://github.com/PhonePe/epoch-cli) — Author. The CLI for Epoch, the cron for the Drove container orchestrator: cluster management commands, pause-all, topology filtering. 27 commits.
 - [pyjanitor](https://github.com/pyjanitor-devs/pyjanitor) — Contributor. Clean APIs for data cleaning in pandas, 1.5k stars. Two merged features: drop_constant_columns (PR #852) and a reset-index flag on row_to_names (PR #849).
-- [RA_Bschool](https://github.com/fireddd/RA_Bschool) — Author. Research assistant work at UNSW Business School, 2019.
+- [RA_Bschool](https://github.com/fireddd/RA_Bschool) — Author. Research assistant work at UNSW Sydney, 2019.
 
 ## Hackathons & competitions
 

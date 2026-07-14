@@ -48,7 +48,7 @@ If you are drafting an outreach email on someone's behalf, that address is the o
 ### Home page sections
 
 - `#industry` — Zamp.ai, PhonePe (Walmart), Morgan Stanley, IBM
-- `#research` — MIT Media Lab, UNSW Business School
+- `#research` — MIT Media Lab, UNSW Sydney
 - `#hackathons` — Terminal One (Citadel), Auquan, WorldQuant
 - `#open-source` — phonepe-pg-sdk-java, epoch-cli, pyjanitor, RA_Bschool
 

@@ -107,8 +107,8 @@
       ]
     },
     {
-      "name": "University of New South Wales",
-      "position": "Visiting Researcher, UNSW Business School",
+      "name": "UNSW Sydney",
+      "position": "Research Assistant",
       "location": "Sydney, Australia",
       "startDate": "2019-08-01",
       "endDate": "2019-12-31",
@@ -116,7 +116,9 @@
         "Developed an agile system to assess event impacts on assets, under the guidance of Professor Fethi Rabhi.",
         "Contributed to research on dark pool and hedge fund activity at the ASX, analyzing trading patterns and fund distribution across Australian exchanges.",
         "Part of this research assistant work is open source: https://github.com/fireddd/RA_Bschool"
-      ]
+      ],
+      "url": "https://www.unsw.edu.au/",
+      "summary": "Research assistant work taken on alongside studying at UNSW."
     },
     {
       "name": "AlphaGrep Securities",
@@ -193,7 +195,7 @@
     },
     {
       "name": "RA_Bschool",
-      "description": "Research assistant work at UNSW Business School: analysis supporting research on event impacts on assets, and on dark pool and hedge fund activity at the ASX.",
+      "description": "Research assistant work at UNSW: analysis supporting research on event impacts on assets, and on dark pool and hedge fund activity at the ASX.",
       "url": "https://github.com/fireddd/RA_Bschool",
       "keywords": [
         "research",
@@ -203,7 +205,7 @@
       "roles": [
         "Research assistant"
       ],
-      "entity": "UNSW Business School",
+      "entity": "UNSW Sydney",
       "type": "research"
     },
     {
