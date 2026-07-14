@@ -164,7 +164,7 @@
       </p>
 
       <figure class="diagram">
-        <svg viewBox="0 0 680 360" role="img" aria-labelledby="ap-title ap-desc" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 680 372" role="img" aria-labelledby="ap-title ap-desc" xmlns="http://www.w3.org/2000/svg">
           <title id="ap-title">Active-passive versus active-active</title>
           <desc id="ap-desc">Two arrangements side by side. On the left, active-passive: the API gateway sends all traffic to DC A, the primary, which holds the app and the MariaDB that takes every write; DC B sits as a standby, kept current by one-way asynchronous replication, and the gateway only points at it on the day of a failover. On the right, active-active: the gateway sends traffic to both DC A and DC B, both run the app, both databases take writes, and they replicate in both directions — which means two writers can change the same account and somebody has to decide which write wins.</desc>
           <defs>
@@ -173,7 +173,7 @@
             </marker>
           </defs>
 
-          <line class="grp" x1="340" y1="8" x2="340" y2="352"/>
+          <line class="grp" x1="340" y1="8" x2="340" y2="364"/>
 
           <!-- active-passive -->
           <text class="t bold" x="170" y="20">Active-passive</text>
@@ -184,7 +184,7 @@
 
           <path class="a" style="marker-end:url(#ap-arrow)" d="M170 84 L170 108 L95 108 L95 148"/>
           <path class="a dash" style="marker-end:url(#ap-arrow)" d="M170 108 L245 108 L245 148"/>
-          <text class="t xs" x="262" y="103">only on the day</text>
+          <text class="t xs" x="288" y="132">only on the day</text>
 
           <rect class="b lead" x="30" y="148" width="130" height="142" rx="10"/>
           <text class="t bold" x="95" y="170">DC A</text>
@@ -203,10 +203,10 @@
           <text class="t sm" x="245" y="261">MariaDB</text>
 
           <path class="a" style="marker-end:url(#ap-arrow)" d="M142 257 L198 257"/>
-          <text class="t xs" x="170" y="288">replication, one way</text>
+          <text class="t xs" x="170" y="308">replication, one way</text>
 
-          <text class="t sm" x="170" y="322">One writer.</text>
-          <text class="t xs" x="170" y="338">Your RPO is its replication lag.</text>
+          <text class="t sm" x="170" y="334">One writer.</text>
+          <text class="t xs" x="170" y="350">Your RPO is its replication lag.</text>
 
           <!-- active-active -->
           <text class="t bold" x="510" y="20">Active-active</text>
@@ -236,10 +236,10 @@
 
           <path class="a" style="marker-start:url(#ap-arrow);marker-end:url(#ap-arrow)" d="M482 211 L538 211"/>
           <path class="a bad-line" style="marker-start:url(#ap-arrow);marker-end:url(#ap-arrow)" d="M482 257 L538 257"/>
-          <text class="t xs bad" x="510" y="288">both ways — which write wins?</text>
+          <text class="t xs bad" x="510" y="308">both ways — which write wins?</text>
 
-          <text class="t sm" x="510" y="322">Two writers.</text>
-          <text class="t xs" x="510" y="338">Every conflict is somebody&apos;s money.</text>
+          <text class="t sm" x="510" y="334">Two writers.</text>
+          <text class="t xs" x="510" y="350">Every conflict is somebody&apos;s money.</text>
         </svg>
         <figcaption>
           The same trade-off the write-up draws in AWS terms, in ours. Active-passive keeps one
