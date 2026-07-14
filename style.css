@@ -849,6 +849,11 @@ h2[id] { scroll-margin-top: 24px; }
 
 /* short looping clips — behave like a GIF, no JS */
 .vid { margin: 26px 0; text-align: center; }
+.vid figcaption {
+  margin-top: 9px;
+  font-size: 12.5px;
+  color: var(--faint);
+}
 .vid video {
   max-width: 320px;
   width: 100%;
