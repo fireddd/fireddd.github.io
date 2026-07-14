@@ -115,11 +115,15 @@ Project: https://www.media.mit.edu/projects/pal/overview/
 
 **BITS Pilani** — B.E. (Hons.) Computer Science & M.Sc. Economics. GPA 8.34/10.
 
-## Selected achievements
+## Hackathons & competitions
 
-- Placed second in the Terminal-One AI Hackathon.
-- Represented MIT in the MIT vs Harvard competition hosted by Citadel.
-- Gold level certificate in WorldQuant's Spring Alphathon — 23rd internationally, 2nd in India.
+- **Terminal-One AI Hackathon** — placed second.
+  [Certificate](https://www.credential.net/601670ae-8b54-4cd6-837e-b305efc385c3).
+- **WorldQuant Spring Alphathon 2017** — Gold, Level 2. Ranked 23rd internationally and 2nd in
+  India, leaderboard score 32,091.
+  [Certificate](https://fireddd.github.io/img/certs/worldquant-alphathon-2017.jpg) ·
+  [Leaderboard](https://fireddd.github.io/img/certs/worldquant-alphathon-dashboard.jpg).
+- **MIT vs Harvard, hosted by Citadel** — competed for MIT.
 
 ## Tools
 

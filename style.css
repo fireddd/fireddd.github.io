@@ -127,29 +127,35 @@ h1 {
   align-items: center;
   justify-content: center;
   flex: none;
-  width: 64px;
   height: 64px;
+  min-width: 64px;
+  width: auto;
+  padding: 0 11px;
   border-radius: 12px;
   background: #fff;
   border: 1px solid var(--rule);
   box-shadow: 0 1px 2px rgba(0,0,0,.05);
   transition: transform .15s ease, box-shadow .15s ease;
 }
+/* WorldQuant's mark is an orange frame with white text and a transparent centre —
+   it is drawn for a dark backdrop and disappears on white. */
+.logo-strip .badge.dark { background: #14161a; border-color: #2a2d33; }
 .logo-strip .badge:hover { text-decoration: none; box-shadow: 0 4px 14px rgba(0,0,0,.16); }
 .logo-strip img {
-  width: 52px;
-  height: 52px;
+  width: auto;
+  height: auto;
+  max-width: 124px;
+  max-height: 46px;
   object-fit: contain;
   transition: transform .18s ease;
-  image-rendering: -webkit-optimize-contrast;
 }
-/* AlphaGrep only publish a white-on-transparent mark; flip it for the white tile */
-.logo-strip img[src*="alphagrep"] { filter: invert(1); }
+/* square marks: give them the full tile height */
+.logo-strip img:not([src*="alphagrep"]) { max-height: 52px; }
 .logo-strip .badge:hover img { transform: scale(1.3); }
 @media (max-width: 560px) {
   .logo-strip { justify-content: flex-start; flex-wrap: wrap; margin: 4px 0 30px; gap: 10px; }
-  .logo-strip .badge { width: 52px; height: 52px; }
-  .logo-strip img { width: 42px; height: 42px; }
+  .logo-strip .badge { height: 52px; min-width: 52px; padding: 0 8px; }
+  .logo-strip img { max-height: 40px; max-width: 96px; }
 }
 
 /* ---------- sections ---------- */
@@ -371,3 +377,23 @@ aside .card {
   letter-spacing: .04em;
   color: var(--faint);
 }
+
+/* ---------- certificates ---------- */
+.certs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+.certs a {
+  flex: 1 1 190px;
+  max-width: 260px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--chip);
+  line-height: 0;
+  transition: border-color .15s ease, transform .15s ease;
+}
+.certs a:hover { border-color: var(--accent); transform: translateY(-2px); text-decoration: none; }
+.certs img { width: 100%; height: auto; display: block; }
