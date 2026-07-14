@@ -141,22 +141,20 @@ added.**
 
 ### Humour, and how to source it
 
-The Epoch page has two jokes. They are sourced two different ways, on purpose.
+The Epoch page carries three memes, one per problem the post fixes: no staging
+environment, no logs, no code review. All three are **hotlinked from the meme platforms
+that host them** (Tenor, meme-arsenal) rather than copied into this repo.
 
-1. **The "I don't always test my code" meme uses *his own photo*.** The format is a
-   classic; the image is his. Do not download and self-host somebody else's meme —
-   the Dos Equis original is a Heineken advertising photograph and an actor's likeness,
-   and lifting it off a blog that reposted it does not grant a licence. Putting his own
-   face in it is funnier anyway, and free.
-2. **The `kaun hai ye log` GIF is hotlinked from Tenor's CDN**, not copied into this
-   repo. Tenor exists to serve GIFs for sharing, so pointing at their copy is the
-   intended use; self-hosting a film clip would be republishing it. This is the one
-   deliberate exception to "serve assets locally" — for third-party copyrighted media,
-   hotlinking from the host is the *more* correct posture, not the lazier one.
+That is the rule: **never download somebody else's meme into the repo — link to where it
+legitimately lives.** These images are film stills and advertising photographs; the
+platforms exist to serve them for sharing, and pointing at their copy is the intended
+use. Copying one here would be republishing it under his name.
 
-The rule underneath both: **if the joke needs somebody else's copyrighted image to work,
-either point at where it legitimately lives or redraw it.** Don't quietly copy it into
-the repo.
+It is also the one deliberate exception to "serve assets locally". For third-party
+copyrighted media, hotlinking is the *more* correct posture, not the lazier one.
+
+And: **don't explain the joke.** A caption that translates the pun kills it. Captions are
+for a punchline that advances the argument, not for glossing the image.
 
 ### The rest
 
