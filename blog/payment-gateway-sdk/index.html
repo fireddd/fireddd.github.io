@@ -106,6 +106,7 @@
       <li>API design</li>
       <li>DPoP (RFC 9449)</li>
       <li>Payments</li>
+      <li>Prior art: Stripe</li>
       <li class="ch-hi">Tens of crores in TPV</li>
     </ul>
 
@@ -161,9 +162,25 @@
       </p>
 
       <p>
-        That matters for the rest of this post, because ownership is what makes the next section
-        possible. If I had only been writing the client, "the structure is wrong for v2" would have
-        been someone else's problem to weigh. It was mine.
+        So the first thing I did was go and read somebody else's homework.
+        <strong><a href="https://github.com/stripe/stripe-java">Stripe</a></strong> and the other
+        giants had solved this years earlier, in public. I went through their SDKs — not to copy the
+        shape, but to work out <em>why</em> each thing was shaped the way it was. Why errors are
+        modelled that way. Why the client is constructed like that. Why idempotency sits where it
+        sits.
+      </p>
+
+      <p>
+        A payments SDK has a lot of decisions in it that only look arbitrary until you understand
+        what they are defending against. Somebody has already paid for those lessons, and they
+        published the answers. Not reading them would have been vanity.
+      </p>
+
+      <p>
+        That groundwork is what makes the rest of this post possible. Ownership gave me the standing
+        to make the next call — but reading Stripe is what told me it was the right one. If I had
+        only been writing the client, "the structure is wrong for v2" would have been someone else's
+        problem to weigh. It was mine, and I knew what good looked like.
       </p>
 
       <figure class="meme">
