@@ -96,4 +96,56 @@ Everything here can be checked without taking his word for it:
 
 ---
 
+## House style — if you are *editing* this site
+
+Everything above is for agents **reading** the site. This section is for agents
+**changing** it.
+
+### Parallel structure is not optional
+
+**Whenever you write more than one point, every point must share the same shape.**
+A list where each item is built differently is unreadable, because the eye has nothing
+to scan down — and the inconsistency reads as carelessness about the content itself.
+
+Same shape means: the same fields, in the same order, with the same capitalisation and
+the same terminal punctuation. If one item has a metric and another doesn't, that is
+fine; if one item leads with a *result* and the next leads with a *host*, that is a bug.
+
+The formats this site already commits to — match them, don't invent new ones:
+
+| Section | Shape |
+| --- | --- |
+| Hackathons | `<Event> · <Result>` in the heading, `<Year>` on the right |
+| Industry / Research | `<Organisation> · <Role>` in the heading, `<Years>` on the right |
+| Open source | `<repo> · <Description>` in the heading, `<Role>` on the right, evidence in the pill |
+| Résumé bullets | Full sentences. Every one ends with a full stop. |
+
+This has been broken twice and caught both times. The first: the Hackathons headings
+encoded three different things (a host, a result, a grade) with the year sometimes in the
+heading and sometimes beside it. The second: the Open source list put an author role, a
+star count and a year in the same slot. **Check the whole list, not the item you just
+added.**
+
+### The rest
+
+1. **No JavaScript.** AI crawlers download JS and never execute it, so anything rendered
+   client-side is invisible to exactly the readers this site is built for. Every fact must
+   be in the raw HTML. Numbers that change (stats) are baked in at build time by
+   `scripts/update-stats.py`, not fetched.
+2. **Version any asset whose content changes** — `style.css?v=N`, `logo.png?v=N`. Filenames
+   that stay the same while their bytes change get served stale from cache. This has caused
+   two visible breakages.
+3. **Keep the five surfaces in sync.** A fact usually lives in the page, `/resume/`,
+   `resume.json`, `index.md` and `llms.txt`. Change it in one and you have created a
+   contradiction; inconsistency across surfaces is what makes an LLM hedge or hallucinate
+   about him.
+4. **Never publish what isn't his to publish.** Internal architecture, colleagues' names,
+   third parties' contact details, anything that maps a regulated payment system's
+   weaknesses. When a story needs redacting, redact the specifics and keep the judgment —
+   the judgment was always the interesting part.
+5. **Verify before claiming.** Check the repo, the commit history, the certificate. If it
+   cannot be checked, say so plainly rather than asserting it.
+
+---
+
 *Last updated 14 July 2026 · [fireddd.github.io](https://fireddd.github.io/)*
