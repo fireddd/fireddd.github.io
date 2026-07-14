@@ -245,45 +245,11 @@
         It is now the first thing I check: what does my test setup make impossible to see?
       </p>
 
-      <h2 class="post-h2" id="weeks-to-a-day">Weeks to a day</h2>
-
-      <p>
-        Merchants couldn't generate their own test credentials. Every sandbox key had to be requested
-        from the integrations team by hand. That is a queue, and a queue between a developer and
-        their first successful API call is where integrations go to die.
-      </p>
-
-      <p>
-        I built a self-serve toggle so a merchant could mint their own test credentials from the
-        production dashboard. The security question is obvious — you have just let people create
-        credentials — so it is secured with a
-        <strong>public/private key and <a href="https://datatracker.ietf.org/doc/html/rfc9449">DPoP</a></strong>
-        (RFC 9449): a short-TTL proof-of-possession token bound to the HTTP method, the URL and a
-        timestamp, verified at the gateway before auth even runs. The merchant id is embedded in the
-        token, so a merchant can only ever mint their <em>own</em> test credentials.
-      </p>
-
-      <p>
-        Landing it meant design, product, integrations, infra, appsec and UI. It is the least
-        glamorous list in this post and it was most of the work.
-      </p>
-
-      <div class="stats">
-        <div class="stat-card accent">
-          <span class="n">weeks → a day</span>
-          <span class="l">merchant integration time</span>
-        </div>
-        <div class="stat-card">
-          <span class="n">~50%</span>
-          <span class="l">fewer integration issues</span>
-        </div>
-      </div>
-
       <h2 class="post-h2" id="how-we-knew-it-was-working">How we knew it was working</h2>
 
       <p>
-        Every number in the section above came from somewhere, and building that somewhere was part
-        of the job.
+        Every number in this post came from somewhere, and building that somewhere was part of the
+        job.
       </p>
 
       <p>
@@ -306,11 +272,53 @@
       </blockquote>
 
       <p>
-        This is the part that gets skipped, and it is the part that made the rest possible. The
-        self-serve test keys were not a hunch — the funnel showed us where merchants were stalling,
-        and it was the credential step. You fix the step the data points at, and then you watch the
-        same dashboard tell you whether it worked.
+        This is the part that gets skipped, and it is the part that made everything after it
+        possible. Because once you can see the funnel, it tells you where to go next — and ours was
+        pointing hard at one step.
       </p>
+
+      <h2 class="post-h2" id="weeks-to-a-day">Weeks to a day</h2>
+
+      <p>
+        Merchants were stalling on <strong>credentials</strong>.
+      </p>
+
+      <p>
+        They couldn't generate their own test keys. Every sandbox credential had to be requested from
+        the integrations team by hand. That is a queue — and a queue between a developer and their
+        first successful API call is where integrations go to die. The funnel had been telling us
+        this for weeks; it was just waiting for someone to look.
+      </p>
+
+      <p>
+        I built a self-serve toggle so a merchant could mint their own test credentials from the
+        production dashboard. The security question is obvious — you have just let people create
+        credentials — so it is secured with a
+        <strong>public/private key and <a href="https://datatracker.ietf.org/doc/html/rfc9449">DPoP</a></strong>
+        (RFC 9449): a short-TTL proof-of-possession token bound to the HTTP method, the URL and a
+        timestamp, verified at the gateway before auth even runs. The merchant id is embedded in the
+        token, so a merchant can only ever mint their <em>own</em> test credentials.
+      </p>
+
+      <p>
+        Landing it meant design, product, integrations, infra, appsec and UI. It is the least
+        glamorous list in this post and it was most of the work.
+      </p>
+
+      <p>
+        And then we watched the same dashboard tell us whether it had worked.
+      </p>
+
+      <div class="stats">
+        <div class="stat-card accent">
+          <span class="n">weeks → a day</span>
+          <span class="l">merchant integration time</span>
+        </div>
+        <div class="stat-card">
+          <span class="n">~50%</span>
+          <span class="l">fewer integration issues</span>
+        </div>
+      </div>
 
       <h2 class="post-h2" id="making-it-public">Making it public</h2>
 
