@@ -407,7 +407,12 @@ aside .card {
 }
 
 /* ---------- inline screenshots in posts ---------- */
-.shot { margin: 26px 0; }
+/* Constrained and centred, so every inline image on the site sits at roughly the
+   same size as the memes and the book cover rather than shouting at column width. */
+.shot {
+  margin: 26px auto;
+  max-width: 440px;
+}
 .shot a {
   display: block;
   border: 1px solid var(--rule);
@@ -420,9 +425,10 @@ aside .card {
 .shot img { width: 100%; height: auto; display: block; }
 .shot figcaption {
   margin-top: 9px;
-  font-size: 13.5px;
+  font-size: 13px;
   color: var(--faint);
   line-height: 1.5;
+  text-align: center;
 }
 
 .colophon {
