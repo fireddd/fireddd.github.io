@@ -40,11 +40,25 @@ a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- nav ---------- */
+/* The bar is chrome, not page content, so it gets its own container instead of sitting
+   inside the page shell. It used to be a child of the shell, which meant it inherited
+   whichever width that page happened to use — 680px under .wrap, 980px under .post-shell —
+   and the brand and the badge visibly slid ~150px sideways as you navigated between them.
+   980px because it is the wider of the two shells: on the home page and the posts the
+   brand lands on the left rail and the badge on the article's right edge, and on the
+   680px pages the bar reads as a header spanning the page rather than a broken column.
+   The 22px side padding is the shells' padding, so the alignment is exact.  */
+.topbar {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 26px 22px 44px;
+}
+/* .post-shell drops to 680px here — the bar comes with it, so it stays aligned */
+@media (max-width: 900px) { .topbar { max-width: 680px; } }
 nav {
   display: flex;
   align-items: center;
   gap: 22px;
-  padding: 26px 0 44px;
   font-size: 15px;
 }
 nav .brand {
@@ -58,7 +72,9 @@ nav a:not(.brand) { color: var(--muted); }
 nav a:not(.brand):hover { color: var(--ink); text-decoration: none; }
 nav a[aria-current="page"] { color: var(--ink); font-weight: 550; }
 @media (max-width: 560px) {
-  nav { gap: 8px 14px; font-size: 14px; flex-wrap: wrap; padding-bottom: 30px; }
+  nav { gap: 8px 14px; font-size: 14px; flex-wrap: wrap; }
+  /* on .topbar, not nav: the shorthand padding above would otherwise win on specificity */
+  .topbar { padding-bottom: 30px; }
   /* margin-right:auto absorbs the free space on the first line and pushes the
      trailing links off-screen instead of wrapping them — give the brand its own row */
   nav .brand { margin-right: 0; flex: 0 0 100%; }
@@ -732,7 +748,6 @@ h2[id] { scroll-margin-top: 24px; }
   grid-template-columns: 186px minmax(0, 1fr);
   gap: 0 46px;
 }
-.post-shell > nav,
 .post-shell > .logo-strip,
 .post-shell > footer { grid-column: 1 / -1; }
 .post-shell > main { min-width: 0; }

@@ -128,6 +128,12 @@ added.**
 
 ### Layout conventions
 
+- **The nav goes *outside* the page shell, never inside it.** It is `<nav class="topbar">`,
+  a sibling that sits immediately before the `.wrap` or `.post-shell` div, and `.topbar`
+  gives it its own 980px container. This is not a style preference: when the nav was a
+  child of the shell it inherited that shell's width — 680px on `.wrap` pages, 980px on
+  `.post-shell` ones — so the brand and the badge jumped 150px sideways as you moved
+  between them. A new page that nests the nav back inside its shell brings the jump back.
 - **Every blog post carries an index, and it lives in a sticky left rail** — never at the
   top of the article. Posts use `.post-shell` (a two-column grid: a 186px `.toc-rail`,
   then the article), not `.wrap`. Below 900px the rail stacks above the article and gets
