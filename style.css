@@ -413,6 +413,10 @@ nav .hits:hover img { opacity: 1; }
   .stack .tl { width: 28px; height: 28px; }
 }
 
+/* home reuses the post shell, but its rail lists sections rather than walking you
+   through an argument — so no step numbers */
+.post-shell.home .toc ol { list-style: none; padding-left: 0; }
+
 /* ---------- inline architecture diagrams ---------- */
 .diagram { margin: 28px 0; }
 .diagram svg {
@@ -729,6 +733,7 @@ h2[id] { scroll-margin-top: 24px; }
   gap: 0 46px;
 }
 .post-shell > nav,
+.post-shell > .logo-strip,
 .post-shell > footer { grid-column: 1 / -1; }
 .post-shell > main { min-width: 0; }
 .toc-rail {
