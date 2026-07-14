@@ -155,6 +155,15 @@
       </p>
 
       <p>
+        The trade-off between the two is a well-worn one, and worth reading up on properly if this is
+        new to you — <a href="https://medium.com/@sonal.sadafal/beyond-single-region-multi-region-active-active-vs-active-passive-strategies-in-aws-70e02ec1abcf">this
+        write-up on multi-region active-active vs active-passive</a> lays out the shape of the
+        decision. The short version: active-active buys you availability and costs you correctness
+        guarantees. Which of those you can afford to lose is not an engineering preference. In
+        payments, it is decided for you.
+      </p>
+
+      <p>
         Two numbers describe how good your failover is, and they measure completely different things.
       </p>
 
