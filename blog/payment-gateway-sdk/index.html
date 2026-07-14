@@ -78,11 +78,9 @@
       <ol>
         <li><a href="#why-an-sdk-at-all">Why an SDK at all</a></li>
         <li><a href="#my-first-project-at-phonepe">My first project at PhonePe</a></li>
-        <li><a href="#instrumenting-somebody-elses-server">Instrumenting somebody else's server</a></li>
         <li><a href="#multiple-sdks-one-behaviour">Multiple SDKs, one behaviour</a></li>
         <li><a href="#the-launch-broke">The launch broke</a></li>
         <li><a href="#how-we-knew-it-was-working">How we knew it was working</a></li>
-        <li><a href="#integration-in-under-a-day">Integration in under a day</a></li>
         <li><a href="#making-it-public">Making it public</a></li>
       </ol>
     </nav>
@@ -165,6 +163,28 @@
       </p>
 
       <p>
+        A few of those decisions are worth naming, because they are the ones a merchant never sees
+        and always feels.
+      </p>
+
+      <p>
+        The library exposes <strong>singletons, abstract classes and factory builders</strong>, so
+        the merchant does not have to assemble anything. They ask for a client and they get one,
+        correctly configured, without knowing how it was put together. The seams are there for
+        <em>our</em> benefit, not theirs: when auth changes tomorrow — and auth always changes — the
+        implementation moves behind the factory and nobody's integration has to notice. Extensibility
+        is a promise you make to your future self, and the merchant is the person you keep it from.
+      </p>
+
+      <p>
+        The SDK also emits <strong>events</strong>, into an <strong>in-memory persistent queue</strong>
+        shipped to our events API in <strong>batches</strong> — never inline with the payment call,
+        because a merchant's checkout should not wait on our analytics. And because some merchants
+        run on genuinely constrained resources, event reporting is
+        <strong>switchable off at initialisation</strong>. What those events told us comes later.
+      </p>
+
+      <p>
         So the first thing I did was read somebody else's homework.
         <strong><a href="https://github.com/stripe/stripe-java">Stripe</a></strong> and the other
         giants had solved this years earlier, in public. I went through their SDKs — not to copy the
@@ -180,39 +200,6 @@
                loading="lazy" referrerpolicy="no-referrer">
         </a>
       </figure>
-
-      <h2 class="post-h2" id="instrumenting-somebody-elses-server">Instrumenting somebody else's server</h2>
-
-      <p>
-        The SDK emits <strong>events</strong>, because a library you cannot see is a library you are
-        guessing about. What those events told us comes later; how they get out is a design problem
-        worth its own section.
-      </p>
-
-      <p>
-        The awkward part of instrumenting an SDK is that it does not run on your machines. It runs
-        inside a merchant's application, on their hardware, in their hot path. Anything the SDK does
-        badly, it does badly to <em>them</em>.
-      </p>
-
-      <p>
-        So events go into an <strong>in-memory persistent queue</strong> inside the SDK and are
-        shipped to our public events API in <strong>batches</strong> — never inline with the payment
-        call. A merchant's checkout does not wait on our analytics, and a blip on our side cannot
-        become a blip on theirs.
-      </p>
-
-      <p>
-        And some merchants run on genuinely constrained resources, where even a queue and a
-        background flush is a cost they did not ask for. So event reporting is
-        <strong>switchable off at SDK initialisation</strong>. If you don't want to pay for our
-        telemetry, you don't have to.
-      </p>
-
-      <blockquote class="pull">
-        Analytics I want is not a good enough reason to spend memory a merchant did not agree to
-        give me.
-      </blockquote>
 
       <h2 class="post-h2" id="multiple-sdks-one-behaviour">Multiple SDKs, one behaviour</h2>
 
@@ -263,7 +250,7 @@
       </figure>
 
       <p>
-        Support surfaced it, and I rolled a fix within a couple of days. I also folded the
+        Support surfaced it, and I rolled a fix within a few hours. I also folded the
         regulator's requested guidelines into the SDK.
       </p>
 
@@ -322,7 +309,7 @@
         watch the same dashboard tell you whether removing it helped.
       </p>
 
-      <h2 class="post-h2" id="integration-in-under-a-day">Integration in under a day</h2>
+      <h3 class="post-h3">Integration in under a day</h3>
 
       <p>
         The point of the library is what a merchant's engineer <em>doesn't</em> have to think about.
@@ -357,10 +344,6 @@
           <span class="l">fewer integration<br>issues</span>
         </div>
       </div>
-
-      <p>
-        And then we watched the same dashboard tell us whether it had worked.
-      </p>
 
       <h2 class="post-h2" id="making-it-public">Making it public</h2>
 
