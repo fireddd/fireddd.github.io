@@ -72,8 +72,6 @@
         <li><a href="#active-passive-rto-and-rpo">Active-passive, RTO and RPO</a></li>
         <li><a href="#what-we-ran-and-how-it-replicates">What we ran, and how it replicates</a></li>
         <li><a href="#the-steps-of-a-drill">The steps of a drill</a></li>
-        <li><a href="#the-plan-would-have-passed">The plan would have passed</a></li>
-        <li><a href="#making-the-expensive-call">Making the expensive call</a></li>
         <li><a href="#what-a-drill-actually-looks-like">What a drill actually looks like</a></li>
         <li><a href="#the-numbers">The numbers</a></li>
         <li><a href="#what-id-tell-you-it-taught-me">What I'd tell you it taught me</a></li>
@@ -260,46 +258,97 @@
         <em>checked</em> you had stopped, and then you made it impossible to start again.
       </p>
 
+      <h3 class="post-h3">After every step, you take a screenshot</h3>
+
+      <p>
+        This is the part nobody tells you about, and it is most of what you actually <em>do</em> on
+        the night.
+      </p>
+
+      <p>
+        After each step: a screenshot, with the <strong>timestamp</strong> visible. Grafana, showing
+        the metric doing what it should. The <strong>logs</strong>, showing the thing happened. A
+        <strong>Swagger</strong> call, showing the service answering correctly. Step by step, over
+        and over.
+      </p>
+
+      <p>
+        It is tedious, and there are two reasons it is not optional. The drill is
+        <strong>audited</strong> — a regulator's expectation is not met by an engineer's memory of a
+        good night. And it is the only way anybody can tell afterwards <em>which step cost the time</em>.
+        An RTO of forty minutes is a number. Forty minutes with a timestamp on every step is a list
+        of things you can go and automate.
+      </p>
+
       <p>
         A lot of that was still manual, and manual steps are where RTO goes to die. Automating them
         is how the number came down.
       </p>
 
-      <h2 class="post-h2" id="the-plan-would-have-passed">The plan would have passed</h2>
+      <h2 class="post-h2" id="what-a-drill-actually-looks-like">What a drill actually looks like</h2>
 
       <p>
-        <strong>Step seven</strong> — getting traffic to the surviving data centre — is where it gets
-        interesting, and where a drill I led nearly went wrong.
+        A drill is not a diagram. It is a room, and it is the middle of the night, because that is
+        the only window in which you are allowed to take a payment system down on purpose.
       </p>
 
       <p>
-        Redirecting the gateway sounds like the easy step. It is the one that decides whether any of
-        the six before it mattered, because a perfectly failed-over database that nobody can reach is
-        just an expensive backup.
+        Before any of it, somebody has to go round and ask everyone whether they are actually
+        turning up. A colleague made this, and it is the most accurate artefact of the whole
+        exercise:
+      </p>
+
+      <figure class="vid">
+        <video src="/img/dr/dr-meme.mp4" poster="/img/dr/dr-meme-poster.jpg"
+               autoplay muted loop playsinline
+               aria-label="A meme made by a colleague, captioned: POV — Manoj asking everyone if they will be coming in for the DR."></video>
+      </figure>
+
+      <figure class="shot">
+        <img src="/img/dr/office-4am.jpg" alt="The office, empty and half-lit, in the middle of the night during the disaster recovery drill" loading="lazy">
+        <figcaption>The office at 4am</figcaption>
+      </figure>
+
+      <p>
+        On the call: engineers, an architect, SREs and their manager, compliance, and external
+        auditors. Roughly a dozen people, most of whom do not report to you, all watching a clock.
+        That is the part the runbook does not prepare you for — the failover is a technical problem,
+        and everything around it is not.
+      </p>
+
+      <figure class="shot">
+        <img src="/img/dr/team.jpg" alt="The development team who took part in the disaster recovery drill, at the office" loading="lazy">
+        <figcaption>The people who turned up</figcaption>
+      </figure>
+
+      <h2 class="post-h2" id="the-numbers">The numbers</h2>
+
+      <p>
+        We completed the drill on the correct path, with a measured recovery time.
+        <strong>RTO came down from about an hour to under seven minutes</strong>, and it was still
+        heading downwards — a lot of the cutover was manual and we were automating it.
       </p>
 
       <p>
-        The proposed failover plan worked like this: leave the routing layer where it was, and let a
-        sidecar deployed <em>inside the primary data centre</em> redirect traffic to the surviving
-        instance.
+        The thing people get wrong about RPO is treating it as a target you choose. It isn't. Your
+        RPO is <em>set for you</em> by the slowest-replicating store you depend on. You can write
+        whatever number you like in the document; the database's asynchronous replication lag is the
+        number that will actually be true on the day. Everything else — the caches, the queues whose
+        state you can rebuild from the database — is noise by comparison.
+      </p>
+
+      <h2 class="post-h2" id="what-id-tell-you-it-taught-me">What I'd tell you it taught me</h2>
+
+      <p>
+        A drill is a test, and tests can be gamed — usually by accident, by people who are trying
+        hard and want to pass. The most dangerous thing in reliability work isn't a failure. It's a
+        <strong>green result you didn't earn</strong>.
       </p>
 
       <p>
-        That plan <strong>passes the drill</strong>. In a drill, you take one service down and prove
-        traffic reaches it somewhere else. The sidecar redirect does exactly that.
-      </p>
-
-      <p>
-        But I kept pulling on what a real disaster looks like, and a real disaster is not one
-        service dying. <strong>It's the entire data centre going down.</strong> Under that
-        condition, the path we were about to certify doesn't hold — the very layer being relied on
-        to redirect traffic is inside the thing that just died.
-      </p>
-
-      <p>
-        So we would have passed. We would have shown the auditors a green result, filed it, and
-        walked away with <strong>false confidence</strong> — which is worse than no confidence,
-        because you stop looking.
+        The trap is specific, and it is easy to walk into. A drill takes <em>one service</em> down. A
+        real disaster takes <em>the whole data centre</em> — including, quite possibly, the very thing
+        you were relying on to redirect traffic away from the failure.
       </p>
 
       <figure class="diagram">
@@ -392,87 +441,6 @@
           wrong goal
         </figcaption>
       </figure>
-
-      <h2 class="post-h2" id="making-the-expensive-call">Making the expensive call</h2>
-
-      <p>
-        I said so. The correct approach was the one that survives losing the whole data centre, not
-        the one that survives the test — and it cost us timeline to do it that way.
-      </p>
-
-      <p>
-        Two things mattered about how I raised it. First, I didn't argue it as a preference. I
-        argued it as a <strong>failure mode</strong>: here is the condition under which our plan
-        stops working, and that condition is the actual definition of the disaster we're preparing
-        for. That's much harder to wave through than "I'd prefer the other design."
-      </p>
-
-      <p>
-        Second, the gap wasn't in the DR document at all — the standard operating procedure didn't
-        require the right path. So fixing one drill would have fixed nothing for anyone else. I got
-        the <strong>SOP changed</strong>, so the next team doesn't rediscover a full-datacentre loss
-        the hard way. That's the part that outlives me.
-      </p>
-
-      <h2 class="post-h2" id="what-a-drill-actually-looks-like">What a drill actually looks like</h2>
-
-      <p>
-        A drill is not a diagram. It is a room, and it is the middle of the night, because that is
-        the only window in which you are allowed to take a payment system down on purpose.
-      </p>
-
-      <p>
-        Before any of it, somebody has to go round and ask everyone whether they are actually
-        turning up. A colleague made this, and it is the most accurate artefact of the whole
-        exercise:
-      </p>
-
-      <figure class="vid">
-        <video src="/img/dr/dr-meme.mp4" poster="/img/dr/dr-meme-poster.jpg"
-               autoplay muted loop playsinline
-               aria-label="A meme made by a colleague, captioned: POV — Manoj asking everyone if they will be coming in for the DR."></video>
-      </figure>
-
-      <figure class="shot">
-        <img src="/img/dr/office-4am.jpg" alt="The office, empty and half-lit, in the middle of the night during the disaster recovery drill" loading="lazy">
-        <figcaption>The office at 4am</figcaption>
-      </figure>
-
-      <p>
-        On the call: engineers, an architect, SREs and their manager, compliance, and external
-        auditors. Roughly a dozen people, most of whom do not report to you, all watching a clock.
-        That is the part the runbook does not prepare you for — the failover is a technical problem,
-        and everything around it is not.
-      </p>
-
-      <figure class="shot">
-        <img src="/img/dr/team.jpg" alt="The development team who took part in the disaster recovery drill, at the office" loading="lazy">
-        <figcaption>The people who turned up</figcaption>
-      </figure>
-
-      <h2 class="post-h2" id="the-numbers">The numbers</h2>
-
-      <p>
-        We completed the drill on the correct path, with a measured recovery time.
-        <strong>RTO came down from about an hour to under seven minutes</strong>, and it was still
-        heading downwards — a lot of the cutover was manual and we were automating it.
-      </p>
-
-      <p>
-        The thing people get wrong about RPO is treating it as a target you choose. It isn't. Your
-        RPO is <em>set for you</em> by the slowest-replicating store you depend on. You can write
-        whatever number you like in the document; the database's asynchronous replication lag is the
-        number that will actually be true on the day. Everything else — the caches, the queues whose
-        state you can rebuild from the database — is noise by comparison.
-      </p>
-
-      <h2 class="post-h2" id="what-id-tell-you-it-taught-me">What I'd tell you it taught me</h2>
-
-      <p>
-        A drill is a test, and tests can be gamed — usually by accident, by people who are trying
-        hard and want to pass. The most dangerous thing in reliability work isn't a failure. It's a
-        <strong>green result you didn't earn</strong>.
-      </p>
 
       <p>
         If your recovery plan is only exercised against a failure smaller than the one you're
