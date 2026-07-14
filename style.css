@@ -574,7 +574,7 @@ aside .card {
   font-weight: 550;
   color: var(--ink);
 }
-.pull.accent { border-left-color: var(--accent); color: var(--accent); }
+.pull.accent { border-left-color: var(--accent); }   /* accent the RULE, never the text */
 
 /* ---------- terminal ---------- */
 .term { margin: 26px 0; }
@@ -616,3 +616,142 @@ aside .card {
   color: var(--faint);
   line-height: 1.5;
 }
+
+/* ---------- post hero ---------- */
+.post-hero {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 0 0 4px;
+}
+.post-hero .hero-logo {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  padding: 6px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--rule);
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+  margin-top: 4px;
+  transition: transform .15s ease;
+}
+.post-hero .hero-logo:hover { transform: translateY(-2px); text-decoration: none; }
+.post-hero .hero-logo img { width: 100%; height: 100%; object-fit: contain; }
+.post-hero .hero-text { min-width: 0; }
+.hero-kicker {
+  margin: 0 0 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+  color: var(--brand, var(--accent));
+  font-weight: 600;
+}
+.post-hero h1 { margin: 0 0 8px; }
+.hero-sub {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 52ch;
+}
+/* a company can bring its own accent to the kicker without hijacking link colours */
+.brand-phonepe { --brand: #7b3fbf; }
+@media (prefers-color-scheme: dark) { .brand-phonepe { --brand: #a678e0; } }
+
+/* ---------- tech chips ---------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 22px 0 4px;
+  padding: 0;
+  list-style: none;
+}
+.chips li {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .02em;
+  color: var(--muted);
+  background: var(--chip);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 4px 11px;
+}
+.chips li a { color: inherit; }
+.chips li a:hover { color: var(--accent); }
+.chips .ch-x { color: var(--faint); }
+.chips li.ch-hi {
+  color: var(--accent);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+@media (max-width: 520px) {
+  .post-hero { gap: 12px; }
+  .post-hero .hero-logo { width: 44px; height: 44px; }
+}
+
+.brand-citadel { --brand: #12386e; }
+@media (prefers-color-scheme: dark) { .brand-citadel { --brand: #6f9fe0; } }
+.brand-auquan { --brand: #444; }
+@media (prefers-color-scheme: dark) { .brand-auquan { --brand: #b9b9b9; } }
+.brand-worldquant { --brand: #d95c1f; }
+@media (prefers-color-scheme: dark) { .brand-worldquant { --brand: #ff8c47; } }
+/* WorldQuant's mark is drawn for a dark backdrop */
+.post-hero .hero-logo.dark { background: #14161a; border-color: #2a2d33; }
+
+/* ---------- table of contents ---------- */
+.toc {
+  margin: 26px 0 30px;
+  padding: 16px 18px;
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  background: var(--chip);
+}
+.toc-t {
+  margin: 0 0 10px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--faint);
+  font-weight: 600;
+}
+.toc ol {
+  margin: 0;
+  padding-left: 1.1em;
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+.toc ol li { color: var(--faint); }
+.toc ol a { color: var(--muted); }
+.toc ol a:hover { color: var(--accent); }
+
+/* home page: a horizontal jump bar rather than a boxed list */
+.toc.inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 44px 0 -12px;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.toc.inline a {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--muted);
+  background: var(--chip);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 5px 13px;
+}
+.toc.inline a:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+
+/* anchored headings shouldn't hide under the top of the viewport */
+h2[id] { scroll-margin-top: 24px; }

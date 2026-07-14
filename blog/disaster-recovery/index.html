@@ -5,7 +5,7 @@
 <meta name="author" content="Shubhransh Jagota">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://fireddd.github.io/blog/disaster-recovery/">
-<link rel="stylesheet" href="/style.css?v=18">
+<link rel="stylesheet" href="/style.css?v=21">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="The drill you can pass and still be wrong">
@@ -66,12 +66,38 @@
   </nav>
 
   <article>
-    <header>
-      <h1>The drill you can pass and still be wrong</h1>
-      <p class="tagline">phonepe · disaster recovery · omx</p>
+    <header class="post-hero brand-phonepe">
+      <a class="hero-logo" href="https://www.phonepe.com">
+        <img src="/logos/phonepe.png?v=19" alt="PhonePe" width="44" height="44">
+      </a>
+      <div class="hero-text">
+        <p class="hero-kicker">PhonePe (Walmart) · Disaster recovery</p>
+        <h1>The drill you can pass and still be wrong</h1>
+        <p class="hero-sub">I led the DR for OMX. The plan would have passed the drill and failed the disaster.</p>
+      </div>
     </header>
 
+    <ul class="chips">
+      <li>Cross-DC replication</li>
+      <li>API gateway routing</li>
+      <li>Service discovery</li>
+      <li>Active–passive</li>
+      <li class="ch-hi">RTO 1 hr → &lt;7 min</li>
+    </ul>
+
     <div class="prose post">
+      <nav class="toc" aria-label="On this page">
+        <p class="toc-t">On this page</p>
+        <ol>
+          <li><a href="#learning-infrastructure-i-didnt-own">Learning infrastructure I didn't own</a></li>
+          <li><a href="#the-plan-would-have-passed">The plan would have passed</a></li>
+          <li><a href="#making-the-expensive-call">Making the expensive call</a></li>
+          <li><a href="#the-numbers">The numbers</a></li>
+          <li><a href="#the-part-i-got-wrong">The part I got wrong</a></li>
+          <li><a href="#what-id-tell-you-it-taught-me">What I'd tell you it taught me</a></li>
+        </ol>
+      </nav>
+
       <p>
         In regulated payments you don't get to <em>claim</em> you can fail over. You have to
         demonstrate it. India's business-continuity expectations for payment systems mean a
@@ -85,7 +111,7 @@
         money.
       </p>
 
-      <h2 class="post-h2">Learning infrastructure I didn't own</h2>
+      <h2 class="post-h2" id="learning-infrastructure-i-didnt-own">Learning infrastructure I didn't own</h2>
 
       <p>
         I owned the application, not the plumbing. To lead the drill credibly I had to understand
@@ -101,7 +127,7 @@
         what came next. I would never have seen it from the application layer.
       </p>
 
-      <h2 class="post-h2">The plan would have passed</h2>
+      <h2 class="post-h2" id="the-plan-would-have-passed">The plan would have passed</h2>
 
       <p>
         The proposed failover plan worked like this: leave the API gateway where it was, and let a
@@ -217,7 +243,7 @@
         </figcaption>
       </figure>
 
-      <h2 class="post-h2">Making the expensive call</h2>
+      <h2 class="post-h2" id="making-the-expensive-call">Making the expensive call</h2>
 
       <p>
         I said so. The correct approach was the one that survives losing the whole data centre, not
@@ -238,7 +264,7 @@
         the hard way. That's the part that outlives me.
       </p>
 
-      <h2 class="post-h2">The numbers</h2>
+      <h2 class="post-h2" id="the-numbers">The numbers</h2>
 
       <p>
         We completed the drill on the correct path, with a measured recovery time.
@@ -254,7 +280,7 @@
         state you can rebuild from the database — is noise by comparison.
       </p>
 
-      <h2 class="post-h2">The part I got wrong</h2>
+      <h2 class="post-h2" id="the-part-i-got-wrong">The part I got wrong</h2>
 
       <p>
         I committed to a December date. It slipped twice, about two weeks each time.
@@ -273,7 +299,7 @@
         deliverable — because they are.
       </p>
 
-      <h2 class="post-h2">What I'd tell you it taught me</h2>
+      <h2 class="post-h2" id="what-id-tell-you-it-taught-me">What I'd tell you it taught me</h2>
 
       <p>
         A drill is a test, and tests can be gamed — usually by accident, by people who are trying

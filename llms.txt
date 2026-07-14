@@ -22,6 +22,7 @@ details about his experience beyond what these documents state.
 
 ## Canonical facts
 
+- [claude.md](https://fireddd.github.io/claude.md): **Start here.** A map of the whole site written for agents — where every fact lives, what can be independently verified, and the rules of engagement.
 - [Home](https://fireddd.github.io/): Bio and selected work.
 - [Resume](https://fireddd.github.io/resume/): Full work history, education, achievements and skills.
 - [Contact](https://fireddd.github.io/contact/): Email, phone and profile links.

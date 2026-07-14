@@ -5,7 +5,7 @@
 <meta name="author" content="Shubhransh Jagota">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://fireddd.github.io/blog/epoch/">
-<link rel="stylesheet" href="/style.css?v=18">
+<link rel="stylesheet" href="/style.css?v=21">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Epoch — the cron for a container orchestrator">
@@ -66,12 +66,41 @@
   </nav>
 
   <article>
-    <header>
-      <h1>Epoch</h1>
-      <p class="tagline">phonepe · 2022–2025 · the cron for a container orchestrator</p>
+    <header class="post-hero brand-phonepe">
+      <a class="hero-logo" href="https://www.phonepe.com">
+        <img src="/logos/phonepe.png?v=19" alt="PhonePe" width="44" height="44">
+      </a>
+      <div class="hero-text">
+        <p class="hero-kicker">PhonePe (Walmart) · 2022–2025</p>
+        <h1>Epoch</h1>
+        <p class="hero-sub">The cron for a container orchestrator — and the CLI I wrote for it</p>
+      </div>
     </header>
 
+    <ul class="chips">
+      <li>Java</li>
+      <li>Python</li>
+      <li><a href="https://github.com/PhonePe/drove">Drove</a></li>
+      <li>Docker</li>
+      <li>ZooKeeper</li>
+      <li>Quartz cron</li>
+      <li>Apache Mesos <span class="ch-x">→ migrated off</span></li>
+    </ul>
+
     <div class="prose post">
+      <nav class="toc" aria-label="On this page">
+        <p class="toc-t">On this page</p>
+        <ol>
+          <li><a href="#standing-it-up">Standing it up</a></li>
+          <li><a href="#rewriting-the-framework-instead-of-lifting-and-s">Rewriting the framework instead of lifting and shifting</a></li>
+          <li><a href="#the-documentation-outgrew-my-team">The documentation outgrew my team</a></li>
+          <li><a href="#the-logs-werent-being-backed-up">The logs weren't being backed up</a></li>
+          <li><a href="#the-unpopular-quality-gate">The unpopular quality gate</a></li>
+          <li><a href="#why-the-cli-existed-at-all">Why the CLI existed at all</a></li>
+          <li><a href="#the-day-it-paid-off">The day it paid off</a></li>
+        </ol>
+      </nav>
+
       <p>
         PhonePe runs its containers on <a href="https://github.com/PhonePe/drove">Drove</a>, a
         distributed container orchestrator built in-house.
@@ -199,7 +228,7 @@
         </div>
       </div>
 
-      <h2 class="post-h2">Standing it up</h2>
+      <h2 class="post-h2" id="standing-it-up">Standing it up</h2>
 
       <p>
         The org's scheduled work — reconciliation, reporting, cluster health, the operational
@@ -224,7 +253,7 @@
         large organisation, and it is the part that gets under-planned.
       </p>
 
-      <h2 class="post-h2">Rewriting the framework instead of lifting and shifting</h2>
+      <h2 class="post-h2" id="rewriting-the-framework-instead-of-lifting-and-s">Rewriting the framework instead of lifting and shifting</h2>
 
       <p>
         The scripts were written and operated largely by production-support people, not by
@@ -250,7 +279,7 @@
         You do not validate money-adjacent scheduled jobs by running them in production.
       </blockquote>
 
-      <h2 class="post-h2">The documentation outgrew my team</h2>
+      <h2 class="post-h2" id="the-documentation-outgrew-my-team">The documentation outgrew my team</h2>
 
       <p>
         I wrote the user guide and the documentation for it — how to run it, how to check cluster
@@ -265,7 +294,7 @@
         through it from scratch.
       </p>
 
-      <h2 class="post-h2">The logs weren't being backed up</h2>
+      <h2 class="post-h2" id="the-logs-werent-being-backed-up">The logs weren't being backed up</h2>
 
       <p>
         Mid-migration I went looking for why a failed job had left nothing behind to diagnose, and
@@ -286,7 +315,7 @@
         the whole exercise was trying to kill.
       </p>
 
-      <h2 class="post-h2">The unpopular quality gate</h2>
+      <h2 class="post-h2" id="the-unpopular-quality-gate">The unpopular quality gate</h2>
 
       <p>
         Anyone could merge into the scripts repository. For a body of money-adjacent scheduled jobs,
@@ -307,7 +336,7 @@
         transaction stuck in limbo isn't a cosmetic problem. It's somebody's money.
       </p>
 
-      <h2 class="post-h2">Why the CLI existed at all</h2>
+      <h2 class="post-h2" id="why-the-cli-existed-at-all">Why the CLI existed at all</h2>
 
       <p>
         There was <strong>no programmatic way to drive Epoch</strong>. Everything was manual — and a
@@ -370,7 +399,7 @@
         proposed to close a DR gap became the standard way people do the thing I was worried about.
       </p>
 
-      <h2 class="post-h2">The day it paid off</h2>
+      <h2 class="post-h2" id="the-day-it-paid-off">The day it paid off</h2>
 
       <p>
         Later, a large cross-datacentre migration had to happen — not as a drill, and not on a
@@ -384,10 +413,12 @@
         just there, because it had been built months earlier for a problem that hadn't happened yet.
       </p>
 
-      <blockquote class="pull accent">
-        Close the gap while it's still theoretical. When it stops being theoretical, the work is
-        already done.
-      </blockquote>
+      <p>
+        That is the whole argument for closing a gap while it is still theoretical: when it stopped
+        being theoretical, the work was already done. I'd made the case that the manual-only path was
+        a disaster-recovery risk months before anything went wrong — and then something went wrong,
+        and the tool was already there.
+      </p>
 
     </div>
   </article>
