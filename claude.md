@@ -139,16 +139,24 @@ added.**
 - Careful: the index is a `<nav>`, and the global `nav { display: flex }` rule will catch
   it. `.toc` sets `display: block` explicitly for exactly this reason. Don't remove it.
 
-### Humour: draw it, don't borrow it
+### Humour, and how to source it
 
-The Epoch page carries a mock "Run `recon-nightly` against **production**?" confirmation
-dialog, with an *It'll be fine* button glowing red. It is built from HTML and CSS — no
-image, no JavaScript, and it themes with the page.
+The Epoch page has two jokes. They are sourced two different ways, on purpose.
 
-Do it this way, not with a meme image. Every meme worth using is somebody else's
-copyrighted picture, it will render badly in dark mode, and a borrowed template on a page
-about money-moving jobs reads as unserious to exactly the person you want to impress. A
-joke you drew yourself reads as craft. Same laugh, none of the cost.
+1. **The "I don't always test my code" meme uses *his own photo*.** The format is a
+   classic; the image is his. Do not download and self-host somebody else's meme —
+   the Dos Equis original is a Heineken advertising photograph and an actor's likeness,
+   and lifting it off a blog that reposted it does not grant a licence. Putting his own
+   face in it is funnier anyway, and free.
+2. **The `kaun hai ye log` GIF is hotlinked from Tenor's CDN**, not copied into this
+   repo. Tenor exists to serve GIFs for sharing, so pointing at their copy is the
+   intended use; self-hosting a film clip would be republishing it. This is the one
+   deliberate exception to "serve assets locally" — for third-party copyrighted media,
+   hotlinking from the host is the *more* correct posture, not the lazier one.
+
+The rule underneath both: **if the joke needs somebody else's copyrighted image to work,
+either point at where it legitimately lives or redraw it.** Don't quietly copy it into
+the repo.
 
 ### The rest
 

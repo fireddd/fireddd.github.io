@@ -5,7 +5,7 @@
 <meta name="author" content="Shubhransh Jagota">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://fireddd.github.io/blog/epoch/">
-<link rel="stylesheet" href="/style.css?v=24">
+<link rel="stylesheet" href="/style.css?v=26">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Epoch — the cron for a container orchestrator">
@@ -280,24 +280,10 @@
       </p>
 
       <figure class="meme">
-        <div class="dlg" role="img" aria-label="A mock confirmation dialog. Title: Run recon-nightly against production? Body: This job settles merchant transactions. There is no staging environment. Buttons: Cancel, and 'It'll be fine' — with the second button highlighted as the default.">
-          <div class="dlg-top">
-            <span class="dlg-dot"></span><span class="dlg-dot"></span><span class="dlg-dot"></span>
-          </div>
-          <div class="dlg-main">
-            <div class="dlg-warn">!</div>
-            <div>
-              <p class="dlg-t">Run <code>recon-nightly</code> against <b>production</b>?</p>
-              <p class="dlg-s">
-                This job settles merchant transactions. There is no staging environment.
-                It has not been reviewed. Its logs are not being kept.
-              </p>
-            </div>
-          </div>
-          <div class="dlg-btns">
-            <span class="dlg-btn">Cancel</span>
-            <span class="dlg-btn go">It&rsquo;ll be fine</span>
-          </div>
+        <div class="memecard">
+          <img src="/img/meme-prod.jpg?v=25" alt="Meme: a photo of Shubhransh Jagota, captioned 'I don't always test my code — but when I do, I do it in production.'" loading="lazy">
+          <span class="mt top">I don&rsquo;t always test my code</span>
+          <span class="mt bottom">but when I do, I do it in production</span>
         </div>
         <figcaption>
           Everyone has a test environment. Some people are lucky enough to have a
@@ -328,6 +314,20 @@
         found that <strong>job logs weren't being persisted at all</strong>. Failures were
         effectively invisible after the fact.
       </p>
+
+      <figure class="meme">
+        <a class="gifcard" href="https://tenor.com/view/kon-he-ye-log-kaha-se-aate-hai-kon-he-ye-kaha-se-aate-hai-ye-log-arshad-warsi-funny-memes-gif-3700229249356246203">
+          <img src="https://media1.tenor.com/m/M1na5ctjrLsAAAAC/kon-he-ye-log-kaha-se-aate-hai-kon-he-ye.gif"
+               alt="Arshad Warsi in Jolly LLB, asking 'kaun hai ye log, kahan se aate hain?' — who are these people, where do they come from?"
+               loading="lazy" referrerpolicy="no-referrer">
+        </a>
+        <figcaption>
+          <strong lang="hi">कौन है ये लोग? कहाँ से आते हैं?</strong><br>
+          The pun works in two languages and I refuse to apologise for it. In our case the answer
+          was: nowhere. The <em>logs</em> weren&rsquo;t coming from anywhere, because nothing was
+          keeping them. <span class="credit">via <span>Tenor</span></span>
+        </figcaption>
+      </figure>
 
       <p>
         That was an infrastructure problem, not my problem. But I was the one going around telling
