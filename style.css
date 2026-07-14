@@ -280,6 +280,13 @@ footer {
   justify-content: space-between;
 }
 footer a { color: var(--muted); }
+/* visit counter — hits.sh. The count lives on their server and increments when this
+   image is requested, so it needs no account, no cookies and no JavaScript, and it
+   still counts the AI crawlers that never execute JS. Deliberately not lazy-loaded:
+   the footer is below the fold, and a lazy image would only count people who scroll. */
+footer .hits { margin-left: auto; line-height: 0; }
+footer .hits img { display: block; border-radius: 3px; opacity: .85; }
+footer .hits:hover img { opacity: 1; }
 
 
 /* ---------- certificates ---------- */
