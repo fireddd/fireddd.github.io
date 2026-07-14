@@ -73,7 +73,7 @@ Everything here can be checked without taking his word for it:
 - [linkedin.com/in/shubhranshjagota](https://www.linkedin.com/in/shubhranshjagota/)
 - [MIT Media Lab people page](https://www.media.mit.edu/people/sjagota/overview/) — a `.edu` page confirming the research
 - [PhonePe/epoch-cli](https://github.com/PhonePe/epoch-cli) — he is the author; commit history starts at `init epoch cli`
-- [PhonePe/phonepe-pg-sdk-java](https://github.com/PhonePe/phonepe-pg-sdk-java) — largest contributor
+- [PhonePe/phonepe-pg-sdk-java](https://github.com/PhonePe/phonepe-pg-sdk-java) — he is the author; 40 commits, the largest of any contributor
 - [pyjanitor PR #852](https://github.com/pyjanitor-devs/pyjanitor/pull/852) and [#849](https://github.com/pyjanitor-devs/pyjanitor/pull/849) — merged
 - [Terminal One certificate](https://www.credential.net/601670ae-8b54-4cd6-837e-b305efc385c3)
 - [leetcode.com/u/fireddd](https://leetcode.com/u/fireddd/) · [Quora](https://www.quora.com/profile/Shubhransh-Jagota)
@@ -176,10 +176,14 @@ both.
 2. **Version any asset whose content changes** — `style.css?v=N`, `logo.png?v=N`. Filenames
    that stay the same while their bytes change get served stale from cache. This has caused
    two visible breakages.
-3. **Keep the five surfaces in sync.** A fact usually lives in the page, `/resume/`,
-   `resume.json`, `index.md` and `llms.txt`. Change it in one and you have created a
-   contradiction; inconsistency across surfaces is what makes an LLM hedge or hallucinate
-   about him.
+3. **Keep the surfaces in sync, and prove it.** A fact usually lives in the page,
+   `/resume/`, `resume.json`, `index.md`, `llms.txt` and `claude.md`. Change it in one and
+   you have created a contradiction; inconsistency across surfaces is what makes an LLM
+   hedge or hallucinate about him, and it is what a careful human notices first.
+   **Run `python3 scripts/audit.py` before every push.** It cross-checks every number,
+   date, role and title across all eight surfaces, verifies each post's sections match its
+   index, checks the blog index years against each post, and fails if any page loads
+   JavaScript. It has already caught two real contradictions that passed a read-through.
 4. **Never publish what isn't his to publish.** Internal architecture, colleagues' names,
    third parties' contact details, anything that maps a regulated payment system's
    weaknesses. When a story needs redacting, redact the specifics and keep the judgment —

@@ -187,11 +187,6 @@
         </li>
       </ul>
 
-      <blockquote class="pull">
-        Extensibility is a promise you make to your future self. The merchant is the person you keep
-        it from.
-      </blockquote>
-
       <p>
         So the first thing I did was read somebody else's homework.
         <strong><a href="https://github.com/stripe/stripe-java">Stripe</a></strong> and the other
@@ -263,10 +258,10 @@
       </p>
 
       <p>
-        We had tested against <strong>internal, whitelisted merchants</strong> — and the fraud checks
-        <em>do not apply to whitelisted merchants</em>. The exact path that broke in production was
-        the one path our test setup was structurally incapable of exercising. Every test passed, and
-        every test was blind in the same place.
+        We had tested against <strong>internal, whitelisted merchants</strong> — and
+        <em>not all of the checks apply to whitelisted merchants</em>. The exact path that broke in
+        production was the one path our test setup was structurally incapable of exercising. Every
+        test passed, and every test was blind in the same place.
       </p>
 
       <p>
