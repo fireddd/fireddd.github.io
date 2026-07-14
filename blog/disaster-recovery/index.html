@@ -5,7 +5,7 @@
 <meta name="author" content="Shubhransh Jagota">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://fireddd.github.io/blog/disaster-recovery/">
-<link rel="stylesheet" href="/style.css?v=40">
+<link rel="stylesheet" href="/style.css?v=41">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="What actually happens in a DR drill">
@@ -279,38 +279,41 @@
         Every component in the stack fails over differently, and your RPO is the worst of them.
       </p>
 
-      <ul>
+      <ul class="stack">
         <li>
-          <strong>MariaDB</strong> — the transactional store, and the one that matters. Active-passive
+          <img class="tl" src="/logos/tech/mariadb.png?v=41" alt="" width="34" height="34" loading="lazy" aria-hidden="true">
+          <span><strong><a href="https://mariadb.org/">MariaDB</a></strong> — the transactional store, and the one that matters. Active-passive
           with <strong>asynchronous replication</strong>, lagging the primary by a couple of minutes.
           This is the binding constraint. <em>MariaDB's replication lag was our RPO</em>; nothing else
-          in the stack moved that number.
+          in the stack moved that number.</span>
         </li>
         <li>
-          <strong>Aerospike</strong> — run in AP mode with bidirectional cross-datacentre replication
+          <img class="tl" src="/logos/tech/aerospike.png?v=41" alt="" width="34" height="34" loading="lazy" aria-hidden="true">
+          <span><strong><a href="https://aerospike.com/">Aerospike</a></strong> — run in AP mode with bidirectional cross-datacentre replication
           in the low hundreds of milliseconds. Effectively real time. Its contribution to data loss is
-          negligible.
+          negligible.</span>
         </li>
         <li>
-          <strong>RabbitMQ</strong> — asynchronous processing only. The durable state lives in the
+          <img class="tl" src="/logos/tech/rabbitmq.png?v=41" alt="" width="34" height="34" loading="lazy" aria-hidden="true">
+          <span><strong><a href="https://www.rabbitmq.com/">RabbitMQ</a></strong> — asynchronous processing only. The durable state lives in the
           database, so messages in flight are <em>reconstructable</em> from persisted state. RMQ is
           not a data-loss surface on its own, which is a nice property to have designed in before you
-          need it.
+          need it.</span>
         </li>
         <li>
-          <strong><a href="https://zookeeper.apache.org/">ZooKeeper</a></strong> — coordination and
+          <img class="tl" src="/logos/tech/zookeeper.svg?v=41" alt="" width="34" height="34" loading="lazy" aria-hidden="true">
+          <span><strong><a href="https://zookeeper.apache.org/">ZooKeeper</a></strong> — coordination and
           leader election. Also what <a href="https://github.com/appform-io/ranger">Ranger</a>, the
           open-source service-discovery library, stores its service registry in.
-        </li>
-        <li>
           <strong>Router registry and Zeus</strong> — internal constructs on top of Ranger. Zeus is
-          a layer-7 traffic-shaping service. Neither is open source.
+          a layer-7 traffic-shaping service. Neither is open source.</span>
         </li>
         <li>
-          <strong><a href="https://github.com/PhonePe/drove">Drove</a></strong> and
+          <img class="tl" src="/logos/tech/drove.png?v=41" alt="" width="34" height="34" loading="lazy" aria-hidden="true">
+          <span><strong><a href="https://github.com/PhonePe/drove">Drove</a></strong> and
           <a href="https://github.com/PhonePe/drove-gateway">drove-gateway</a> — container
           orchestration, and the NGINX layer that routes traffic to wherever the containers actually
-          are. Both are open source.
+          are. Both are open source.</span>
         </li>
       </ul>
 

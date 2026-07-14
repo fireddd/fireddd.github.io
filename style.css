@@ -470,6 +470,29 @@ aside .card {
   .item-logo { width: 38px; height: 38px; }
 }
 
+/* ---------- tech stack list (logo + text) ---------- */
+.stack { list-style: none; padding: 0; margin: 18px 0; }
+.stack li {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 0 14px;
+  align-items: start;
+  margin: 0 0 16px;
+}
+.stack .tl {
+  width: 34px; height: 34px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--rule);
+  padding: 4px;
+  box-sizing: border-box;
+}
+@media (max-width: 560px) {
+  .stack li { grid-template-columns: 28px minmax(0, 1fr); gap: 0 10px; }
+  .stack .tl { width: 28px; height: 28px; }
+}
+
 /* ---------- inline architecture diagrams ---------- */
 .diagram { margin: 28px 0; }
 .diagram svg {
