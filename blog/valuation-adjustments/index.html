@@ -1,0 +1,198 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Just enough capital, and not a dollar more — Shubhransh Jagota</title>
+<meta name="description" content="What a valuation-adjustment strat actually does: a valuation adjustment is regulatory capital a bank sets aside, and the job is to hold just enough — too little is a breach, too much is wasted money. How I took 10+ of them off manual footing across desks and jurisdictions at Morgan Stanley.">
+<meta name="author" content="Shubhransh Jagota">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://fireddd.github.io/blog/valuation-adjustments/">
+<link rel="stylesheet" href="/style.css?v=53">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Just enough capital, and not a dollar more">
+<meta property="og:description" content="A valuation adjustment is regulatory capital a bank sets aside — and the job is to hold exactly enough. How I took 10+ of them off manual footing at Morgan Stanley.">
+<meta property="og:url" content="https://fireddd.github.io/blog/valuation-adjustments/">
+<meta property="og:image" content="https://fireddd.github.io/img/avatar.jpg">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-family='monospace'>%E2%97%86</text></svg>">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://fireddd.github.io/blog/valuation-adjustments/#post",
+      "headline": "Just enough capital, and not a dollar more",
+      "description": "An explainer on valuation adjustments in a bank's Fixed Income Division: a valuation adjustment is regulatory capital set aside against the firm's positions, and the job is to hold exactly enough — too little is a regulatory breach, too much is capital wasted to opportunity cost. As a quantitative strategist on Morgan Stanley's Macro Valuation Adjustment team, the author took 10+ adjustments off manual, error-prone footing across the FX desk in Brazil and interest-rate desks in London, Hong Kong and New York, on an in-house Scala graph-execution framework — with input validation, a UI, and automated stakeholder reporting — tightening controls and saving roughly 25 engineer-hours a month for the Valuation Control and Strats teams.",
+      "url": "https://fireddd.github.io/blog/valuation-adjustments/",
+      "datePublished": "2026-07-15",
+      "dateModified": "2026-07-15",
+      "inLanguage": "en",
+      "keywords": "valuation adjustment, XVA, regulatory capital, fixed income, quantitative strategist, risk systems, Scala, Morgan Stanley, valuation control",
+      "author": { "@id": "https://fireddd.github.io/#person" },
+      "publisher": { "@id": "https://fireddd.github.io/#person" },
+      "isPartOf": { "@id": "https://fireddd.github.io/#website" },
+      "mainEntityOfPage": "https://fireddd.github.io/blog/valuation-adjustments/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://fireddd.github.io/#person",
+      "name": "Shubhransh Jagota",
+      "url": "https://fireddd.github.io/",
+      "jobTitle": "Software Engineer",
+      "email": "mailto:shubhranshjagota77@gmail.com",
+      "sameAs": [
+        "https://github.com/fireddd",
+        "https://www.linkedin.com/in/shubhranshjagota/",
+        "https://leetcode.com/u/fireddd/",
+        "https://www.quora.com/profile/Shubhransh-Jagota",
+        "https://www.media.mit.edu/people/sjagota/overview/"
+      ]
+    }
+  ]
+}
+</script>
+
+<nav class="topbar">
+  <a class="brand" href="/">Shubhransh Jagota</a>
+  <a href="/blog/">Writing</a>
+  <a href="/resume/">Résumé</a>
+  <a href="/contact/">Contact</a>
+  <a href="https://github.com/fireddd" rel="me">GitHub</a>
+  <a href="https://www.linkedin.com/in/shubhranshjagota/" rel="me">LinkedIn</a>
+  <a class="hits" href="https://hits.sh/fireddd.github.io/" aria-label="Site visits">
+    <img src="https://hits.sh/fireddd.github.io.svg?view=today-total&style=flat-square&label=visits&color=3b3b3b&labelColor=1f1f1f"
+         alt="Visits to this site, today and in total" width="98" height="20">
+  </a>
+</nav>
+
+<div class="post-shell">
+
+  <aside class="toc-rail">
+    <nav class="toc" aria-label="On this page">
+      <p class="toc-t">On this page</p>
+      <ol>
+        <li><a href="#what-a-valuation-adjustment-is">What a valuation adjustment is</a></li>
+        <li><a href="#why-its-hard">Why it's hard</a></li>
+        <li><a href="#what-i-built">What I built</a></li>
+        <li><a href="#the-payoff">The payoff</a></li>
+      </ol>
+    </nav>
+
+  </aside>
+
+  <main>
+  <article>
+    <header class="post-hero">
+      <a class="hero-logo dark" href="https://www.morganstanley.com/">
+        <img src="/logos/morganstanley.png?v=14" alt="Morgan Stanley" width="44" height="44">
+      </a>
+      <div class="hero-text">
+        <p class="hero-kicker">Morgan Stanley · Valuation adjustments</p>
+        <h1>Just enough capital, and not a dollar more</h1>
+        <p class="hero-sub">A valuation adjustment is capital a bank sets aside to satisfy its regulators. The whole job is to hold exactly enough — and no more.</p>
+      </div>
+    </header>
+
+    <ul class="chips">
+      <li>Valuation adjustments</li>
+      <li>Regulatory capital</li>
+      <li>Fixed income</li>
+      <li>Scala</li>
+      <li>~25 eng-hrs/mo saved</li>
+    </ul>
+
+    <div class="prose post">
+      <p>
+        Before payments, I spent a year or so as a <strong>quantitative strategist at Morgan
+        Stanley</strong>, on a desk in the Fixed Income Division most people outside a bank have never
+        heard of: <strong>Macro Valuation Adjustments</strong>. This is what that work is, and what I
+        built there.
+      </p>
+
+      <h2 class="post-h2" id="what-a-valuation-adjustment-is">What a valuation adjustment is</h2>
+
+      <p>
+        A bank's balance sheet carries a number nobody trades and everybody watches: the capital it has
+        to set aside to satisfy its regulators. A <strong>valuation adjustment</strong> is a piece of
+        that — a reserve held against the firm's positions so that its books, and its capital, line up
+        with what the rules require.
+      </p>
+
+      <p>
+        What makes it interesting is that it cuts both ways. Set it too low and you are in
+        <em>breach</em> — you have not reserved enough, and the regulator has a problem with you. Set it
+        too high and you have parked capital that could have been earning; every dollar over-reserved
+        carries an opportunity cost. So the job is not "make the number big and safe." It is to make it
+        <em>exactly right</em> — just enough to satisfy the rules, and not a dollar more.
+      </p>
+
+      <h2 class="post-h2" id="why-its-hard">Why it's hard</h2>
+
+      <p>
+        Two things make that hard. The first is that the rules are not one set of rules. Different
+        markets regulate differently, so the same adjustment has to be computed differently depending on
+        where the desk sits — a <strong>customisation per trading location</strong>, not a single
+        formula.
+      </p>
+
+      <p>
+        The second is that, historically, a lot of this was done <strong>by hand</strong>. And
+        hand-computed regulatory numbers go wrong. A mistake here is not a P&amp;L error you book and
+        move on from; it is a <em>compliance failure</em>, with the regulatory and reputational
+        consequences that come with one. That is the whole reason this work matters: the cost of the
+        number being wrong is measured in something far more expensive than money.
+      </p>
+
+      <h2 class="post-h2" id="what-i-built">What I built</h2>
+
+      <p>
+        I was on the Macro Valuation Adjustment team, and my job was to take these off manual footing —
+        on an <strong>in-house, Scala-based graph-execution framework</strong>, with internal libraries
+        layered on top. The shape of every one of them was the same once you saw it: read some data, run
+        a set of complex calculations over it, and push the results into the downstream systems that
+        book and report them. The plumbing was never the hard part — the <strong>methodologies</strong>
+        were, the actual math of each adjustment, which differed by product and by desk.
+      </p>
+
+      <p>
+        I built and supported <strong>more than ten</strong> of these, across the FX desk in Brazil and
+        the interest-rate desks in London, Hong Kong and New York — each with its own method and its own
+        jurisdiction's rules.
+      </p>
+
+      <p>
+        Automating them meant more than "run the calc." It meant a tool the people who owned these
+        numbers could actually operate: run an adjustment from a <strong>UI</strong>,
+        <strong>validate the data before anything was pushed</strong> — so a bad input was caught before
+        it became a bad regulatory number — and fire off the relevant figures by email to the wider set
+        of stakeholders who needed them. The validation is the part that mattered most: the whole point
+        was a number people could trust, and you do not get trust from a calculation nobody checked.
+      </p>
+
+      <h2 class="post-h2" id="the-payoff">The payoff</h2>
+
+      <p>
+        Tighter controls, and roughly <strong>25 engineer-hours a month</strong> handed back to the
+        Valuation Control and Strats teams. But the hours saved were the least of it. The real win was
+        moving a regulatory number off a manual process that could quietly go wrong and onto one that
+        validated its own inputs and left a trail anyone could follow.
+      </p>
+
+      <p>
+        In a bank, the unglamorous reliability of a number the regulator trusts is worth more than the
+        time it saves. It is the same lesson every job since has taught me again: the interesting work
+        is rarely the calculation — it is making the calculation something you can stake a firm on.
+      </p>
+
+    </div>
+  </article>
+  </main>
+
+  <footer>
+    <span><a href="/blog/">← All writing</a></span>
+    <span class="colophon">Built and maintained with the help of LLMs.</span>
+  </footer>
+
+</div>
