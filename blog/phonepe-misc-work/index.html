@@ -122,7 +122,7 @@
       <p>
         Accounting runs on events. Every transaction that completes raises one, and the accounting
         system turns it into a ledger entry. At month-end the books have to <em>close</em> — which
-        means every event that should have landed, has.
+        means every event that should have landed actually did.
       </p>
 
       <p>
@@ -134,6 +134,13 @@
         transaction is exactly the month-end scramble you don't want.
       </p>
 
+      <figure class="shot">
+        <img src="https://media1.tenor.com/m/L4rjYt7wOQoAAAAd/april-fools-joke.gif"
+             alt="The 'this is fine' meme: a cartoon dog sitting calmly at a table in a room engulfed in flames, captioned 'IT'S FINE'"
+             width="640" height="356" loading="lazy" referrerpolicy="no-referrer">
+        <figcaption>The week before month-end.</figcaption>
+      </figure>
+
       <p>
         So I built the escape hatch: one API that, given a transaction, reconstructs the correct
         accounting event — right type, right payload — and republishes it. The accounting side was
@@ -141,12 +148,6 @@
         what made "replay everything that might be missing" a <em>safe</em> operation rather than a
         risky one. One endpoint became the one-stop fix for any accounting gap, and closing the month
         stopped being a scramble.
-      </p>
-
-      <p>
-        The idempotency is the quiet hero. It is what let the tool be blunt — replay freely, don't
-        agonise over whether this exact event already went through — because the system it published
-        into refused to double-count.
       </p>
 
       <h2 class="post-h2" id="kill-switch-scalpel">A kill switch with a scalpel</h2>
@@ -179,6 +180,13 @@
         A blunt kill switch protects you from disaster. A precise one lets you keep running
         <em>through</em> the things that aren't disasters — most days, the more useful of the two.
       </p>
+
+      <figure class="shot">
+        <img src="https://i.imgflip.com/awno9v.jpg"
+             alt="The Matrix meme: Neo stopping a hail of bullets in mid-air with a raised hand, captioned 'MID + PATH BASED KILL SWITCH'"
+             width="500" height="500" loading="lazy" referrerpolicy="no-referrer">
+        <figcaption>Stopping exactly the traffic you point at.</figcaption>
+      </figure>
 
       <h2 class="post-h2" id="partner-accounting">Teaching the books about a new entity</h2>
 
