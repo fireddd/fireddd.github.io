@@ -354,18 +354,26 @@
           you are trying to avoid, not the one you are recovering from.
         </li>
         <li>
-          <strong>Give the database user read-write.</strong> The secondary can now accept writes —
-          it is the source of truth for the data. Nobody is sending it any yet.
+          <strong>Redirect the API gateway to the secondary.</strong> Aim traffic at the standby now,
+          while it is still read-only, rather than waiting until it can take writes. The edge is still
+          closed, so nothing flows yet — but the gateway is pointed at the secondary before you open
+          the door, not after.
         </li>
         <li>
-          <strong>Disable the API killer, if one is engaged.</strong> Traffic is allowed to flow
-          again.
+          <strong>Disable the API killer, if one is engaged.</strong> Traffic flows again, and it
+          flows to the secondary. <em>Only read traffic will work here</em> — status checks, balance
+          lookups, anything that doesn't write. The writes still fail, but they have been failing
+          since step one, when the primary stopped taking them; a read-only secondary is no worse for
+          them. What it buys you is reads back on a live endpoint early, and the redirect already off
+          the critical path — so the one thing still gated on the final step is writes.
         </li>
         <li>
-          <strong>Redirect the API gateway.</strong> <em>This</em> is the moment of failover.
-          Everything before it was preparation — a writable database nobody is talking to is not a
-          recovery. Point traffic at the secondary, and watch real requests being served correctly.
-          Not "the containers are up" — served, verified.
+          <strong>Give the database user read-write.</strong> <em>This</em> is the moment of
+          failover — the moment writes come back. Traffic already points at the secondary, so the
+          instant it can take them it is fully serving: the reads it was already handling, and now
+          the writes that were failing a second ago. The old failure mode is a writable database
+          nobody is talking to; here everybody is already talking to it, and you watch real requests
+          land — served, verified, not just "the containers are up".
         </li>
       </ol>
 
