@@ -8,6 +8,40 @@
 <link rel="stylesheet" href="/style.css?v=53">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-family='monospace'>%E2%97%86</text></svg>">
 
+<style>
+  /* CSS-only tag filter: no JavaScript, so every post stays in the raw HTML for
+     crawlers; the radios only drive what is visually shown. */
+  .filter { margin-top: 36px; }
+  .filter .f-radio { position: absolute; width: 1px; height: 1px; margin: -1px;
+    padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); }
+  .tagbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+  .tagbar label {
+    cursor: pointer; font-size: 13px; line-height: 1; padding: 6px 13px;
+    border: 1px solid var(--rule); border-radius: 999px;
+    background: var(--chip); color: var(--muted); user-select: none;
+    transition: border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .tagbar label:hover { border-color: var(--accent); color: var(--ink); }
+  #f-all:checked ~ .tagbar label[for="f-all"],
+  #f-phonepe:checked ~ .tagbar label[for="f-phonepe"],
+  #f-payments:checked ~ .tagbar label[for="f-payments"],
+  #f-infra:checked ~ .tagbar label[for="f-infra"],
+  #f-oss:checked ~ .tagbar label[for="f-oss"],
+  #f-hiring:checked ~ .tagbar label[for="f-hiring"],
+  #f-hackathons:checked ~ .tagbar label[for="f-hackathons"],
+  #f-quant:checked ~ .tagbar label[for="f-quant"] {
+    background: var(--accent); border-color: var(--accent); color: var(--bg);
+  }
+  #f-phonepe:checked ~ .posts li:not(.t-phonepe),
+  #f-payments:checked ~ .posts li:not(.t-payments),
+  #f-infra:checked ~ .posts li:not(.t-infra),
+  #f-oss:checked ~ .posts li:not(.t-oss),
+  #f-hiring:checked ~ .posts li:not(.t-hiring),
+  #f-hackathons:checked ~ .posts li:not(.t-hackathons),
+  #f-quant:checked ~ .posts li:not(.t-quant) { display: none; }
+  .ptags { flex-basis: 100%; font-size: 12px; color: var(--faint); }
+</style>
+
 <nav class="topbar">
   <a class="brand" href="/">Shubhransh Jagota</a>
   <a href="/blog/" aria-current="page">Writing</a>
@@ -28,40 +62,69 @@
     <p class="tagline">notes on distributed systems, agents and payments</p>
   </header>
 
-  <section style="margin-top:36px;">
-    <!-- Posts, newest first. Sorted by the year in .when — keep it that way. -->
+  <section class="filter">
+    <input class="f-radio" type="radio" name="tag" id="f-all" checked>
+    <input class="f-radio" type="radio" name="tag" id="f-phonepe">
+    <input class="f-radio" type="radio" name="tag" id="f-payments">
+    <input class="f-radio" type="radio" name="tag" id="f-infra">
+    <input class="f-radio" type="radio" name="tag" id="f-oss">
+    <input class="f-radio" type="radio" name="tag" id="f-hiring">
+    <input class="f-radio" type="radio" name="tag" id="f-hackathons">
+    <input class="f-radio" type="radio" name="tag" id="f-quant">
+
+    <div class="tagbar" role="group" aria-label="Filter writing by tag">
+      <label for="f-all">All</label>
+      <label for="f-phonepe">PhonePe</label>
+      <label for="f-payments">Payments</label>
+      <label for="f-infra">Infrastructure</label>
+      <label for="f-oss">Open source</label>
+      <label for="f-hiring">Hiring</label>
+      <label for="f-hackathons">Hackathons</label>
+      <label for="f-quant">Quant</label>
+    </div>
+
+    <!-- Posts, newest first. Sorted by the year in .when — keep it that way.
+         The t-* classes drive the CSS-only filter above; keep them in sync with .ptags. -->
     <ul class="posts">
-      <li>
+      <li class="t-phonepe t-payments">
         <a href="/blog/phonepe-misc-work/">The systems that never made a demo</a>
         <span class="when">2025</span>
+        <span class="ptags">PhonePe · Payments</span>
       </li>
-      <li>
+      <li class="t-phonepe t-hiring">
         <a href="/blog/interviewing/">Take every interview they'll let you take</a>
         <span class="when">2025</span>
+        <span class="ptags">PhonePe · Hiring</span>
       </li>
-      <li>
+      <li class="t-phonepe t-payments t-infra">
         <a href="/blog/disaster-recovery/">What actually happens in a DR drill</a>
         <span class="when">2024</span>
+        <span class="ptags">PhonePe · Payments · Infrastructure</span>
       </li>
-      <li>
+      <li class="t-phonepe t-payments t-oss">
         <a href="/blog/payment-gateway-sdk/">The SDK that merchants bet their checkout on</a>
         <span class="when">2023</span>
+        <span class="ptags">PhonePe · Payments · Open source</span>
       </li>
-      <li>
+      <li class="t-phonepe t-infra t-oss">
         <a href="/blog/epoch/">Epoch — the cron for a container orchestrator</a>
         <span class="when">2023</span>
+        <span class="ptags">PhonePe · Infrastructure · Open source</span>
       </li>
-      <li>
+      <li class="t-hackathons">
         <a href="/blog/citadel-terminal-one/">MIT vs Harvard — Terminal One Hackathon</a>
         <span class="when">2020</span>
+        <span class="ptags">Hackathons</span>
       </li>
-      <li>
+      <li class="t-hackathons t-quant">
         <a href="/blog/auquan-spring-challenge/">Auquan Spring Challenge</a>
         <span class="when">2019</span>
+        <span class="ptags">Hackathons · Quant</span>
       </li>
-      <li>
+      <li class="t-hackathons t-quant">
         <a href="/blog/worldquant-alphathon/">WorldQuant Spring Alphathon</a>
         <span class="when">2017</span>
+        <span class="ptags">Hackathons · Quant</span>
       </li>
     </ul>
   </section>
