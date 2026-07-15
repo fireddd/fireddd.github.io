@@ -1,0 +1,242 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The systems that never made a demo — Shubhransh Jagota</title>
+<meta name="description" content="Four internal systems I owned at PhonePe — none of them public: an idempotent universal API that made month-end accounting close a one-step operation, a granular kill switch for load-shedding and self-defence, the accounting integration that taught settlement about a new partner entity, and template management (dynamic pricing v2) that made custom-rate onboarding self-serve.">
+<meta name="author" content="Shubhransh Jagota">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://fireddd.github.io/blog/misc-work/">
+<link rel="stylesheet" href="/style.css?v=53">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="The systems that never made a demo">
+<meta property="og:description" content="The unglamorous, internal plumbing behind a payments platform: month-end close, a granular kill switch, partner accounting, and dynamic pricing. No repo to check — you'll have to take my word for it.">
+<meta property="og:url" content="https://fireddd.github.io/blog/misc-work/">
+<meta property="og:image" content="https://fireddd.github.io/img/avatar.jpg">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-family='monospace'>%E2%97%86</text></svg>">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://fireddd.github.io/blog/misc-work/#post",
+      "headline": "The systems that never made a demo",
+      "description": "A tour of four internal systems the author owned at PhonePe (Walmart), none of them public: a universal, idempotent API that made month-end accounting close a one-step operation instead of a fire drill; a granular kill switch, by merchant or by API path or both, for load-shedding at peak and self-defence against abuse; the accounting integration that taught the settlement system about a brand-new partner entity and its rules; and template management, the heart of dynamic pricing v2, which turned manual custom-rate merchant onboarding into self-serve configuration for 20+ partners referring 100+ merchants.",
+      "url": "https://fireddd.github.io/blog/misc-work/",
+      "datePublished": "2026-07-15",
+      "dateModified": "2026-07-15",
+      "inLanguage": "en",
+      "keywords": "payments infrastructure, accounting, settlement, reconciliation, month-end close, idempotency, kill switch, load shedding, rate limiting, dynamic pricing, PhonePe, platform engineering",
+      "author": { "@id": "https://fireddd.github.io/#person" },
+      "publisher": { "@id": "https://fireddd.github.io/#person" },
+      "isPartOf": { "@id": "https://fireddd.github.io/#website" },
+      "mainEntityOfPage": "https://fireddd.github.io/blog/misc-work/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://fireddd.github.io/#person",
+      "name": "Shubhransh Jagota",
+      "url": "https://fireddd.github.io/",
+      "jobTitle": "Software Engineer",
+      "email": "mailto:shubhranshjagota77@gmail.com",
+      "sameAs": [
+        "https://github.com/fireddd",
+        "https://www.linkedin.com/in/shubhranshjagota/",
+        "https://leetcode.com/u/fireddd/",
+        "https://www.quora.com/profile/Shubhransh-Jagota",
+        "https://www.media.mit.edu/people/sjagota/overview/"
+      ]
+    }
+  ]
+}
+</script>
+
+<nav class="topbar">
+  <a class="brand" href="/">Shubhransh Jagota</a>
+  <a href="/blog/">Writing</a>
+  <a href="/resume/">Résumé</a>
+  <a href="/contact/">Contact</a>
+  <a href="https://github.com/fireddd" rel="me">GitHub</a>
+  <a href="https://www.linkedin.com/in/shubhranshjagota/" rel="me">LinkedIn</a>
+  <a class="hits" href="https://hits.sh/fireddd.github.io/" aria-label="Site visits">
+    <img src="https://hits.sh/fireddd.github.io.svg?view=today-total&style=flat-square&label=visits&color=3b3b3b&labelColor=1f1f1f"
+         alt="Visits to this site, today and in total" width="98" height="20">
+  </a>
+</nav>
+
+<div class="post-shell">
+
+  <aside class="toc-rail">
+    <nav class="toc" aria-label="On this page">
+      <p class="toc-t">On this page</p>
+      <ol>
+        <li><a href="#month-end-close">Month-end close, without the fire drill</a></li>
+        <li><a href="#kill-switch-scalpel">A kill switch with a scalpel</a></li>
+        <li><a href="#partner-accounting">Teaching the books about a new entity</a></li>
+        <li><a href="#template-management">Dynamic pricing, self-serve</a></li>
+      </ol>
+    </nav>
+
+  </aside>
+
+  <main>
+  <article>
+    <header class="post-hero brand-phonepe">
+      <a class="hero-logo" href="https://www.phonepe.com">
+        <img src="/logos/phonepe.png?v=19" alt="PhonePe" width="44" height="44">
+      </a>
+      <div class="hero-text">
+        <p class="hero-kicker">PhonePe · Miscellaneous</p>
+        <h1>The systems that never made a demo</h1>
+        <p class="hero-sub">Four internal systems I owned — the plumbing that keeps a payments platform correct, defended, and able to grow. No repo to check on this one.</p>
+      </div>
+    </header>
+
+    <ul class="chips">
+      <li>Accounting &amp; settlement</li>
+      <li>Month-end close</li>
+      <li>Kill switches</li>
+      <li>Dynamic pricing</li>
+      <li class="ch-hi">Internal, no repo</li>
+    </ul>
+
+    <div class="prose post">
+      <p>
+        Most of the write-ups here come with receipts — a public SDK, an open-source CLI, a commit
+        history you can check. This one comes with none. Every system below is internal: no repo to
+        open, nothing to star, not so much as a screenshot. You will have to take my word for it.
+      </p>
+
+      <p>
+        What follows is a handful of the smaller things I owned at PhonePe — the plumbing that never
+        makes a demo, but without which a payments platform quietly stops being correct, or stops being
+        able to grow. Two of them took a blunt instrument and gave it a scalpel's edge; two took a
+        manual, one-at-a-time process and made it scale. All four were load-bearing.
+      </p>
+
+      <h2 class="post-h2" id="month-end-close">Month-end close, without the fire drill</h2>
+
+      <p>
+        Accounting runs on events. Every transaction that completes raises one, and the accounting
+        system turns it into a ledger entry. At month-end the books have to <em>close</em> — which
+        means every event that should have landed, has.
+      </p>
+
+      <p>
+        Most of the time they do, and reconciliations catch the gaps. But a payments platform has a
+        long tail of ways an event goes missing: a provider never fires its callback, a transaction
+        sits in pending, a reconciliation quietly misses one for a reason you only find later. And the
+        events aren't uniform — a subscription, a penny-drop auth, and a handful of other flows each
+        raise their own events with their own payloads. Hand-replaying the right one for every stuck
+        transaction is exactly the month-end scramble you don't want.
+      </p>
+
+      <p>
+        So I built the escape hatch: one API that, given a transaction, reconstructs the correct
+        accounting event — right type, right payload — and republishes it. The accounting side was
+        <strong>idempotent</strong>, so replaying an event that had already landed did no harm; that is
+        what made "replay everything that might be missing" a <em>safe</em> operation rather than a
+        risky one. One endpoint became the one-stop fix for any accounting gap, and closing the month
+        stopped being a scramble.
+      </p>
+
+      <p>
+        The idempotency is the quiet hero. It is what let the tool be blunt — replay freely, don't
+        agonise over whether this exact event already went through — because the system it published
+        into refused to double-count.
+      </p>
+
+      <h2 class="post-h2" id="kill-switch-scalpel">A kill switch with a scalpel</h2>
+
+      <p>
+        We already had a kill switch: one lever that stopped <em>all</em> transactions. That is the
+        right tool for a genuine emergency and the wrong one for almost everything else, because "stop
+        everything" is a blast radius you rarely actually want.
+      </p>
+
+      <p>
+        So I made it granular. You could now cut traffic to a single merchant, a single API path, or a
+        specific merchant-and-path pair. That precision changed what the switch was <em>for</em>:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Shed load at peak.</strong> Turn off the status checks and other read paths while
+          leaving the actual payment flows untouched — protect the money path by silencing the noise
+          around it, not by stopping everything.
+        </li>
+        <li>
+          <strong>Defend your own service.</strong> When a bad actor hammered one endpoint, we could
+          block them at our service, at the exact path, instead of filing a ticket and waiting on
+          another team to act at the edge. The team that owned the service could defend it.
+        </li>
+      </ul>
+
+      <p>
+        A blunt kill switch protects you from disaster. A precise one lets you keep running
+        <em>through</em> the things that aren't disasters — most days, the more useful of the two.
+      </p>
+
+      <h2 class="post-h2" id="partner-accounting">Teaching the books about a new entity</h2>
+
+      <p>
+        PhonePe had just built a partner service — a way to onboard partners who extend the ecosystem's
+        reach, each bringing their own merchants with them. The catch: a partner was a brand-new
+        <em>kind</em> of entity, and the accounting-and-settlement system had never heard of one. It
+        understood merchants; it knew nothing about partners — and partner-referred money settles by a
+        different set of rules.
+      </p>
+
+      <p>
+        My job was the integration that closed that gap: teach accounting what a partner is, and the
+        rules that come with it, so a payment flowing through a partner-referred merchant is recognised
+        correctly and settled to the merchant the right way. Until accounting could see the partner and
+        apply its rules, the new channel couldn't move money to anyone.
+      </p>
+
+      <p>
+        The judgment: a new business entity isn't real to a payments platform until the money system
+        knows how to account for it. Reach is a slide deck until settlement works.
+      </p>
+
+      <h2 class="post-h2" id="template-management">Dynamic pricing, self-serve</h2>
+
+      <p>
+        Partners don't just bring reach; they bring merchants on their own commercial terms. Each
+        merchant can be onboarded at a custom rate — the cut PhonePe takes — and the only real
+        constraint is that the economics still work. Setting those rates used to be manual: every
+        custom-rate onboarding hand-worked, one at a time. That does not scale when volume is the whole
+        point of the channel.
+      </p>
+
+      <p>
+        Template management — the heart of what we called <strong>dynamic pricing v2</strong> — turned
+        pricing into configuration. A partner could onboard a merchant on a custom-rate
+        <strong>template</strong>, self-serve, with no manual pricing exercise each time. More than
+        twenty partners came on this way, referring over a hundred merchants between them.
+      </p>
+
+      <p>
+        The judgment: turning a per-merchant negotiation into a templated, self-serve flow is the
+        difference between a channel that scales and one bottlenecked on a human doing pricing by hand.
+      </p>
+
+      <p>
+        None of it shipped a feature anyone saw. Each one kept the platform correct, or defended, or
+        able to grow — the kind of work that is invisible right up until it isn't there. No repo, no
+        screenshot; just my word that the money kept moving the way it was supposed to.
+      </p>
+
+    </div>
+  </article>
+  </main>
+
+  <footer>
+    <span><a href="/blog/">← All writing</a></span>
+    <span class="colophon">Built and maintained with the help of LLMs.</span>
+  </footer>
+
+</div>
