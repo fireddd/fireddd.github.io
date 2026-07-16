@@ -71,13 +71,6 @@ nav .brand:hover { text-decoration: none; color: var(--accent); }
 nav a:not(.brand) { color: var(--muted); }
 nav a:not(.brand):hover { color: var(--ink); text-decoration: none; }
 nav a[aria-current="page"] { color: var(--ink); font-weight: 550; }
-nav a.book {
-  color: var(--accent);
-  border: 1px solid var(--accent);
-  border-radius: 6px;
-  padding: 3px 10px;
-}
-nav a.book:hover { background: var(--accent); color: var(--bg); }
 @media (max-width: 560px) {
   nav { gap: 8px 14px; font-size: 14px; flex-wrap: wrap; }
   /* on .topbar, not nav: the shorthand padding above would otherwise win on specificity */
