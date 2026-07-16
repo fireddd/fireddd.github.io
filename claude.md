@@ -146,6 +146,12 @@ added.**
   missing an entry is worse than no index.
 - Careful: the index is a `<nav>`, and the global `nav { display: flex }` rule will catch
   it. `.toc` sets `display: block` explicitly for exactly this reason. Don't remove it.
+- **Every page carries analytics — add it to any new page.** Two trackers run side by
+  side: the hits.sh badge (in the nav) and a cookieless GoatCounter snippet placed right
+  after the `<link rel="icon">` line:
+  `<script data-goatcounter="https://fireddd.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>`
+  `blog/_template.html` already includes it, so posts cloned from the template inherit it;
+  a new top-level page must add it by hand. Dashboard: https://fireddd.goatcounter.com
 
 ### Humour, and how to source it
 
