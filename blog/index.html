@@ -24,6 +24,7 @@
   }
   .tagbar a:hover { border-color: var(--accent); color: var(--ink); text-decoration: none; }
   #phonepe:target ~ .tagbar a[href="#phonepe"],
+  #morganstanley:target ~ .tagbar a[href="#morganstanley"],
   #payments:target ~ .tagbar a[href="#payments"],
   #infra:target ~ .tagbar a[href="#infra"],
   #oss:target ~ .tagbar a[href="#oss"],
@@ -33,6 +34,7 @@
     background: var(--accent); border-color: var(--accent); color: var(--bg);
   }
   #phonepe:target ~ .posts li:not(.t-phonepe),
+  #morganstanley:target ~ .posts li:not(.t-morganstanley),
   #payments:target ~ .posts li:not(.t-payments),
   #infra:target ~ .posts li:not(.t-infra),
   #oss:target ~ .posts li:not(.t-oss),
@@ -67,6 +69,7 @@
 
   <section class="filter">
     <span class="ftarget" id="phonepe"></span>
+    <span class="ftarget" id="morganstanley"></span>
     <span class="ftarget" id="payments"></span>
     <span class="ftarget" id="infra"></span>
     <span class="ftarget" id="oss"></span>
@@ -81,6 +84,7 @@
       <a href="#infra">Infrastructure</a>
       <a href="#oss">Open source</a>
       <a href="#hiring">Hiring</a>
+      <a href="#morganstanley">Morgan Stanley</a>
       <a href="#hackathons">Hackathons</a>
       <a href="#quant">Quant</a>
     </div>
@@ -113,10 +117,10 @@
         <span class="when">2023</span>
         <span class="ptags"><a href="#phonepe">PhonePe</a> · <a href="#infra">Infrastructure</a> · <a href="#oss">Open source</a></span>
       </li>
-      <li class="t-quant">
+      <li class="t-morganstanley t-quant">
         <a href="/blog/valuation-adjustments/">Just enough capital, and not a dollar more</a>
         <span class="when">2021</span>
-        <span class="ptags"><a href="#quant">Quant</a></span>
+        <span class="ptags"><a href="#morganstanley">Morgan Stanley</a> · <a href="#quant">Quant</a></span>
       </li>
       <li class="t-hackathons t-quant">
         <a href="/blog/citadel-terminal-one/">MIT vs Harvard — Terminal One Hackathon</a>
