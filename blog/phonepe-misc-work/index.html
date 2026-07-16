@@ -91,7 +91,7 @@
       <div class="hero-text">
         <p class="hero-kicker">PhonePe · Miscellaneous</p>
         <h1>The systems that never made a demo</h1>
-        <p class="hero-sub">Four internal systems I owned — the plumbing that keeps a payments platform correct, defended, and able to grow. No repo to check on this one.</p>
+        <p class="hero-sub">Four internal systems I owned: the plumbing that keeps a payments platform correct, defended, and able to grow. No repo to check on this one.</p>
       </div>
     </header>
 
@@ -105,13 +105,13 @@
 
     <div class="prose post">
       <p>
-        Most of the write-ups here come with receipts — a public SDK, an open-source CLI, a commit
+        Most of the write-ups here come with receipts: a public SDK, an open-source CLI, a commit
         history you can check. This one comes with none. Every system below is internal: no repo to
         open, nothing to star, not so much as a screenshot. You will have to take my word for it.
       </p>
 
       <p>
-        What follows is a handful of the smaller things I owned at PhonePe — the plumbing that never
+        What follows is a handful of the smaller things I owned at PhonePe, the plumbing that never
         makes a demo, but without which a payments platform quietly stops being correct, or defended, or
         able to grow. One turned an all-or-nothing lever into a scalpel; two turned manual, one-at-a-time
         work into something automatic and safe to run; one taught the books about a business that hadn't
@@ -122,7 +122,7 @@
 
       <p>
         Accounting runs on events. Every transaction that completes raises one, and the accounting
-        system turns it into a ledger entry. At month-end the books have to <em>close</em> — which
+        system turns it into a ledger entry. At month-end the books have to <em>close</em>, which
         means every event that should have landed actually did.
       </p>
 
@@ -130,7 +130,7 @@
         Most of the time they do, and reconciliations catch the gaps. But a payments platform has a
         long tail of ways an event goes missing: a provider never fires its callback, a transaction
         sits in pending, a reconciliation quietly misses one for a reason you only find later. And the
-        events aren't uniform — a subscription, a penny-drop auth, and a handful of other flows each
+        events aren't uniform: a subscription, a penny-drop auth, and a handful of other flows each
         raise their own events with their own payloads. Hand-replaying the right one for every stuck
         transaction is exactly the month-end scramble you don't want.
       </p>
@@ -144,7 +144,7 @@
 
       <p>
         So I built the escape hatch: one API that, given a transaction, reconstructs the correct
-        accounting event — right type, right payload — and republishes it. The accounting side was
+        accounting event (right type, right payload) and republishes it. The accounting side was
         <strong>idempotent</strong>, so replaying an event that had already landed did no harm; that is
         what made "replay everything that might be missing" a <em>safe</em> operation rather than a
         risky one. One endpoint became the one-stop fix for any accounting gap, and closing the month
@@ -167,7 +167,7 @@
       <ul>
         <li>
           <strong>Shed load at peak.</strong> Turn off the status checks and other read paths while
-          leaving the actual payment flows untouched — protect the money path by silencing the noise
+          leaving the actual payment flows untouched: protect the money path by silencing the noise
           around it, not by stopping everything.
         </li>
         <li>
@@ -179,7 +179,7 @@
 
       <p>
         A blunt kill switch protects you from disaster. A precise one lets you keep running
-        <em>through</em> the things that aren't disasters — most days, the more useful of the two.
+        <em>through</em> the things that aren't disasters. Most days, the more useful of the two.
       </p>
 
       <figure class="shot">
@@ -192,10 +192,10 @@
       <h2 class="post-h2" id="partner-accounting">Teaching the books about a new entity</h2>
 
       <p>
-        PhonePe had just built a partner service — a way to onboard partners who extend the ecosystem's
+        PhonePe had just built a partner service: a way to onboard partners who extend the ecosystem's
         reach, each bringing their own merchants with them. The catch: a partner was a brand-new
         <em>kind</em> of entity, and the accounting-and-settlement system had never heard of one. It
-        understood merchants; it knew nothing about partners — and partner-referred money settles by a
+        understood merchants; it knew nothing about partners, and partner-referred money settles by a
         different set of rules.
       </p>
 
@@ -222,14 +222,14 @@
 
       <p>
         Partners don't just bring reach; they bring merchants on their own commercial terms. Each
-        merchant can be onboarded at a custom rate — the cut PhonePe takes — and the only real
+        merchant can be onboarded at a custom rate (the cut PhonePe takes) and the only real
         constraint is that the economics still work. Setting those rates used to be manual: every
         custom-rate onboarding hand-worked, one at a time. That does not scale when volume is the whole
         point of the channel.
       </p>
 
       <p>
-        Template management — the heart of what we called <strong>dynamic pricing v2</strong> — turned
+        Template management (the heart of what we called <strong>dynamic pricing v2</strong>) turned
         pricing into configuration. A partner could onboard a merchant on a custom-rate
         <strong>template</strong>, self-serve, with no manual pricing exercise each time. More than
         twenty partners came on this way, referring over a hundred merchants between them.
@@ -249,7 +249,7 @@
 
       <p>
         None of it shipped a feature anyone saw. Each one kept the platform correct, or defended, or
-        able to grow — the kind of work that is invisible right up until it isn't there. No repo, no
+        able to grow, the kind of work that is invisible right up until it isn't there. No repo, no
         screenshot; just my word that the money kept moving the way it was supposed to.
       </p>
 

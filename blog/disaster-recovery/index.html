@@ -108,14 +108,14 @@
       <p>
         In regulated payments you don't get to <em>claim</em> you can fail over. You have to
         demonstrate it. India's business-continuity expectations for payment systems mean a
-        disaster-recovery drill is a recurring, audited exercise — not a document someone signs
+        disaster-recovery drill is a recurring, audited exercise, not a document someone signs
         once and files.
       </p>
 
       <p>
         And at this scale a small mistake is not a small mistake. PhonePe carries something like
         <strong>half of all UPI transactions in India</strong>. When it stops, people cannot buy
-        groceries and merchants cannot take money — it is not an engineering inconvenience, it is on
+        groceries and merchants cannot take money; it is not an engineering inconvenience, it is on
         the news within the hour, and it has been:
         <a href="https://www.business-standard.com/companies/news/phonepe-upi-outage-after-disaster-recovery-cybersecurity-drills-125051201290_1.html">in
         May 2025, disaster-recovery drills themselves took UPI payments down for over an hour</a>
@@ -132,7 +132,7 @@
 
       <p>
         I have <strong>taken part in several DR drills</strong> at PhonePe, and
-        <strong>led them end to end</strong>. Most engineers never will — you can spend a career
+        <strong>led them end to end</strong>. Most engineers never will. You can spend a career
         shipping features and never once be in the room when someone deliberately turns off a
         production data centre.
       </p>
@@ -159,7 +159,7 @@
       </p>
 
       <p>
-        The alternative — active-active, both sites taking writes — sounds better and is much harder.
+        The alternative (active-active, both sites taking writes) sounds better and is much harder.
         The moment two data centres can both accept a write for the same account, you own a conflict
         resolution problem, and in payments the conflicts are somebody's money. Active-passive trades
         that away and buys you a much simpler failure story: <em>everything is over there now</em>.
@@ -167,7 +167,7 @@
 
       <p>
         The trade-off between the two is a well-worn one, and worth reading up on properly if this is
-        new to you — <a href="https://medium.com/@sonal.sadafal/beyond-single-region-multi-region-active-active-vs-active-passive-strategies-in-aws-70e02ec1abcf">this
+        new to you: <a href="https://medium.com/@sonal.sadafal/beyond-single-region-multi-region-active-active-vs-active-passive-strategies-in-aws-70e02ec1abcf">this
         write-up on multi-region active-active vs active-passive</a> lays out the shape of the
         decision. The short version: active-active buys you availability and costs you correctness
         guarantees. Which of those you can afford to lose is not an engineering preference. In
@@ -265,12 +265,12 @@
 
       <ul>
         <li>
-          <strong>RTO — recovery time objective.</strong> How long you are down. From the moment the
+          <strong>RTO: recovery time objective.</strong> How long you are down. From the moment the
           primary is lost to the moment traffic is being served from the secondary. This is a
           <em>time</em>, and it is mostly a function of how much of your cutover is still manual.
         </li>
         <li>
-          <strong>RPO — recovery point objective.</strong> How much data you lose. If the primary
+          <strong>RPO: recovery point objective.</strong> How much data you lose. If the primary
           vanishes right now, how far behind is the standby? This is <em>not</em> a time you get to
           choose. It is handed to you by your slowest-replicating datastore, and no amount of
           planning changes it.
@@ -278,7 +278,7 @@
       </ul>
 
       <p>
-        That distinction is the one people get wrong. RTO is an engineering problem — automate the
+        That distinction is the one people get wrong. RTO is an engineering problem: automate the
         steps and it comes down. <strong>RPO is a property of your storage</strong>. You can write
         any number you like in the document; what will actually be true on the day is your
         database's replication lag.
@@ -293,36 +293,36 @@
       <ul class="stack">
         <li>
           <img class="tl" src="/logos/tech/mariadb.svg?v=41" alt="" width="34" height="34" loading="lazy" aria-hidden="true">
-          <span><strong><a href="https://mariadb.org/">MariaDB</a></strong> — the transactional store, and the one that matters. Active-passive
+          <span><strong><a href="https://mariadb.org/">MariaDB</a></strong>: the transactional store, and the one that matters. Active-passive
           with <strong>asynchronous replication</strong>, lagging the primary by a couple of minutes.
           This is the binding constraint. <em>MariaDB's replication lag was our RPO</em>; nothing else
           in the stack moved that number.</span>
         </li>
         <li>
           <img class="tl" src="/logos/tech/aerospike.png?v=41" alt="" width="34" height="34" loading="lazy" aria-hidden="true">
-          <span><strong><a href="https://aerospike.com/">Aerospike</a></strong> — run in AP mode with bidirectional cross-datacentre replication
+          <span><strong><a href="https://aerospike.com/">Aerospike</a></strong>: run in AP mode with bidirectional cross-datacentre replication
           in the low hundreds of milliseconds. Effectively real time. Its contribution to data loss is
           negligible.</span>
         </li>
         <li>
           <img class="tl" src="/logos/tech/rabbitmq.png?v=41" alt="" width="34" height="34" loading="lazy" aria-hidden="true">
-          <span><strong><a href="https://www.rabbitmq.com/">RabbitMQ</a></strong> — asynchronous processing only. The durable state lives in the
+          <span><strong><a href="https://www.rabbitmq.com/">RabbitMQ</a></strong>: asynchronous processing only. The durable state lives in the
           database, so messages in flight are <em>reconstructable</em> from persisted state. RMQ is
           not a data-loss surface on its own, which is a nice property to have designed in before you
           need it.</span>
         </li>
         <li>
           <img class="tl" src="/logos/tech/zookeeper.svg?v=41" alt="" width="34" height="34" loading="lazy" aria-hidden="true">
-          <span><strong><a href="https://zookeeper.apache.org/">ZooKeeper</a></strong> — coordination and
+          <span><strong><a href="https://zookeeper.apache.org/">ZooKeeper</a></strong>: coordination and
           leader election. Also what <a href="https://github.com/appform-io/ranger">Ranger</a>, the
           open-source service-discovery library, stores its service registry in.
-          <strong>Router registry and Zeus</strong> — internal constructs on top of Ranger. Zeus is
+          <strong>Router registry and Zeus</strong>: internal constructs on top of Ranger. Zeus is
           a layer-7 traffic-shaping service.</span>
         </li>
         <li>
           <img class="tl" src="/logos/tech/drove.png?v=41" alt="" width="34" height="34" loading="lazy" aria-hidden="true">
           <span><strong><a href="https://github.com/PhonePe/drove">Drove</a></strong> and
-          <a href="https://github.com/PhonePe/drove-gateway">drove-gateway</a> — container
+          <a href="https://github.com/PhonePe/drove-gateway">drove-gateway</a>: container
           orchestration, and the NGINX layer that routes traffic to wherever the containers actually
           are. Both are open source.</span>
         </li>
@@ -330,7 +330,7 @@
 
       <p>
         So the honest RPO was <strong>about two minutes, set entirely by MariaDB</strong>. Aerospike
-        and RabbitMQ don't get a vote. If you want a better RPO you do not buy a better runbook — you
+        and RabbitMQ don't get a vote. If you want a better RPO you do not buy a better runbook; you
         change how the database replicates.
       </p>
 
@@ -347,7 +347,7 @@
         </li>
         <li>
           <strong>Verify there are no writes at the database.</strong> Not "we told the services to
-          stop" — <em>look at the database and confirm nothing is landing</em>. This step exists
+          stop", <em>look at the database and confirm nothing is landing</em>. This step exists
           because the previous one is a request, and this one is evidence.
         </li>
         <li>
@@ -357,30 +357,30 @@
         </li>
         <li>
           <strong>Bring up the other instance, in read-only mode.</strong> The standby comes up, but
-          it cannot take writes yet — because two databases that both accept writes is the failure
+          it cannot take writes yet, because two databases that both accept writes is the failure
           you are trying to avoid, not the one you are recovering from.
         </li>
         <li>
           <strong>Redirect the API gateway to the secondary.</strong> Aim traffic at the standby now,
           while it is still read-only, rather than waiting until it can take writes. The edge is still
-          closed, so nothing flows yet — but the gateway is pointed at the secondary before you open
+          closed, so nothing flows yet, but the gateway is pointed at the secondary before you open
           the door, not after.
         </li>
         <li>
           <strong>Disable the API killer, if one is engaged.</strong> Traffic flows again, and it
-          flows to the secondary. <em>Only read traffic will work here</em> — status checks, balance
+          flows to the secondary. <em>Only read traffic will work here</em>: status checks, balance
           lookups, anything that doesn't write. The writes still fail, but they have been failing
           since step one, when the primary stopped taking them; a read-only secondary is no worse for
           them. What it buys you is reads back on a live endpoint early, and the redirect already off
-          the critical path — so the one thing still gated on the final step is writes.
+          the critical path, so the one thing still gated on the final step is writes.
         </li>
         <li>
           <strong>Give the database user read-write.</strong> <em>This</em> is the moment of
-          failover — the moment writes come back. Traffic already points at the secondary, so the
+          failover: the moment writes come back. Traffic already points at the secondary, so the
           instant it can take them it is fully serving: the reads it was already handling, and now
           the writes that were failing a second ago. The old failure mode is a writable database
           nobody is talking to; here everybody is already talking to it, and you watch real requests
-          land — served, verified, not just "the containers are up".
+          land: served, verified, not just "the containers are up".
         </li>
       </ol>
 
@@ -394,13 +394,13 @@
 
       <ul>
         <li>
-          <strong>A screenshot after every step</strong>, timestamp visible — Grafana, the logs, a
+          <strong>A screenshot after every step</strong>, timestamp visible: Grafana, the logs, a
           Swagger call. The drill is <strong>audited</strong>, and a regulator's expectation is not
           met by an engineer's memory of a good night.
         </li>
         <li>
           <strong>Then you fail back.</strong> The same steps in reverse, and the traffic with them.
-          No screenshots this time — the evidence anyone wants is of the failover, not of the way
+          No screenshots this time: the evidence anyone wants is of the failover, not of the way
           home.
         </li>
         <li>
@@ -431,7 +431,7 @@
       <p>
         On the call: engineers, an architect, SREs and their manager, compliance, and external
         auditors. Roughly a dozen people, most of whom do not report to you, all watching a clock.
-        That is the part the runbook does not prepare you for — the failover is a technical problem,
+        That is the part the runbook does not prepare you for: the failover is a technical problem,
         and everything around it is not.
       </p>
 
@@ -443,7 +443,7 @@
       <p>
         We completed the drill on the correct path, with a measured recovery time.
         <strong>RTO came down from about an hour to under seven minutes</strong>, and it was still
-        heading downwards — a lot of the cutover was manual and we were automating it.
+        heading downwards: a lot of the cutover was manual and we were automating it.
       </p>
 
       <p>
@@ -456,7 +456,7 @@
                autoplay muted loop playsinline controls preload="metadata"
                aria-label="A meme made by Nishant Jain, captioned: POV — Manoj asking everyone if they will be coming in for the DR."></video>
         <figcaption>
-          It has sound — unmute it. Made by
+          It has sound. Unmute it. Made by
           <a href="https://www.linkedin.com/in/nishant-jain-219ba9175/">Nishant Jain</a>.
         </figcaption>
       </figure>
@@ -465,8 +465,7 @@
 
       <ul>
         <li>
-          <strong>A drill takes one service down. A real disaster takes the whole data centre</strong>
-          — including, quite possibly, the very thing you were relying on to redirect traffic away
+          <strong>A drill takes one service down. A real disaster takes the whole data centre</strong>, including, quite possibly, the very thing you were relying on to redirect traffic away
           from the failure. If your recovery plan is only exercised against a failure smaller than the
           one you're actually afraid of, you don't have a recovery plan. You have a rehearsal.
         </li>
@@ -492,14 +491,14 @@
         <li>
           <strong>The thing I appreciate most is not something I built.</strong> It is the foresight
           of the architects at PhonePe, who started taking disaster recovery seriously back in the
-          early 2020s — years before there was any pressure to. Recent geopolitical conflict has made
+          early 2020s, years before there was any pressure to. Recent geopolitical conflict has made
           the whole industry realise how much this matters. By the time everyone else was realising
           it, PhonePe was already prepared.
         </li>
       </ul>
 
       <p>
-        That is what good architecture looks like from the inside. Not a clever diagram — somebody,
+        That is what good architecture looks like from the inside. Not a clever diagram: somebody,
         years ago, quietly doing the boring, expensive, unrewarded work for a day that hadn't come
         yet. And then it came.
       </p>

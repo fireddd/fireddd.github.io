@@ -127,7 +127,7 @@
 
       <p>
         Every merchant re-derived the same solution, and every merchant got it slightly wrong in a
-        different way. Those mistakes did not stay theirs — an integration bug surfaces as a
+        different way. Those mistakes did not stay theirs: an integration bug surfaces as a
         <strong>customer failing to pay</strong>, which is a PhonePe problem and a support ticket
         and a merchant who is now less sure about us. Integration friction was a direct drag on
         merchant activation.
@@ -139,7 +139,7 @@
 
       <p>
         The point of it is what a merchant's engineer <em>doesn't</em> have to think about.
-        Endpoints, request signing, auth, retries, error handling, the shape of every payload — all
+        Endpoints, request signing, auth, retries, error handling, the shape of every payload: all
         of it <strong>abstracted away</strong>. None of it is their problem, because none of it is
         their business. A merchant integrating a payment gateway wants to think about
         <strong>their own business logic</strong>: what they are charging, for what, and what to do
@@ -165,7 +165,7 @@
 
       <p>
         This was my <strong>first project at PhonePe</strong>. I wanted to do everything the thing
-        needed in order to succeed — and I was given the room to, because I was handed it
+        needed in order to succeed, and I was given the room to, because I was handed it
         <strong>end to end</strong>.
       </p>
 
@@ -174,17 +174,17 @@
       </p>
 
       <ul>
-        <li><strong>Design</strong> — I designed the entire library.</li>
-        <li><strong>Implementation</strong> — I wrote it.</li>
-        <li><strong>Documentation</strong> — the thing a merchant's engineer actually reads first.</li>
+        <li><strong>Design</strong>: I designed the entire library.</li>
+        <li><strong>Implementation</strong>: I wrote it.</li>
+        <li><strong>Documentation</strong>: the thing a merchant's engineer actually reads first.</li>
         <li><strong>Testing</strong>.</li>
-        <li><strong>CI/CD</strong> — the pipelines that build and ship it.</li>
-        <li><strong>Release</strong> — including, eventually, the open-source one.</li>
+        <li><strong>CI/CD</strong>: the pipelines that build and ship it.</li>
+        <li><strong>Release</strong>, including, eventually, the open-source one.</li>
       </ul>
 
       <p>
         And beyond the Java one: <strong>every decision about the SDK offering went through me</strong>.
-        What the SDKs did, how they behaved, what a merchant could expect from any of them — that was
+        What the SDKs did, how they behaved, what a merchant could expect from any of them. That was
         mine to get right or get wrong.
       </p>
 
@@ -199,8 +199,8 @@
           client and gets one, correctly configured. They assemble nothing.
         </li>
         <li>
-          <strong>The seams are for us, not them.</strong> When auth changes — and auth always
-          changes — the implementation moves behind the factory, and nobody's integration notices.
+          <strong>The seams are for us, not them.</strong> When auth changes (and auth always
+          changes) the implementation moves behind the factory, and nobody's integration notices.
         </li>
         <li>
           <strong>Events go into an in-memory persistent queue</strong>, shipped to our events API in
@@ -216,7 +216,7 @@
       <p>
         So the first thing I did was read somebody else's homework.
         <strong><a href="https://github.com/stripe/stripe-java">Stripe</a></strong> and the other
-        giants had solved this years earlier, in public. I went through their SDKs — not to copy the
+        giants had solved this years earlier, in public. I went through their SDKs, not to copy the
         shape, but to work out <em>why</em> each thing was shaped the way it was. Those decisions
         only look arbitrary until you understand what they are defending against, and somebody had
         already paid for the lesson and published the answer. Not reading it would have been vanity.
@@ -234,7 +234,7 @@
 
       <p>
         I owned the SDK offerings, not just the Java one. The Python, .NET and JavaScript SDKs were
-        built by three or four engineers — juniors and interns — and I mentored them rather than
+        built by three or four engineers (juniors and interns) and I mentored them rather than
         writing the SDKs myself.
       </p>
 
@@ -258,7 +258,7 @@
         Two things made that hold in practice. A <strong>design document</strong>, published for
         anyone to follow while writing their SDK, so the shared structure was written down rather
         than living in one head and being rediscovered in review. And <strong>code review</strong>
-        across the language offerings, to keep that basic structure consistent — because a document
+        across the language offerings, to keep that basic structure consistent, because a document
         tells people what to do, and a review is how you find out whether it happened.
       </p>
 
@@ -284,7 +284,7 @@
       </p>
 
       <p>
-        We had tested against <strong>internal, whitelisted merchants</strong> — and
+        We had tested against <strong>internal, whitelisted merchants</strong>, and
         <em>not all of the checks apply to whitelisted merchants</em>. The exact path that broke in
         production was the one path our test setup was structurally incapable of exercising. Every
         test passed, and every test was blind in the same place.
@@ -293,7 +293,7 @@
       <p>
         So the fix I actually care about is that I <strong>wrote it down</strong>. I documented the
         check: what triggers it, why whitelisted merchants never see it, and what an integration has
-        to send. The next person to build against this does not get to discover it the way we did —
+        to send. The next person to build against this does not get to discover it the way we did,
         which is the only version of this story that is worth anything to anyone but me.
       </p>
 
@@ -315,7 +315,7 @@
       <p>
         Those events gave us the <strong>integration funnel</strong>: where a merchant's engineer
         picked the SDK up, where they got stuck, where they dropped, and where they finally put a
-        live transaction through. A funnel turns "integration is painful" — which is an opinion —
+        live transaction through. A funnel turns "integration is painful" (which is an opinion)
         into a specific step that loses people, which is a thing you can go and fix.
       </p>
 
@@ -331,7 +331,7 @@
 
       <p>
         Once the surface was small enough, the <strong>code-level integration came down to under a
-        day</strong>. Not because anyone got faster — because there was much less to get right.
+        day</strong>. Not because anyone got faster, but because there was much less to get right.
       </p>
 
       <div class="stats">
@@ -355,7 +355,7 @@
       <p>
         A public SDK is a channel. It reaches developers who will never talk to a salesperson, and it
         lets a merchant's engineers read the code before they commit to the payment gateway that will
-        handle their money — which is exactly what a good engineer does before making that decision.
+        handle their money, which is exactly what a good engineer does before making that decision.
       </p>
 
       <p>
@@ -371,7 +371,7 @@
 
       <p>
         That is the part I am most glad about. The work is out where the world can see it and
-        critique it — <strong>open to everyone</strong>. It also means that when I tell you I
+        critique it, <strong>open to everyone</strong>. It also means that when I tell you I
         designed a payment SDK that merchants bet their checkout on, you do not have to take my word
         for it. <strong>You can go and read it.</strong>
       </p>
