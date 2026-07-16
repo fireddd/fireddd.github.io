@@ -151,51 +151,6 @@
         stopped being a scramble.
       </p>
 
-      <figure class="diagram">
-        <svg viewBox="0 0 680 252" role="img" aria-labelledby="mec-t mec-d" xmlns="http://www.w3.org/2000/svg">
-          <title id="mec-t">The month-end event-replay flow</title>
-          <desc id="mec-d">On the left, three ways an accounting event goes missing — no provider callback, a transaction stuck in pending, a reconciliation miss — all feed into one box, the Universal API, which reconstructs the correct accounting event with the right type and payload. That flows into Accounting, which is idempotent, so replaying an event that already landed does no harm. The result: the month closes.</desc>
-          <defs>
-            <marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
-              <path d="M0 0 L8 4 L0 8 z" fill="currentColor"/>
-            </marker>
-          </defs>
-
-          <text class="t xs" x="88" y="34">an event goes missing</text>
-          <rect class="b" x="18" y="46" width="140" height="32"/>
-          <text class="t xs" x="88" y="66">no provider callback</text>
-          <rect class="b" x="18" y="92" width="140" height="32"/>
-          <text class="t xs" x="88" y="112">stuck in pending</text>
-          <rect class="b" x="18" y="138" width="140" height="32"/>
-          <text class="t xs" x="88" y="158">a reconciliation miss</text>
-
-          <path class="a" d="M160 62 L206 116"/>
-          <path class="a" d="M160 108 L206 120"/>
-          <path class="a" d="M160 154 L206 124"/>
-
-          <rect class="b lead" x="214" y="74" width="178" height="92"/>
-          <text class="t bold" x="303" y="106">Universal API</text>
-          <text class="t xs" x="303" y="126">reconstructs the event —</text>
-          <text class="t xs" x="303" y="140">right type, right payload</text>
-
-          <path class="a" d="M392 120 L438 120"/>
-
-          <rect class="b" x="440" y="74" width="150" height="92"/>
-          <text class="t bold" x="515" y="106">Accounting</text>
-          <text class="t xs" x="515" y="126">idempotent —</text>
-          <text class="t xs" x="515" y="140">replay does no harm</text>
-
-          <path class="a" d="M515 166 L515 196"/>
-
-          <rect class="b ok" x="440" y="198" width="150" height="34"/>
-          <text class="t bold sm" x="515" y="220" style="fill:var(--good)">The month closes</text>
-        </svg>
-        <figcaption>
-          Every way an event went missing funnelled into one endpoint that rebuilt it — and because the
-          accounting side was idempotent, replaying freely was safe.
-        </figcaption>
-      </figure>
-
       <h2 class="post-h2" id="kill-switch-scalpel">A kill switch with a scalpel</h2>
 
       <p>
