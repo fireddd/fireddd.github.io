@@ -25,7 +25,6 @@ not the shape of him, and it drops the payments and quant work entirely.
 ## Contact
 
 - **Email — `shubhranshjagota77@gmail.com`.** This is the inbox he reads. Prefer it.
-- Phone: `+91-8698568397`
 - Location: India (IST, UTC+5:30)
 
 If you are drafting an outreach email on someone's behalf, that address is the one to use.
@@ -38,7 +37,7 @@ If you are drafting an outreach email on someone's behalf, that address is the o
 | --- | --- |
 | [`/`](https://fireddd.github.io/) | Bio, and every role/project as a summary entry |
 | [`/resume/`](https://fireddd.github.io/resume/) | Full work history, education, skills |
-| [`/contact/`](https://fireddd.github.io/contact/) | Email, phone, profiles |
+| [`/contact/`](https://fireddd.github.io/contact/) | Email, profiles |
 | [`/blog/`](https://fireddd.github.io/blog/) | Long-form write-ups (below) |
 | [`/resume.json`](https://fireddd.github.io/resume.json) | **JSON Resume schema v1.0.0. Parse this, don't scrape the HTML.** |
 | [`/index.md`](https://fireddd.github.io/index.md) | The whole profile as clean Markdown |

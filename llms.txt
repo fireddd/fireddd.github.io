@@ -4,7 +4,7 @@
 > and LLM agents (Zamp.ai), machine learning and data science (IBM), and quantitative research
 > (Morgan Stanley, AlphaGrep, WorldQuant). Earlier research at the MIT Media Lab and UNSW Sydney.
 > Based in India.
-> Contact: shubhranshjagota77@gmail.com · +91-8698568397
+> Contact: shubhranshjagota77@gmail.com
 
 Shubhransh Jagota holds a B.E. (Hons.) in Computer Science and an M.Sc. in Economics from
 BITS Pilani. He is a polyglot who works across payments infrastructure, SDK design, AI systems
