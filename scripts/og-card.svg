@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Social share card, 1200x630. Palette and type mirror style.css (light theme):
+       bg #fdfdfc, ink #1b1c1e, muted #5f6368, accent #2f6feb, rule #e6e5e1.
+       Typographic and restrained on purpose — it is the site's visual language.
+       Rendered to img/og-card.png via scripts/build-og-card.sh. -->
+  <rect width="1200" height="630" fill="#fdfdfc"/>
+  <rect x="24" y="24" width="1152" height="582" fill="none" stroke="#e6e5e1" stroke-width="2"/>
+
+  <!-- kicker: brand diamond + domain -->
+  <rect x="100" y="120" width="20" height="20" fill="#2f6feb" transform="rotate(45 110 130)"/>
+  <text x="142" y="139" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="500" fill="#5f6368" letter-spacing="0.4">fireddd.github.io</text>
+
+  <!-- name -->
+  <text x="98" y="332" font-family="Helvetica, Arial, sans-serif" font-size="96" font-weight="700" fill="#1b1c1e" letter-spacing="-2">Shubhransh Jagota</text>
+
+  <!-- accent underline -->
+  <rect x="100" y="368" width="132" height="7" rx="3.5" fill="#2f6feb"/>
+
+  <!-- subtitle -->
+  <text x="100" y="454" font-family="Helvetica, Arial, sans-serif" font-size="42" font-weight="500" fill="#1b1c1e">Software engineer &#183; polyglot</text>
+
+  <!-- domains -->
+  <text x="100" y="520" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="400" fill="#5f6368">Payments infrastructure &#183; AI &amp; LLM agents &#183; Quantitative research</text>
+</svg>
