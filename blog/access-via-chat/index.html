@@ -120,21 +120,12 @@
 
       <h2 class="post-h2" id="roles-primer">Roles and permissions, from zero</h2>
 
-      <p>
-        Every piece of software that more than one person uses has to answer one question, over and
-        over: <em>is this person allowed to do this?</em> Four ideas answer it.
-      </p>
-
       <ul>
-        <li><strong>Tenant.</strong> A tenant is one customer's own space on a shared platform. Many companies use the same software, but each sees only its own data, users and settings, the way flats in one building share the walls but not the keys.</li>
-        <li><strong>Permission.</strong> A permission is a single action someone is allowed to take, such as viewing a report, editing a campaign or inviting a new user.</li>
-        <li><strong>Role.</strong> A role is a named bundle of permissions, such as "admin" or "view-only". Nobody hands out permissions one at a time; they give a person a role, and the role carries the permissions with it.</li>
-        <li><strong>Granting.</strong> Granting means giving a user a role, in a specific product, in a specific tenant. The same person can be an admin in one tenant and view-only in another.</li>
+        <li><strong>Tenant.</strong> One customer's own space on a shared platform, with its own data, users and settings.</li>
+        <li><strong>Permission.</strong> A single action, such as viewing a report or inviting a user.</li>
+        <li><strong>Role.</strong> A named bundle of permissions, such as "admin" or "view-only".</li>
+        <li><strong>Granting.</strong> Giving a user a role in a specific product and tenant.</li>
       </ul>
-
-      <p>
-        A small, made-up example makes it concrete. Three roles in one product, and what each one can do:
-      </p>
 
       <style>
         .roles { width: 100%; border-collapse: collapse; margin: 8px 0 20px; font-size: 14px; }
@@ -145,7 +136,7 @@
       </style>
       <table class="roles">
         <thead>
-          <tr><th>Permission</th><th>View-only</th><th>Marketing user</th><th>Admin</th></tr>
+          <tr><th>Permission (made-up example)</th><th>View-only</th><th>Marketing user</th><th>Admin</th></tr>
         </thead>
         <tbody>
           <tr><td>View reports</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
@@ -155,49 +146,24 @@
       </table>
 
       <p>
-        Two more ideas explain why granting is guarded so carefully. The first is <strong>least
-        privilege</strong>: give each person the smallest role that lets them do their job, because every
-        extra permission is something that can be misused or done by mistake. The second is
-        <strong>environments</strong>: <em>production</em> is the real system that customers use, and
-        <em>non-production</em> environments are copies where teams build, test and demo without touching
-        anything real. A mistake in non-production costs a few minutes; a mistake in production can
-        cost a customer.
-      </p>
-
-      <p>
-        Put together: to do almost anything on a platform like ours, a person needs the right role, in
-        the right product, in the right tenant, in the right environment. Getting that role is where
-        the waiting starts.
+        Granting is guarded for two reasons. <strong>Least privilege</strong>: give each person the
+        smallest role that does the job. <strong>Environments</strong>: <em>production</em> is what
+        customers use, and <em>non-production</em> copies are where teams build, test and demo, so a
+        mistake there costs minutes rather than a customer.
       </p>
 
       <h2 class="post-h2" id="the-problem">The problem</h2>
 
       <p>
-        People across the company need roles all the time: to reproduce a customer's bug, to demo a
-        feature, to check that a change behaves the same way for an admin as for a view-only user. You
-        need a specific role in a specific tenant, and you can't give it to yourself.
+        People across the company need roles all the time, to reproduce a bug or demo a feature, and
+        they can't grant one to themselves. Only the platform team can. So they raised a request with
+        the platform team's on-call and waited in that queue, often for a role that turned out to be
+        the wrong one, or for the first of several personas they needed.
       </p>
 
       <p>
-        Only the platform team has the tooling to grant roles. So anyone outside it raised a request
-        with the platform team's on-call engineer, and then waited. The request sat in a queue behind
-        everything else the on-call was handling, and your work sat behind the request. A five-minute
-        task stalled on another team's availability, which is the kind of dependency that turns minutes
-        into hours.
-      </p>
-
-      <p>
-        Two things made the wait longer than it had to be:
-      </p>
-
-      <ul>
-        <li><strong>Wrong role, second round.</strong> Roles differ by product and by tenant, so it was easy to ask for the wrong one, find out once it was granted, and raise the request again.</li>
-        <li><strong>One request becomes many.</strong> Real testing often needs several personas, such as an admin, a marketing user and a view-only user, so one request turned into a string of follow-ups.</li>
-      </ul>
-
-      <p>
-        It hurt both sides. The teams asking lost time waiting, and the platform team's on-call spent
-        theirs on repetitive, low-risk requests instead of platform work.
+        Both sides lost: the teams asking lost time waiting, and the on-call spent theirs on
+        repetitive, low-risk requests instead of platform work.
       </p>
 
       <h2 class="post-h2" id="just-ask">The idea: just ask</h2>
