@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>We stopped making engineers wait for access — Shubhransh Jagota</title>
+<title>We stopped making people wait for access — Shubhransh Jagota</title>
 <meta name="description" content="A skill I built for our internal AI assistant that handles role and access requests for non-production environments in plain language in Slack — and the guardrails that make it safe to let an agent change access.">
 <meta name="author" content="Shubhransh Jagota">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/style.css?v=55">
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="We stopped making engineers wait for access">
+<meta property="og:title" content="We stopped making people wait for access">
 <meta property="og:description" content="Role management via chat: a skill I built for our internal AI assistant that makes non-production access self-serve, audited, and locked out of production.">
 <meta property="og:url" content="https://fireddd.github.io/blog/access-via-chat/">
 <meta property="og:image" content="https://fireddd.github.io/img/avatar.jpg">
@@ -24,8 +24,8 @@
     {
       "@type": "BlogPosting",
       "@id": "https://fireddd.github.io/blog/access-via-chat/#post",
-      "headline": "We stopped making engineers wait for access",
-      "description": "The author built a skill for the company's internal AI assistant (Orca, built and maintained by another team) that handles role and access requests for non-production environments of a multi-product platform in plain language in Slack: setting and removing roles, invites, re-enabling users, time-boxed staff access, look-ups and bulk least-privilege requests. The guardrails were the main design work: non-production only, enforced at the service level; no guessing of roles or email addresses; allow-listed domains; no lock-outs; the highest-privilege role declined; honest reporting; no automatic write retries; and an audit trail of every change. Now in use: requests rarely reach the platform team, and when one does, the team triggers the agent to handle it.",
+      "headline": "We stopped making people wait for access",
+      "description": "The author built a skill for the company's internal AI assistant (Orca, built and maintained by another team) that handles role and access requests for non-production environments of a multi-product platform in plain language in Slack: setting and removing roles, invites, re-enabling users, time-boxed staff access, look-ups and bulk least-privilege requests. The guardrails were the main design work: non-production only, enforced at the service level; no guessing of roles or email addresses; allow-listed domains; no lock-outs; the highest-privilege role declined; honest reporting; no automatic write retries; and an audit trail of every change. Now in use: requests rarely reach the platform team (his own team), and when one does, the team triggers the agent to handle it.",
       "url": "https://fireddd.github.io/blog/access-via-chat/",
       "datePublished": "2026-11-05",
       "dateModified": "2026-11-05",
@@ -93,7 +93,7 @@
     <header class="post-hero">
       <div class="hero-text">
         <p class="hero-kicker">Agents · Access management</p>
-        <h1>We stopped making engineers wait for access</h1>
+        <h1>We stopped making people wait for access</h1>
         <p class="hero-sub">Role management via chat: a skill I built for our internal AI assistant that makes non-production access self-serve, audited, and locked out of production.</p>
       </div>
     </header>
@@ -111,8 +111,8 @@
 
       <p>
         People across the firm need roles all the time, to reproduce a bug or demo a feature, and
-        they can't grant one to themselves. Only the platform team can. So they raised a request with
-        the platform team's on-call, or with someone they knew on that team, and waited, often for a role that turned out to be
+        they can't grant one to themselves. Only the platform team, my team, can. So they raised a
+        request with our on-call, or with someone they knew on the team, and waited, often for a role that turned out to be
         the wrong one, or for the first of several personas they needed.
       </p>
 
@@ -124,7 +124,7 @@
       </figure>
 
       <p>
-        Both sides lost: the teams asking lost time waiting, and the on-call spent theirs on
+        Both sides lost: the teams asking lost time waiting, and our on-call spent theirs on
         repetitive, low-risk requests instead of focusing on their core responsibilities.
       </p>
 
@@ -182,12 +182,12 @@
       <ul>
         <li><strong>Orca.</strong> Our internal AI assistant, built and maintained by another team. It already lived in Slack, and it spins up an AI coding agent to do the work and manages that agent's lifecycle.</li>
         <li><strong>Skills.</strong> Orca's way of learning new jobs. A team registers a skill with a description of the requests it should handle, and the agent picks it up when a request matches.</li>
-        <li><strong>Our app and identity provider.</strong> The systems where users and their roles actually live, which only the platform team's tooling could change.</li>
+        <li><strong>Our app and identity provider.</strong> The systems where users and their roles actually live, which only our tooling on the platform team could change.</li>
       </ul>
 
       <p>
-        What was missing was a way for anyone to get a role without going through the platform team.
-        That is the part I built: a skill for my team's use case, added to Orca, and the plumbing
+        What was missing was a way for anyone to get a role without going through us. That is the
+        part I built: a skill for the platform team's access use case, added to Orca, and the plumbing
         behind it.
       </p>
 
@@ -342,8 +342,8 @@
       <h2 class="post-h2" id="where-it-is-now">Where it is now</h2>
 
       <p>
-        Folks have started using it. Requests now rarely reach the platform team, and when one does,
-        the team triggers the agent to handle it with this skill.
+        Folks have started using it. Requests now rarely reach us, and when one does, we trigger the
+        agent to handle it with this skill.
       </p>
 
       <p>
