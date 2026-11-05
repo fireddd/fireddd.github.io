@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>We stopped making engineers wait for access — Shubhransh Jagota</title>
-<meta name="description" content="An AI agent I built that handles role and access requests for non-production environments in plain language in Slack — and the guardrails that make it safe to let an agent change access.">
+<meta name="description" content="A skill I built for our internal AI assistant that handles role and access requests for non-production environments in plain language in Slack — and the guardrails that make it safe to let an agent change access.">
 <meta name="author" content="Shubhransh Jagota">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://fireddd.github.io/blog/access-via-chat/">
@@ -9,7 +9,7 @@
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="We stopped making engineers wait for access">
-<meta property="og:description" content="Role management via chat: a Slack agent that makes non-production access self-serve, audited, and locked out of production.">
+<meta property="og:description" content="Role management via chat: a skill I built for our internal AI assistant that makes non-production access self-serve, audited, and locked out of production.">
 <meta property="og:url" content="https://fireddd.github.io/blog/access-via-chat/">
 <meta property="og:image" content="https://fireddd.github.io/img/avatar.jpg">
 <meta name="twitter:card" content="summary">
@@ -25,7 +25,7 @@
       "@type": "BlogPosting",
       "@id": "https://fireddd.github.io/blog/access-via-chat/#post",
       "headline": "We stopped making engineers wait for access",
-      "description": "The author built an AI agent that handles role and access requests for non-production environments of a multi-product platform in plain language in Slack: setting and removing roles, invites, re-enabling users, time-boxed staff access, look-ups and bulk least-privilege requests. The guardrails were the main design work: non-production only, enforced at the service level; no guessing of roles or email addresses; allow-listed domains; no lock-outs; the highest-privilege role declined; honest reporting; no automatic write retries; and an audit trail of every change. Now in use: requests rarely reach the platform team, and when one does, the team triggers the agent to handle it.",
+      "description": "The author built a skill for the company's internal AI assistant (Orca, built and maintained by another team) that handles role and access requests for non-production environments of a multi-product platform in plain language in Slack: setting and removing roles, invites, re-enabling users, time-boxed staff access, look-ups and bulk least-privilege requests. The guardrails were the main design work: non-production only, enforced at the service level; no guessing of roles or email addresses; allow-listed domains; no lock-outs; the highest-privilege role declined; honest reporting; no automatic write retries; and an audit trail of every change. Now in use: requests rarely reach the platform team, and when one does, the team triggers the agent to handle it.",
       "url": "https://fireddd.github.io/blog/access-via-chat/",
       "datePublished": "2026-11-05",
       "dateModified": "2026-11-05",
@@ -94,7 +94,7 @@
       <div class="hero-text">
         <p class="hero-kicker">Agents · Access management</p>
         <h1>We stopped making engineers wait for access</h1>
-        <p class="hero-sub">Role management via chat: an agent I built that makes non-production access self-serve, audited, and locked out of production.</p>
+        <p class="hero-sub">Role management via chat: a skill I built for our internal AI assistant that makes non-production access self-serve, audited, and locked out of production.</p>
       </div>
     </header>
 
@@ -196,7 +196,7 @@
       <p>
         The agent handles these requests in plain language in Slack. There is no form, no ticket and no
         new tool to learn, and you can ask for yourself or for a teammate. These are the kinds of
-        requests people made during the trial:
+        requests people make:
       </p>
 
       <ul>
@@ -281,9 +281,8 @@
       </figure>
 
       <p>
-        A clear request just runs. The agent asks one short question only when something is missing or
-        ambiguous, and it never guesses a role or an email address. If you don't name an environment, it
-        uses the safer non-production one and tells you so.
+        A clear request just runs. If you don't name an environment, the agent uses the safer
+        non-production one and tells you so.
       </p>
 
       <h2 class="post-h2" id="safety-first">Designing for safety first</h2>
@@ -297,8 +296,9 @@
           <tr><th>Guardrail</th><th>What it means</th></tr>
         </thead>
         <tbody>
-          <tr><td>Non-production only</td><td>Declines production requests, and the services behind it reject production calls by design, so it can't reach production even by mistake.</td></tr>
-          <tr><td>No guessing</td><td>Never infers an email address from a name or picks between ambiguous roles; it asks instead.</td></tr>
+          <tr><td>Non-production only</td><td>Declines any request for a production environment.</td></tr>
+          <tr><td>Validation first</td><td>Checks every request before it makes it.</td></tr>
+          <tr><td>No guessing</td><td>Never infers an email address from a name or picks between ambiguous roles; it asks you in Slack instead.</td></tr>
           <tr><td>Allow-listed domains</td><td>Invites or changes only users on approved email domains.</td></tr>
           <tr><td>No lock-outs</td><td>Blocks any removal that would leave a user with no role.</td></tr>
           <tr><td>Least privilege</td><td>Declines the highest-privilege role and offers the next level down, and it hands removal of staff access to IT or the platform team.</td></tr>
@@ -325,14 +325,17 @@
         </tbody>
       </table>
 
-      <h3 class="post-h3">How it stays safe</h3>
+      <h3 class="post-h3">Where the safety lives</h3>
+
+      <p>
+        The guardrails above are what the agent does. These are what make them hold even if the agent
+        gets something wrong:
+      </p>
 
       <ol>
         <li><strong>Production is blocked in the services.</strong> Every API exposed for the skill is guarded by permissions so that it works only with non-production environments, so no wording of a request can get past it.</li>
         <li><strong>New APIs wrap the existing ones.</strong> The APIs exposed for the skill are wrappers on top of the existing ones, so every existing check and nuance still runs, such as writing to the third-party auth service.</li>
         <li><strong>Users never touch the APIs.</strong> Every call goes through the skill.</li>
-        <li><strong>Every request is validated first.</strong> The agent checks a request before it makes it.</li>
-        <li><strong>Unclear requests come back to you.</strong> When something is ambiguous, the agent asks, and that conversation happens in Slack.</li>
         <li><strong>Two systems stay in step.</strong> Some changes touch both our app and our identity provider; if the sync fails, the previous value is restored.</li>
       </ol>
 
@@ -345,7 +348,7 @@
 
       <p>
         The point stays the same: access to non-production environments shouldn't mean waiting. With the
-        agent it is self-serve and audited, and it is locked out of production.
+        skill it is self-serve and audited.
       </p>
 
       <figure class="shot" style="max-width:440px;">
