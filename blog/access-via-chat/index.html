@@ -108,8 +108,8 @@
     <div class="prose post">
       <p>
         Getting a role usually means raising a request with another team and waiting for them to get
-        to it. I built an AI agent that takes those requests in plain language in Slack and applies
-        them itself.
+        to it. I added a skill to our internal AI agent that takes those requests in plain language in
+        Slack and applies them itself.
       </p>
 
       <h2 class="post-h2" id="roles-primer">Roles and permissions, from zero</h2>
@@ -230,8 +230,10 @@
       <h2 class="post-h2" id="how-its-built">How it's built</h2>
 
       <p>
-        We have an internal AI assistant called Orca, which spins up an AI coding agent to do the work.
-        I didn't build a new bot; I taught that agent a new skill. The skill has four parts:
+        Some of this existed before I started. Orca, our internal AI assistant, was already built and
+        maintained by another team, including its Slack integration and the lifecycle of the AI coding
+        agent it spins up. What I built was a skill for my team's use case, added to Orca, along with
+        the plumbing behind it. The skill has four parts:
       </p>
 
       <ul>
@@ -244,8 +246,13 @@
       <p>
         The clients call APIs exposed on our internal services, and those APIs accept only
         non-production workloads. That is where the production block lives: in the services, not in
-        the agent's instructions, so no wording of a request can get past it. The skill does the
-        validation, so users never touch the APIs directly.
+        the agent's instructions, so no wording of a request can get past it. Users never touch the
+        APIs directly.
+      </p>
+
+      <p>
+        The agent validates every request before it makes it. When something is unclear, it asks the
+        user, and that conversation happens in Slack too.
       </p>
 
       <p>
