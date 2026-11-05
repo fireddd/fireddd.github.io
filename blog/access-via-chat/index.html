@@ -128,13 +128,6 @@
         repetitive, low-risk requests instead of focusing on their core responsibilities.
       </p>
 
-      <figure class="shot" style="max-width:360px;">
-        <img src="https://i.imgflip.com/3oevdk.jpg"
-             alt="The Bernie Sanders meme: Bernie in a winter coat, captioned 'I am once again asking'"
-             width="750" height="750" loading="lazy" referrerpolicy="no-referrer">
-        <figcaption>Third persona, third request.</figcaption>
-      </figure>
-
       <p>
         For non-production environments, none of that queueing should be necessary. Nothing there
         touches a customer; you just want to get your work done. That is why I built a skill for our
@@ -215,15 +208,20 @@
 
       <h2 class="post-h2" id="what-it-can-do">What it can do</h2>
 
-      <ul>
-        <li><strong>Roles.</strong> It sets, changes or removes a user's role in a product, and maps loose wording like "admin" or "view only" to the tenant's real role.</li>
-        <li><strong>Invites.</strong> It invites a new user with a role, or re-sends an expired invite, once you confirm.</li>
-        <li><strong>Enabling users.</strong> It reactivates a disabled user without changing their role.</li>
-        <li><strong>Staff access.</strong> It grants internal staff access, or time-boxed edit access within a tenant.</li>
-        <li><strong>Look-ups.</strong> It shows which roles someone holds, which roles a tenant offers, and licence totals and usage.</li>
-        <li><strong>Bulk requests.</strong> It handles "view-only for all apps" by picking the lowest-privilege role in each app the tenant has, then lists exactly what it assigned.</li>
-        <li><strong>Self-description.</strong> It explains what it can do when you aren't sure what to ask.</li>
-      </ul>
+      <table class="spec">
+        <thead>
+          <tr><th>Capability</th><th>What it does</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Roles</td><td>Sets, changes or removes a user's role in a product, and maps loose wording like "admin" or "view only" to the tenant's real role.</td></tr>
+          <tr><td>Invites</td><td>Invites a new user with a role, or re-sends an expired invite, once you confirm.</td></tr>
+          <tr><td>Enabling users</td><td>Reactivates a disabled user without changing their role.</td></tr>
+          <tr><td>Staff access</td><td>Grants internal staff access, or time-boxed edit access within a tenant.</td></tr>
+          <tr><td>Look-ups</td><td>Shows which roles someone holds, which roles a tenant offers, and licence totals and usage.</td></tr>
+          <tr><td>Bulk requests</td><td>Handles "view-only for all apps" by picking the lowest-privilege role in each app the tenant has, then lists exactly what it assigned.</td></tr>
+          <tr><td>Self-description</td><td>Explains what it can do when you aren't sure what to ask.</td></tr>
+        </tbody>
+      </table>
 
       <h2 class="post-h2" id="request-flow">How a request flows</h2>
 
@@ -294,17 +292,22 @@
         Letting an AI agent change access sounds risky, so the guardrails were the main design work:
       </p>
 
-      <ul>
-        <li><strong>Non-production only.</strong> Production requests are declined, and the services behind the agent reject production calls by design, so it can't reach production even by mistake.</li>
-        <li><strong>No guessing.</strong> It never infers an email address from a name or picks between ambiguous roles; it asks instead.</li>
-        <li><strong>Allow-listed domains.</strong> Only approved email domains can be invited or changed.</li>
-        <li><strong>No lock-outs.</strong> It blocks any removal that would leave a user with no role.</li>
-        <li><strong>Least privilege.</strong> It declines the highest-privilege role and offers the next level down, and it hands removal of staff access to IT or the platform team.</li>
-        <li><strong>Honest reporting.</strong> It reports an invite as "invited, must accept", never as "access granted", and re-reads the user's state after every change to report what they hold now.</li>
-        <li><strong>No blind retries.</strong> It never retries a write automatically, and it serialises concurrent changes to the same tenant.</li>
-        <li><strong>Audit trail.</strong> It logs every change with the requester's identity.</li>
-        <li><strong>Protected attributes.</strong> It cannot set sensitive flags through the role and invite paths.</li>
-      </ul>
+      <table class="spec">
+        <thead>
+          <tr><th>Guardrail</th><th>What it means</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Non-production only</td><td>Declines production requests, and the services behind it reject production calls by design, so it can't reach production even by mistake.</td></tr>
+          <tr><td>No guessing</td><td>Never infers an email address from a name or picks between ambiguous roles; it asks instead.</td></tr>
+          <tr><td>Allow-listed domains</td><td>Invites or changes only users on approved email domains.</td></tr>
+          <tr><td>No lock-outs</td><td>Blocks any removal that would leave a user with no role.</td></tr>
+          <tr><td>Least privilege</td><td>Declines the highest-privilege role and offers the next level down, and it hands removal of staff access to IT or the platform team.</td></tr>
+          <tr><td>Honest reporting</td><td>Reports an invite as "invited, must accept", never as "access granted", and re-reads the user's state after every change to report what they hold now.</td></tr>
+          <tr><td>No blind retries</td><td>Never retries a write automatically, and it serialises concurrent changes to the same tenant.</td></tr>
+          <tr><td>Audit trail</td><td>Logs every change with the requester's identity.</td></tr>
+          <tr><td>Protected attributes</td><td>Cannot set sensitive flags through the role and invite paths.</td></tr>
+        </tbody>
+      </table>
 
       <h2 class="post-h2" id="how-its-built">How it's built</h2>
 
@@ -318,7 +321,7 @@
           <tr><td>Trigger description</td><td>Matches any request for a role change or access, so the agent picks the skill up from plain language.</td></tr>
           <tr><td>SKILL.md</td><td>Lists every capability the skill exposes, as commands the coding agent can run.</td></tr>
           <tr><td>access.md</td><td>Writes down the nuances of every use case, so the agent never has to guess them.</td></tr>
-          <tr><td>Clients</td><td>Hold everything deterministic as ordinary code that the agent calls, rather than leaving it to the model.</td></tr>
+          <tr><td>Deterministic code</td><td>Holds everything deterministic as ordinary code, exposed to the agent through clients, helpers and the like, rather than leaving it to the model.</td></tr>
         </tbody>
       </table>
 
