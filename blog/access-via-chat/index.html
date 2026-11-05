@@ -77,6 +77,7 @@
       <ol>
         <li><a href="#the-problem">The problem</a></li>
         <li><a href="#roles-primer">Roles and permissions, from zero</a></li>
+        <li><a href="#what-existed">What already existed</a></li>
         <li><a href="#just-ask">The idea: just ask</a></li>
         <li><a href="#what-it-can-do">What it can do</a></li>
         <li><a href="#request-flow">How a request flows</a></li>
@@ -129,7 +130,9 @@
 
       <p>
         For non-production environments, none of that queueing should be necessary. Nothing there
-        touches a customer; you just want to get your work done. That is why I built this.
+        touches a customer; you just want to get your work done. That is why I built a skill for our
+        internal AI assistant that grants non-production roles from a plain-language request in Slack,
+        with no queue.
       </p>
 
       <h2 class="post-h2" id="roles-primer">Roles and permissions, from zero</h2>
@@ -164,6 +167,24 @@
         smallest role that does the job. <strong>Environments</strong>: <em>production</em> is what
         customers use, and <em>non-production</em> copies are where teams build, test and demo, so a
         mistake there costs minutes rather than a customer.
+      </p>
+
+      <h2 class="post-h2" id="what-existed">What already existed</h2>
+
+      <p>
+        I didn't start from scratch. Three things were already in place:
+      </p>
+
+      <ul>
+        <li><strong>Orca.</strong> Our internal AI assistant, built and maintained by another team. It already lived in Slack, and it spins up an AI coding agent to do the work and manages that agent's lifecycle.</li>
+        <li><strong>Skills.</strong> Orca's way of learning new jobs. A team registers a skill with a description of the requests it should handle, and the agent picks it up when a request matches.</li>
+        <li><strong>Our app and identity provider.</strong> The systems where users and their roles actually live, which only the platform team's tooling could change.</li>
+      </ul>
+
+      <p>
+        What was missing was a way for anyone to get a role without going through the platform team.
+        That is the part I built: a skill for my team's use case, added to Orca, and the plumbing
+        behind it.
       </p>
 
       <h2 class="post-h2" id="just-ask">The idea: just ask</h2>
@@ -231,10 +252,8 @@
       <h2 class="post-h2" id="how-its-built">How it's built</h2>
 
       <p>
-        Some of this existed before I started. Orca, our internal AI assistant, was already built and
-        maintained by another team, including its Slack integration and the lifecycle of the AI coding
-        agent it spins up. What I built was a skill for my team's use case, added to Orca, along with
-        the plumbing behind it. The skill has four parts:
+        Orca, its Slack integration and the agent's lifecycle were already there. The skill I added
+        has four parts:
       </p>
 
       <ul>
