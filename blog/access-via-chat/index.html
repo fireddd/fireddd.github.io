@@ -160,6 +160,11 @@
         repetitive, low-risk requests instead of platform work.
       </p>
 
+      <p>
+        For non-production environments, none of that queueing should be necessary. Nothing there
+        touches a customer; you just want to get your work done. That is why I built this.
+      </p>
+
       <h2 class="post-h2" id="just-ask">The idea: just ask</h2>
 
       <p>
@@ -225,8 +230,22 @@
       <h2 class="post-h2" id="how-its-built">How it's built</h2>
 
       <p>
-        The agent is a thin skill on top of a small set of internal, non-production endpoints. The skill
-        does the validation, so users never touch the APIs directly.
+        We have an internal AI assistant called Orca, which spins up an AI coding agent to do the work.
+        I didn't build a new bot; I taught that agent a new skill. The skill has four parts:
+      </p>
+
+      <ul>
+        <li><strong>A trigger description.</strong> The skill is registered with a description written to match any request for a role change or access, so the agent picks it up from plain language.</li>
+        <li><strong>SKILL.md.</strong> The skill's manual, listing every capability it exposes as commands the coding agent can run.</li>
+        <li><strong>access.md.</strong> The nuances of every use case the skill handles, written down so the agent never has to guess them.</li>
+        <li><strong>Clients.</strong> Everything deterministic is ordinary code, written as clients the agent calls, rather than left to the model.</li>
+      </ul>
+
+      <p>
+        The clients call APIs exposed on our internal services, and those APIs accept only
+        non-production workloads. That is where the production block lives: in the services, not in
+        the agent's instructions, so no wording of a request can get past it. The skill does the
+        validation, so users never touch the APIs directly.
       </p>
 
       <p>
