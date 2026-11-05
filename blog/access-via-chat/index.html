@@ -25,7 +25,7 @@
       "@type": "BlogPosting",
       "@id": "https://fireddd.github.io/blog/access-via-chat/#post",
       "headline": "We stopped making engineers wait for access",
-      "description": "The author built an AI agent that handles role and access requests for non-production environments of a multi-product platform in plain language in Slack: setting and removing roles, invites, re-enabling users, time-boxed staff access, look-ups and bulk least-privilege requests. The guardrails were the main design work: non-production only, enforced at the service level; no guessing of roles or email addresses; allow-listed domains; no lock-outs; the highest-privilege role declined; honest reporting; no automatic write retries; and an audit trail of every change. In trial.",
+      "description": "The author built an AI agent that handles role and access requests for non-production environments of a multi-product platform in plain language in Slack: setting and removing roles, invites, re-enabling users, time-boxed staff access, look-ups and bulk least-privilege requests. The guardrails were the main design work: non-production only, enforced at the service level; no guessing of roles or email addresses; allow-listed domains; no lock-outs; the highest-privilege role declined; honest reporting; no automatic write retries; and an audit trail of every change. Now in use: requests rarely reach the platform team, and when one does, the team triggers the agent to handle it.",
       "url": "https://fireddd.github.io/blog/access-via-chat/",
       "datePublished": "2026-11-05",
       "dateModified": "2026-11-05",
@@ -83,7 +83,7 @@
         <li><a href="#request-flow">How a request flows</a></li>
         <li><a href="#safety-first">Designing for safety first</a></li>
         <li><a href="#how-its-built">How it's built</a></li>
-        <li><a href="#whats-next">What's next</a></li>
+        <li><a href="#where-it-is-now">Where it is now</a></li>
       </ol>
     </nav>
   </aside>
@@ -103,7 +103,7 @@
       <li>Slack</li>
       <li>Access management</li>
       <li>Least privilege</li>
-      <li>In trial</li>
+      <li>In use</li>
     </ul>
 
     <div class="prose post">
@@ -307,13 +307,6 @@
         <li><strong>Two systems stay in step.</strong> Some changes touch both our app and our identity provider; if the sync fails, the previous value is restored.</li>
       </ol>
 
-      <figure class="shot" style="max-width:520px;">
-        <img src="https://i.imgflip.com/14xbe.jpg"
-             alt="Gandalf in the dark of Moria, sword and staff raised, mid 'You shall not pass'"
-             width="620" height="260" loading="lazy" referrerpolicy="no-referrer">
-        <figcaption>A request for production.</figcaption>
-      </figure>
-
       <h3 class="post-h3">How I tested it</h3>
 
       <ol>
@@ -322,16 +315,12 @@
         <li><strong>End-to-end runs.</strong> Against a real identity provider in a non-production project.</li>
       </ol>
 
-      <h2 class="post-h2" id="whats-next">What's next</h2>
+      <h2 class="post-h2" id="where-it-is-now">Where it is now</h2>
 
       <p>
-        The agent is in trial. These items are planned and not built yet:
+        Folks have started using it. Requests now rarely reach the platform team, and when one does,
+        the team triggers the agent to handle it with this skill.
       </p>
-
-      <ul>
-        <li><strong>Granular permissions.</strong> Permissions per action, with clear denials and audit logging.</li>
-        <li><strong>A fuller test plan.</strong> End-to-end coverage of the happy paths and the key failure scenarios.</li>
-      </ul>
 
       <p>
         The point stays the same: access to non-production environments shouldn't mean waiting. With the
