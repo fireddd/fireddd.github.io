@@ -150,6 +150,10 @@
         .roles th:first-child, .roles td:first-child { text-align: left; }
         .roles thead th { color: var(--muted); font-weight: 600; }
         .roles .no { color: var(--faint); }
+        .spec { width: 100%; border-collapse: collapse; margin: 8px 0 20px; font-size: 14px; }
+        .spec th, .spec td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+        .spec thead th { color: var(--muted); font-weight: 600; }
+        .spec td:first-child { font-weight: 600; width: 34%; }
       </style>
       <table class="roles">
         <thead>
@@ -252,38 +256,50 @@
       <h2 class="post-h2" id="how-its-built">How it's built</h2>
 
       <p>
-        Orca, its Slack integration and the agent's lifecycle were already there. The skill I added
-        has four parts:
+        Part of this was already there and part of it I added:
       </p>
 
-      <ul>
-        <li><strong>A trigger description.</strong> The skill is registered with a description written to match any request for a role change or access, so the agent picks it up from plain language.</li>
-        <li><strong>SKILL.md.</strong> The skill's manual, listing every capability it exposes as commands the coding agent can run.</li>
-        <li><strong>access.md.</strong> The nuances of every use case the skill handles, written down so the agent never has to guess them.</li>
-        <li><strong>Clients.</strong> Everything deterministic is ordinary code, written as clients the agent calls, rather than left to the model.</li>
-      </ul>
+      <table class="spec">
+        <thead>
+          <tr><th>Piece</th><th>Built by</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Orca, its Slack integration and the coding agent's lifecycle</td><td>Another team</td></tr>
+          <tr><td>The access skill and the plumbing behind it</td><td>Me</td></tr>
+        </tbody>
+      </table>
 
-      <p>
-        The clients call APIs exposed on our internal services, and those APIs accept only
-        non-production workloads. That is where the production block lives: in the services, not in
-        the agent's instructions, so no wording of a request can get past it. Users never touch the
-        APIs directly.
-      </p>
+      <h3 class="post-h3">What the skill is made of</h3>
 
-      <p>
-        The agent validates every request before it makes it. When something is unclear, it asks the
-        user, and that conversation happens in Slack too.
-      </p>
+      <table class="spec">
+        <thead>
+          <tr><th>Part</th><th>What it does</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Trigger description</td><td>Matches any request for a role change or access, so the agent picks the skill up from plain language.</td></tr>
+          <tr><td>SKILL.md</td><td>Lists every capability the skill exposes, as commands the coding agent can run.</td></tr>
+          <tr><td>access.md</td><td>Writes down the nuances of every use case, so the agent never has to guess them.</td></tr>
+          <tr><td>Clients</td><td>Hold everything deterministic as ordinary code that the agent calls, rather than leaving it to the model.</td></tr>
+        </tbody>
+      </table>
 
-      <p>
-        Some changes touch two systems: our app and our identity provider. The agent keeps them in step,
-        and if the sync fails, it restores the previous value.
-      </p>
+      <h3 class="post-h3">How it stays safe</h3>
 
-      <p>
-        I tested it with unit tests, evals for the agent skill, and end-to-end runs against a real
-        identity provider in a non-production project.
-      </p>
+      <ol>
+        <li><strong>Production is blocked in the services.</strong> The clients call APIs on our internal services that accept only non-production workloads, so no wording of a request can get past them.</li>
+        <li><strong>Users never touch the APIs.</strong> Every call goes through the skill.</li>
+        <li><strong>Every request is validated first.</strong> The agent checks a request before it makes it.</li>
+        <li><strong>Unclear requests come back to you.</strong> When something is ambiguous, the agent asks, and that conversation happens in Slack.</li>
+        <li><strong>Two systems stay in step.</strong> Some changes touch both our app and our identity provider; if the sync fails, the previous value is restored.</li>
+      </ol>
+
+      <h3 class="post-h3">How I tested it</h3>
+
+      <ol>
+        <li><strong>Unit tests.</strong> For the skill's code.</li>
+        <li><strong>Evals.</strong> For the agent skill's behaviour.</li>
+        <li><strong>End-to-end runs.</strong> Against a real identity provider in a non-production project.</li>
+      </ol>
 
       <h2 class="post-h2" id="whats-next">What's next</h2>
 
