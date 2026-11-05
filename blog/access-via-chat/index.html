@@ -75,8 +75,8 @@
     <nav class="toc" aria-label="On this page">
       <p class="toc-t">On this page</p>
       <ol>
-        <li><a href="#roles-primer">Roles and permissions, from zero</a></li>
         <li><a href="#the-problem">The problem</a></li>
+        <li><a href="#roles-primer">Roles and permissions, from zero</a></li>
         <li><a href="#just-ask">The idea: just ask</a></li>
         <li><a href="#what-it-can-do">What it can do</a></li>
         <li><a href="#request-flow">How a request flows</a></li>
@@ -106,18 +106,31 @@
     </ul>
 
     <div class="prose post">
+      <h2 class="post-h2" id="the-problem">The problem</h2>
+
       <p>
-        Getting a role usually means raising a request with another team and waiting for them to get
-        to it. I added a skill to our internal AI agent that takes those requests in plain language in
-        Slack and applies them itself.
+        People across the company need roles all the time, to reproduce a bug or demo a feature, and
+        they can't grant one to themselves. Only the platform team can. So they raised a request with
+        the platform team's on-call and waited in that queue, often for a role that turned out to be
+        the wrong one, or for the first of several personas they needed.
       </p>
 
       <figure class="shot" style="max-width:340px;">
         <img src="https://cdn-useast1.kapwing.com/static/templates/mr-bean-waiting-meme-template-full-ab4e5f22.webp"
              alt="The Mr Bean waiting meme: four panels of Mr Bean in a field of yellow flowers, standing with his hands on his hips, then checking his watch, then sitting by the roadside, and finally lying flat on the verge"
-             width="651" height="800" loading="lazy" referrerpolicy="no-referrer">
+             width="651" height="800" referrerpolicy="no-referrer">
         <figcaption>Waiting on the on-call.</figcaption>
       </figure>
+
+      <p>
+        Both sides lost: the teams asking lost time waiting, and the on-call spent theirs on
+        repetitive, low-risk requests instead of platform work.
+      </p>
+
+      <p>
+        For non-production environments, none of that queueing should be necessary. Nothing there
+        touches a customer; you just want to get your work done. That is why I built this.
+      </p>
 
       <h2 class="post-h2" id="roles-primer">Roles and permissions, from zero</h2>
 
@@ -151,25 +164,6 @@
         smallest role that does the job. <strong>Environments</strong>: <em>production</em> is what
         customers use, and <em>non-production</em> copies are where teams build, test and demo, so a
         mistake there costs minutes rather than a customer.
-      </p>
-
-      <h2 class="post-h2" id="the-problem">The problem</h2>
-
-      <p>
-        People across the company need roles all the time, to reproduce a bug or demo a feature, and
-        they can't grant one to themselves. Only the platform team can. So they raised a request with
-        the platform team's on-call and waited in that queue, often for a role that turned out to be
-        the wrong one, or for the first of several personas they needed.
-      </p>
-
-      <p>
-        Both sides lost: the teams asking lost time waiting, and the on-call spent theirs on
-        repetitive, low-risk requests instead of platform work.
-      </p>
-
-      <p>
-        For non-production environments, none of that queueing should be necessary. Nothing there
-        touches a customer; you just want to get your work done. That is why I built this.
       </p>
 
       <h2 class="post-h2" id="just-ask">The idea: just ask</h2>
