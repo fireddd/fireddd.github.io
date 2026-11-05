@@ -325,7 +325,8 @@
       <h3 class="post-h3">How it stays safe</h3>
 
       <ol>
-        <li><strong>Production is blocked in the services.</strong> The clients call APIs on our internal services that accept only non-production workloads, so no wording of a request can get past them.</li>
+        <li><strong>Production is blocked in the services.</strong> Every API exposed for the skill is guarded by permissions so that it works only with non-production environments, so no wording of a request can get past it.</li>
+        <li><strong>New APIs wrap the existing ones.</strong> The APIs exposed for the skill are wrappers on top of the existing ones, so every existing check and nuance still runs, such as writing to the third-party auth service.</li>
         <li><strong>Users never touch the APIs.</strong> Every call goes through the skill.</li>
         <li><strong>Every request is validated first.</strong> The agent checks a request before it makes it.</li>
         <li><strong>Unclear requests come back to you.</strong> When something is ambiguous, the agent asks, and that conversation happens in Slack.</li>
