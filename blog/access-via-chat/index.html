@@ -1,0 +1,307 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>We stopped making engineers wait for access — Shubhransh Jagota</title>
+<meta name="description" content="An AI agent I built that handles role and access requests for non-production environments in plain language in Slack — and the guardrails that make it safe to let an agent change access.">
+<meta name="author" content="Shubhransh Jagota">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://fireddd.github.io/blog/access-via-chat/">
+<link rel="stylesheet" href="/style.css?v=55">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="We stopped making engineers wait for access">
+<meta property="og:description" content="Role management via chat: a Slack agent that makes non-production access self-serve, audited, and locked out of production.">
+<meta property="og:url" content="https://fireddd.github.io/blog/access-via-chat/">
+<meta property="og:image" content="https://fireddd.github.io/img/avatar.jpg">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-family='monospace'>%E2%97%86</text></svg>">
+<script data-goatcounter="https://fireddd.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://fireddd.github.io/blog/access-via-chat/#post",
+      "headline": "We stopped making engineers wait for access",
+      "description": "The author built an AI agent that handles role and access requests for non-production environments of a multi-product platform in plain language in Slack: setting and removing roles, invites, re-enabling users, time-boxed staff access, look-ups and bulk least-privilege requests. The guardrails were the main design work: non-production only, enforced at the service level; no guessing of roles or email addresses; allow-listed domains; no lock-outs; the highest-privilege role declined; honest reporting; no automatic write retries; and an audit trail of every change. In trial.",
+      "url": "https://fireddd.github.io/blog/access-via-chat/",
+      "datePublished": "2026-11-05",
+      "dateModified": "2026-11-05",
+      "inLanguage": "en",
+      "keywords": "AI agents, access management, role-based access control, least privilege, Slack, identity provider, audit logging, platform engineering, developer experience",
+      "author": { "@id": "https://fireddd.github.io/#person" },
+      "publisher": { "@id": "https://fireddd.github.io/#person" },
+      "isPartOf": { "@id": "https://fireddd.github.io/#website" },
+      "mainEntityOfPage": "https://fireddd.github.io/blog/access-via-chat/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://fireddd.github.io/#person",
+      "name": "Shubhransh Jagota",
+      "url": "https://fireddd.github.io/",
+      "jobTitle": "Software Engineer",
+      "email": "mailto:shubhranshjagota77@gmail.com",
+      "sameAs": [
+        "https://github.com/fireddd",
+        "https://www.linkedin.com/in/shubhranshjagota/",
+        "https://leetcode.com/u/fireddd/",
+        "https://www.quora.com/profile/Shubhransh-Jagota",
+        "https://www.media.mit.edu/people/sjagota/overview/"
+      ]
+    }
+  ]
+}
+</script>
+
+<nav class="topbar">
+  <a class="brand" href="/">Shubhransh Jagota</a>
+  <a href="/blog/">Writing</a>
+  <a href="/resume/">Résumé</a>
+  <a href="/contact/">Contact</a>
+  <a href="https://github.com/fireddd" rel="me">GitHub</a>
+  <a href="https://www.linkedin.com/in/shubhranshjagota/" rel="me">LinkedIn</a>
+  <a href="https://cal.com/shubhranshjagota/call">Book a call</a>
+  <a class="hits" href="https://hits.sh/fireddd.github.io/" aria-label="Site visits">
+    <img src="https://hits.sh/fireddd.github.io.svg?view=today-total&style=flat-square&label=visits&color=3b3b3b&labelColor=1f1f1f"
+         alt="Visits to this site, today and in total" width="98" height="20">
+  </a>
+</nav>
+
+<div class="post-shell">
+
+  <aside class="toc-rail">
+    <nav class="toc" aria-label="On this page">
+      <p class="toc-t">On this page</p>
+      <ol>
+        <li><a href="#roles-primer">Roles and permissions, from zero</a></li>
+        <li><a href="#the-problem">The problem</a></li>
+        <li><a href="#just-ask">The idea: just ask</a></li>
+        <li><a href="#what-it-can-do">What it can do</a></li>
+        <li><a href="#request-flow">How a request flows</a></li>
+        <li><a href="#safety-first">Designing for safety first</a></li>
+        <li><a href="#how-its-built">How it's built</a></li>
+        <li><a href="#whats-next">What's next</a></li>
+      </ol>
+    </nav>
+  </aside>
+
+  <main>
+  <article>
+    <header class="post-hero">
+      <div class="hero-text">
+        <p class="hero-kicker">Agents · Access management</p>
+        <h1>We stopped making engineers wait for access</h1>
+        <p class="hero-sub">Role management via chat: an agent I built that makes non-production access self-serve, audited, and locked out of production.</p>
+      </div>
+    </header>
+
+    <ul class="chips">
+      <li>AI agents</li>
+      <li>Slack</li>
+      <li>Access management</li>
+      <li>Least privilege</li>
+      <li>In trial</li>
+    </ul>
+
+    <div class="prose post">
+      <p>
+        Getting a role on our platform used to mean raising a request with another team and waiting
+        for them to get to it. I built an AI agent that takes those requests in plain language in Slack
+        and applies them itself. Most of the work went into the guardrails, because they are what make
+        it safe to let an agent change access at all.
+      </p>
+
+      <p>
+        If roles and permissions are new to you, start with the next section; it covers everything the
+        rest of the post assumes. If they aren't, skip to <a href="#the-problem">the problem</a>.
+      </p>
+
+      <h2 class="post-h2" id="roles-primer">Roles and permissions, from zero</h2>
+
+      <p>
+        Every piece of software that more than one person uses has to answer one question, over and
+        over: <em>is this person allowed to do this?</em> Four ideas answer it.
+      </p>
+
+      <ul>
+        <li><strong>Tenant.</strong> A tenant is one customer's own space on a shared platform. Many companies use the same software, but each sees only its own data, users and settings, the way flats in one building share the walls but not the keys.</li>
+        <li><strong>Permission.</strong> A permission is a single action someone is allowed to take, such as viewing a report, editing a campaign or inviting a new user.</li>
+        <li><strong>Role.</strong> A role is a named bundle of permissions, such as "admin" or "view-only". Nobody hands out permissions one at a time; they give a person a role, and the role carries the permissions with it.</li>
+        <li><strong>Granting.</strong> Granting means giving a user a role, in a specific product, in a specific tenant. The same person can be an admin in one tenant and view-only in another.</li>
+      </ul>
+
+      <p>
+        A small, made-up example makes it concrete. Three roles in one product, and what each one can do:
+      </p>
+
+      <style>
+        .roles { width: 100%; border-collapse: collapse; margin: 8px 0 20px; font-size: 14px; }
+        .roles th, .roles td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: center; }
+        .roles th:first-child, .roles td:first-child { text-align: left; }
+        .roles thead th { color: var(--muted); font-weight: 600; }
+        .roles .no { color: var(--faint); }
+      </style>
+      <table class="roles">
+        <thead>
+          <tr><th>Permission</th><th>View-only</th><th>Marketing user</th><th>Admin</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>View reports</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+          <tr><td>Create and edit campaigns</td><td class="no">No</td><td>Yes</td><td>Yes</td></tr>
+          <tr><td>Invite users and assign roles</td><td class="no">No</td><td class="no">No</td><td>Yes</td></tr>
+        </tbody>
+      </table>
+
+      <p>
+        Two more ideas explain why granting is guarded so carefully. The first is <strong>least
+        privilege</strong>: give each person the smallest role that lets them do their job, because every
+        extra permission is something that can be misused or done by mistake. The second is
+        <strong>environments</strong>: <em>production</em> is the real system that customers use, and
+        <em>non-production</em> environments are copies where teams build, test and demo without touching
+        anything real. A mistake in non-production costs a few minutes; a mistake in production can
+        cost a customer.
+      </p>
+
+      <p>
+        Put together: to do almost anything on a platform like ours, a person needs the right role, in
+        the right product, in the right tenant, in the right environment. Getting that role is where
+        the waiting starts.
+      </p>
+
+      <h2 class="post-h2" id="the-problem">The problem</h2>
+
+      <p>
+        People across the company need roles all the time: to reproduce a customer's bug, to demo a
+        feature, to check that a change behaves the same way for an admin as for a view-only user. You
+        need a specific role in a specific tenant, and you can't give it to yourself.
+      </p>
+
+      <p>
+        Only the platform team has the tooling to grant roles. So anyone outside it raised a request
+        with the platform team's on-call engineer, and then waited. The request sat in a queue behind
+        everything else the on-call was handling, and your work sat behind the request. A five-minute
+        task stalled on another team's availability, which is the kind of dependency that turns minutes
+        into hours.
+      </p>
+
+      <p>
+        Two things made the wait longer than it had to be:
+      </p>
+
+      <ul>
+        <li><strong>Wrong role, second round.</strong> Roles differ by product and by tenant, so it was easy to ask for the wrong one, find out once it was granted, and raise the request again.</li>
+        <li><strong>One request becomes many.</strong> Real testing often needs several personas, such as an admin, a marketing user and a view-only user, so one request turned into a string of follow-ups.</li>
+      </ul>
+
+      <p>
+        It hurt both sides. The teams asking lost time waiting, and the platform team's on-call spent
+        theirs on repetitive, low-risk requests instead of platform work.
+      </p>
+
+      <h2 class="post-h2" id="just-ask">The idea: just ask</h2>
+
+      <p>
+        The agent handles these requests in plain language in Slack. There is no form, no ticket and no
+        new tool to learn, and you can ask for yourself or for a teammate. These are the kinds of
+        requests people made during the trial:
+      </p>
+
+      <ul>
+        <li>"Give a teammate admin access to one of our apps for a tenant."</li>
+        <li>"Make a user a marketing user for workflows."</li>
+        <li>"Give a user view-only access."</li>
+        <li>"For this environment, what are my roles for this tenant?"</li>
+      </ul>
+
+      <h2 class="post-h2" id="what-it-can-do">What it can do</h2>
+
+      <ul>
+        <li><strong>Roles.</strong> It sets, changes or removes a user's role in a product, and maps loose wording like "admin" or "view only" to the tenant's real role.</li>
+        <li><strong>Invites.</strong> It invites a new user with a role, or re-sends an expired invite, once you confirm.</li>
+        <li><strong>Enabling users.</strong> It reactivates a disabled user without changing their role.</li>
+        <li><strong>Staff access.</strong> It grants internal staff access, or time-boxed edit access within a tenant.</li>
+        <li><strong>Look-ups.</strong> It shows which roles someone holds, which roles a tenant offers, and licence totals and usage.</li>
+        <li><strong>Bulk requests.</strong> It handles "view-only for all apps" by picking the lowest-privilege role in each app the tenant has, then lists exactly what it assigned.</li>
+        <li><strong>Self-description.</strong> It explains what it can do when you aren't sure what to ask.</li>
+      </ul>
+
+      <h2 class="post-h2" id="request-flow">How a request flows</h2>
+
+      <ol>
+        <li>You ask in Slack.</li>
+        <li>The agent finds the tenant.</li>
+        <li>It matches your wording to the tenant's real roles.</li>
+        <li>It validates the request.</li>
+        <li>It applies the change.</li>
+        <li>It reports the result for each user.</li>
+      </ol>
+
+      <p>
+        A clear request just runs. The agent asks one short question only when something is missing or
+        ambiguous, and it never guesses a role or an email address. If you don't name an environment, it
+        uses the safer non-production one and tells you so.
+      </p>
+
+      <h2 class="post-h2" id="safety-first">Designing for safety first</h2>
+
+      <p>
+        Letting an AI agent change access sounds risky, so the guardrails were the main design work:
+      </p>
+
+      <ul>
+        <li><strong>Non-production only.</strong> Production requests are declined, and the services behind the agent reject production calls by design, so it can't reach production even by mistake.</li>
+        <li><strong>No guessing.</strong> It never infers an email address from a name or picks between ambiguous roles; it asks instead.</li>
+        <li><strong>Allow-listed domains.</strong> Only approved email domains can be invited or changed.</li>
+        <li><strong>No lock-outs.</strong> It blocks any removal that would leave a user with no role.</li>
+        <li><strong>Least privilege.</strong> It declines the highest-privilege role and offers the next level down, and it hands removal of staff access to IT or the platform team.</li>
+        <li><strong>Honest reporting.</strong> It reports an invite as "invited, must accept", never as "access granted", and re-reads the user's state after every change to report what they hold now.</li>
+        <li><strong>No blind retries.</strong> It never retries a write automatically, and it serialises concurrent changes to the same tenant.</li>
+        <li><strong>Audit trail.</strong> It logs every change with the requester's identity.</li>
+        <li><strong>Protected attributes.</strong> It cannot set sensitive flags through the role and invite paths.</li>
+      </ul>
+
+      <h2 class="post-h2" id="how-its-built">How it's built</h2>
+
+      <p>
+        The agent is a thin skill on top of a small set of internal, non-production endpoints. The skill
+        does the validation, so users never touch the APIs directly.
+      </p>
+
+      <p>
+        Some changes touch two systems: our app and our identity provider. The agent keeps them in step,
+        and if the sync fails, it restores the previous value.
+      </p>
+
+      <p>
+        I tested it with unit tests, evals for the agent skill, and end-to-end runs against a real
+        identity provider in a non-production project.
+      </p>
+
+      <h2 class="post-h2" id="whats-next">What's next</h2>
+
+      <p>
+        The agent is in trial. These items are planned and not built yet:
+      </p>
+
+      <ul>
+        <li><strong>Granular permissions.</strong> Permissions per action, with clear denials and audit logging.</li>
+        <li><strong>A fuller test plan.</strong> End-to-end coverage of the happy paths and the key failure scenarios.</li>
+      </ul>
+
+      <p>
+        The point stays the same: access to non-production environments shouldn't mean waiting. With the
+        agent it is self-serve and audited, and it is locked out of production.
+      </p>
+
+    </div>
+  </article>
+  </main>
+
+  <footer>
+    <span><a href="/blog/">← All writing</a></span>
+    <span class="colophon">Built and maintained with the help of LLMs.</span>
+  </footer>
+
+</div>
