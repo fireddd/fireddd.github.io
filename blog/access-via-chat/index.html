@@ -378,12 +378,6 @@
           and shouldn't.
         </p>
 
-        <ol>
-          <li><strong>Run each request twice.</strong> The same prompt doesn't always lead to the same choice.</li>
-          <li><strong>Stop at the decision.</strong> A run counts as triggered the moment the agent calls the skill or reads its files, and it is stopped there, before it can run anything.</li>
-          <li><strong>Score it.</strong> A request passes if it behaves as expected in at least half its runs, and the skill passes if at least 70% of its requests do.</li>
-        </ol>
-
         <table class="spec ex">
           <thead>
             <tr><th>Scenario</th><th>Example request</th><th>Expected</th></tr>
@@ -407,17 +401,6 @@
           <li><strong>Judge the answer.</strong> A second LLM, acting as the judge, checks the answer against the decisions we expect and marks each one passed or failed, with the evidence for its call.</li>
           <li><strong>Compare with and without the skill.</strong> Each case runs once with the skill and once without, and the gap between the two shows what the skill adds.</li>
         </ol>
-
-        <table class="spec">
-          <thead>
-            <tr><th>Stage</th><th>What the judge checks</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Reading the request</td><td>Whether the agent understands what is being asked, and declines what it shouldn't do.</td></tr>
-            <tr><td>Choosing the action</td><td>Whether it picks the right change, or asks when it isn't sure.</td></tr>
-            <tr><td>Reporting back</td><td>Whether it tells you accurately what happened.</td></tr>
-          </tbody>
-        </table>
 
         <table class="spec ex">
           <thead>
