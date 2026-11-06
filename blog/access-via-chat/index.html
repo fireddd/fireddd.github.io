@@ -16,6 +16,7 @@
   .spec th, .spec td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
   .spec thead th { color: var(--muted); font-weight: 600; }
   .spec td:first-child { font-weight: 600; width: 34%; }
+  .spec.ex td:first-child { width: 16%; }
   .subsec { margin: 0 0 0 18px; padding-left: 16px; border-left: 2px solid var(--rule); }
   .subsec .post-h3 { margin-top: 24px; }
   .toc-rail .toc ol li.sub { margin-left: 14px; font-size: 12px; }
@@ -380,17 +381,16 @@
         <ol>
           <li><strong>Run each request twice.</strong> The same prompt doesn't always lead to the same choice.</li>
           <li><strong>Stop at the decision.</strong> A run counts as triggered the moment the agent calls the skill or reads its files, and it is stopped there, before it can run anything.</li>
-          <li><strong>Score it.</strong> Each request, and the skill as a whole, is scored against the rules below.</li>
+          <li><strong>Score it.</strong> A request passes if it behaves as expected in at least half its runs, and the skill passes if at least 70% of its requests do.</li>
         </ol>
 
-        <table class="spec">
+        <table class="spec ex">
           <thead>
-            <tr><th>Check</th><th>Passes when</th></tr>
+            <tr><th>Scenario</th><th>Example request</th><th>Expected</th></tr>
           </thead>
           <tbody>
-            <tr><td>A should-trigger request</td><td>Triggers the skill in at least half its runs.</td></tr>
-            <tr><td>A shouldn't-trigger request</td><td>Triggers the skill in fewer than half its runs.</td></tr>
-            <tr><td>The skill</td><td>Passes at least 70% of its requests.</td></tr>
+            <tr><td>Positive</td><td>"Give my teammate view-only access to this tenant."</td><td>The skill triggers.</td></tr>
+            <tr><td>Negative</td><td>"Why is this build failing?"</td><td>The skill stays out of it.</td></tr>
           </tbody>
         </table>
 
@@ -416,6 +416,16 @@
             <tr><td>Reading the request</td><td>Whether the agent understands what is being asked, and declines what it shouldn't do.</td></tr>
             <tr><td>Choosing the action</td><td>Whether it picks the right change, or asks when it isn't sure.</td></tr>
             <tr><td>Reporting back</td><td>Whether it tells you accurately what happened.</td></tr>
+          </tbody>
+        </table>
+
+        <table class="spec ex">
+          <thead>
+            <tr><th>Scenario</th><th>Situation</th><th>Expected decision</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Positive</td><td>A clear request, and the tenant's role list has exactly one matching role.</td><td>Makes the change with that role, without stopping to ask.</td></tr>
+            <tr><td>Negative</td><td>A request for access in production.</td><td>Declines it, points to the on-call, and runs nothing.</td></tr>
           </tbody>
         </table>
 
