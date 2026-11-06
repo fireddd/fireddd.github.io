@@ -6,6 +6,24 @@
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://fireddd.github.io/blog/access-via-chat/">
 <link rel="stylesheet" href="/style.css?v=55">
+<style>
+  .roles { width: 100%; border-collapse: collapse; margin: 8px 0 20px; font-size: 14px; }
+  .roles th, .roles td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: center; }
+  .roles th:first-child, .roles td:first-child { text-align: left; }
+  .roles thead th { color: var(--muted); font-weight: 600; }
+  .roles .no { color: var(--faint); }
+  .spec { width: 100%; border-collapse: collapse; margin: 8px 0 20px; font-size: 14px; }
+  .spec th, .spec td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  .spec thead th { color: var(--muted); font-weight: 600; }
+  .spec td:first-child { font-weight: 600; width: 34%; }
+  .subsec { margin: 0 0 0 18px; padding-left: 16px; border-left: 2px solid var(--rule); }
+  .subsec .post-h3 { margin-top: 24px; }
+  .toc-rail .toc ol li.sub { margin-left: 14px; font-size: 12px; }
+  @media (max-width: 900px) {
+    .subsec { margin-left: 4px; padding-left: 12px; }
+    .toc-rail .toc ol li.sub { list-style: none; margin-left: 0; padding-left: 14px; }
+  }
+</style>
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="We stopped making people wait for access">
@@ -83,6 +101,9 @@
         <li><a href="#request-flow">How a request flows</a></li>
         <li><a href="#safety-first">Designing for safety first</a></li>
         <li><a href="#how-its-built">How it's built</a></li>
+        <li class="sub"><a href="#skill-parts">What the skill is made of</a></li>
+        <li class="sub"><a href="#safety-lives">Where the safety lives</a></li>
+        <li class="sub"><a href="#trigger-evals">How we test that it triggers</a></li>
         <li><a href="#where-it-is-now">Where it is now</a></li>
       </ol>
     </nav>
@@ -144,17 +165,6 @@
         <li><strong>Granting.</strong> Giving a user a role in a specific product and tenant.</li>
       </ul>
 
-      <style>
-        .roles { width: 100%; border-collapse: collapse; margin: 8px 0 20px; font-size: 14px; }
-        .roles th, .roles td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: center; }
-        .roles th:first-child, .roles td:first-child { text-align: left; }
-        .roles thead th { color: var(--muted); font-weight: 600; }
-        .roles .no { color: var(--faint); }
-        .spec { width: 100%; border-collapse: collapse; margin: 8px 0 20px; font-size: 14px; }
-        .spec th, .spec td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
-        .spec thead th { color: var(--muted); font-weight: 600; }
-        .spec td:first-child { font-weight: 600; width: 34%; }
-      </style>
       <table class="roles">
         <thead>
           <tr><th>Permission (made-up example)</th><th>View-only</th><th>Marketing user</th><th>Admin</th></tr>
@@ -311,59 +321,65 @@
 
       <h2 class="post-h2" id="how-its-built">How it's built</h2>
 
-      <h3 class="post-h3">What the skill is made of</h3>
+      <section class="subsec">
+        <h3 class="post-h3" id="skill-parts">What the skill is made of</h3>
 
-      <table class="spec">
-        <thead>
-          <tr><th>Part</th><th>What it does</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Trigger</td><td>Matches any request for a role change or access, so the agent picks the skill up from plain language.</td></tr>
-          <tr><td>SKILL.md</td><td>Lists every capability the skill exposes, as commands the coding agent can run.</td></tr>
-          <tr><td>Access.md</td><td>Writes down the nuances of every use case, so the agent never has to guess them.</td></tr>
-          <tr><td>Deterministic code</td><td>Holds everything deterministic as ordinary code, exposed to the agent through clients, helpers and the like, rather than leaving it to the model.</td></tr>
-        </tbody>
-      </table>
+        <table class="spec">
+          <thead>
+            <tr><th>Part</th><th>What it does</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Trigger</td><td>Matches any request for a role change or access, so the agent picks the skill up from plain language.</td></tr>
+            <tr><td>SKILL.md</td><td>Lists every capability the skill exposes, as commands the coding agent can run.</td></tr>
+            <tr><td>Access.md</td><td>Writes down the nuances of every use case, so the agent never has to guess them.</td></tr>
+            <tr><td>Deterministic code</td><td>Holds everything deterministic as ordinary code, exposed to the agent through clients, helpers and the like, rather than leaving it to the model.</td></tr>
+          </tbody>
+        </table>
+      </section>
 
-      <h3 class="post-h3">Where the safety lives</h3>
+      <section class="subsec">
+        <h3 class="post-h3" id="safety-lives">Where the safety lives</h3>
 
-      <p>
-        The guardrails above are what the agent does. These are what make them hold even if the agent
-        gets something wrong:
-      </p>
+        <p>
+          The guardrails above are what the agent does. These are what make them hold even if the agent
+          gets something wrong:
+        </p>
 
-      <ol>
-        <li><strong>Production is blocked in the services.</strong> Every API exposed for the skill is guarded by permissions so that it works only with non-production environments, so no wording of a request can get past it.</li>
-        <li><strong>New APIs wrap the existing ones.</strong> The APIs exposed for the skill are wrappers on top of the existing ones, so every existing check and nuance still runs, such as writing to the third-party auth service.</li>
-        <li><strong>Users never touch the APIs.</strong> Every call goes through the skill.</li>
-        <li><strong>Two systems stay in step.</strong> Some changes touch both our app and our identity provider; if the sync fails, the previous value is restored.</li>
-      </ol>
+        <ol>
+          <li><strong>Production is blocked in the services.</strong> Every API exposed for the skill is guarded by permissions so that it works only with non-production environments, so no wording of a request can get past it.</li>
+          <li><strong>New APIs wrap the existing ones.</strong> The APIs exposed for the skill are wrappers on top of the existing ones, so every existing check and nuance still runs, such as writing to the third-party auth service.</li>
+          <li><strong>Users never touch the APIs.</strong> Every call goes through the skill.</li>
+          <li><strong>Two systems stay in step.</strong> Some changes touch both our app and our identity provider; if the sync fails, the previous value is restored.</li>
+        </ol>
+      </section>
 
-      <h3 class="post-h3">How we test that it triggers</h3>
+      <section class="subsec">
+        <h3 class="post-h3" id="trigger-evals">How we test that it triggers</h3>
 
-      <p>
-        The skill only helps if the agent picks it up for access requests and leaves it alone for
-        everything else. We have evals that test exactly that:
-      </p>
+        <p>
+          The skill only helps if the agent picks it up for access requests and leaves it alone for
+          everything else. We have evals that test exactly that:
+        </p>
 
-      <ol>
-        <li><strong>A labelled set of requests.</strong> The skill ships with example requests, each marked as one that should trigger it or one that shouldn't, and a lint step requires a minimum number of both.</li>
-        <li><strong>Several runs per request.</strong> Each request goes to the agent more than once, because the same prompt doesn't always lead to the same choice.</li>
-        <li><strong>Triggered or not.</strong> A run counts as triggered if the agent calls the skill or reads its files.</li>
-        <li><strong>A pass mark.</strong> Each request and the skill as a whole are scored against the rules in the table below.</li>
-        <li><strong>Run on every change.</strong> The evals run on every pull request that touches the skill, with results posted on the PR, and again every week, with results posted to Slack.</li>
-      </ol>
+        <ol>
+          <li><strong>A labelled set of requests.</strong> The skill ships with example requests, each marked as one that should trigger it or one that shouldn't, and a lint step requires a minimum number of both.</li>
+          <li><strong>Several runs per request.</strong> Each request goes to the agent more than once, because the same prompt doesn't always lead to the same choice.</li>
+          <li><strong>Triggered or not.</strong> A run counts as triggered if the agent calls the skill or reads its files.</li>
+          <li><strong>A pass mark.</strong> Each request and the skill as a whole are scored against the rules in the table below.</li>
+          <li><strong>Run on every change.</strong> The evals run on every pull request that touches the skill, with results posted on the PR, and again every week, with results posted to Slack.</li>
+        </ol>
 
-      <table class="spec">
-        <thead>
-          <tr><th>Check</th><th>Passes when</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>A should-trigger request</td><td>Triggers the skill in at least half its runs.</td></tr>
-          <tr><td>A shouldn't-trigger request</td><td>Triggers the skill in fewer than half its runs.</td></tr>
-          <tr><td>The skill</td><td>Passes at least 70% of its requests.</td></tr>
-        </tbody>
-      </table>
+        <table class="spec">
+          <thead>
+            <tr><th>Check</th><th>Passes when</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>A should-trigger request</td><td>Triggers the skill in at least half its runs.</td></tr>
+            <tr><td>A shouldn't-trigger request</td><td>Triggers the skill in fewer than half its runs.</td></tr>
+            <tr><td>The skill</td><td>Passes at least 70% of its requests.</td></tr>
+          </tbody>
+        </table>
+      </section>
 
       <h2 class="post-h2" id="where-it-is-now">Where it is now</h2>
 
