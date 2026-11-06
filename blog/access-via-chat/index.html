@@ -372,10 +372,9 @@
         </table>
 
         <p>
-          <strong>Trigger evals.</strong> The skill ships with ten example requests: seven that should
-          trigger it and three that shouldn't, such as creating a custom role, asking who holds admin,
-          or resetting a password. One of the seven asks for production on purpose, because the skill
-          has to pick that request up in order to decline it.
+          <strong>Trigger evals.</strong> The skill ships with positive and negative scenarios. Access
+          requests are the positive ones and should trigger it; ordinary requests are the negative ones
+          and shouldn't.
         </p>
 
         <ol>
@@ -396,23 +395,29 @@
         </table>
 
         <p>
-          <strong>Decision evals.</strong> These grade only the decision, never its effect: the agent
-          doesn't run a single command. For a step in the middle of a flow, the prompt says the earlier
-          commands have already run and shows their output, so each case tests one decision on its own.
-          There are 23 cases across three stages:
+          <strong>Decision evals.</strong> Trigger evals show that the skill gets picked up; decision
+          evals show what the agent does with it. Letting it run real commands in a test would change
+          real access, so it doesn't run any. Instead, each test puts the agent in a situation and checks
+          what it decides to do next.
         </p>
 
         <ol>
-          <li><strong>Reading the request.</strong> Mapping the environment, declining production, declining the whole request when one part of it is out of bounds, and resolving who is asking.</li>
-          <li><strong>Choosing the role.</strong> Picking the one clear match from a tenant's roles, asking when "user" could mean two roles, and batching several users into one change.</li>
-          <li><strong>Reporting the result.</strong> Saying "invited, must accept" rather than "granted", asking before enabling a disabled user, and explaining why a removal was blocked.</li>
+          <li><strong>Set up a situation.</strong> Each case is a request. For a step in the middle of a flow, it also includes what the earlier steps would have returned, so the agent can pick up from there.</li>
+          <li><strong>Ask for the decision only.</strong> The agent answers with what it would do next, without running anything.</li>
+          <li><strong>Judge the answer.</strong> A second LLM, acting as the judge, checks the answer against the decisions we expect and marks each one passed or failed, with the evidence for its call.</li>
+          <li><strong>Compare with and without the skill.</strong> Each case runs once with the skill and once without, and the gap between the two shows what the skill adds.</li>
         </ol>
 
-        <p>
-          Each case runs twice, once with the skill and once without, and an LLM judge marks every
-          assertion as passed or failed, with the evidence for its call. The number that matters is the
-          gap between the two: how much better the agent decides with the skill than without it.
-        </p>
+        <table class="spec">
+          <thead>
+            <tr><th>Stage</th><th>What the judge checks</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Reading the request</td><td>Whether the agent understands what is being asked, and declines what it shouldn't do.</td></tr>
+            <tr><td>Choosing the action</td><td>Whether it picks the right change, or asks when it isn't sure.</td></tr>
+            <tr><td>Reporting back</td><td>Whether it tells you accurately what happened.</td></tr>
+          </tbody>
+        </table>
 
         <p>
           <strong>Workflows.</strong> Both evals run automatically: on every pull request that changes
