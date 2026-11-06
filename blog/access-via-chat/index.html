@@ -103,7 +103,7 @@
         <li><a href="#how-its-built">How it's built</a></li>
         <li class="sub"><a href="#skill-parts">What the skill is made of</a></li>
         <li class="sub"><a href="#safety-lives">Where the safety lives</a></li>
-        <li class="sub"><a href="#trigger-evals">How we test that it triggers</a></li>
+        <li class="sub"><a href="#evals">How we test it</a></li>
         <li><a href="#where-it-is-now">Where it is now</a></li>
       </ol>
     </nav>
@@ -306,14 +306,15 @@
           <tr><th>Guardrail</th><th>What it means</th></tr>
         </thead>
         <tbody>
-          <tr><td>Non-production only</td><td>Declines any request for a production environment.</td></tr>
-          <tr><td>Validation first</td><td>Checks every request before it makes it.</td></tr>
+          <tr><td>Non-production only</td><td>Declines any request for a production environment and points you to the on-call.</td></tr>
+          <tr><td>All or nothing</td><td>Declines the whole request if any part of it is out of bounds, rather than quietly doing the safe half.</td></tr>
+          <tr><td>Validation first</td><td>Checks every request before it makes it, and the code checks it again before anything goes over the network.</td></tr>
           <tr><td>No guessing</td><td>Never infers an email address from a name or picks between ambiguous roles; it asks you in Slack instead.</td></tr>
           <tr><td>Allow-listed domains</td><td>Invites or changes only users on approved email domains.</td></tr>
-          <tr><td>No lock-outs</td><td>Blocks any removal that would leave a user with no role.</td></tr>
+          <tr><td>No lock-outs</td><td>Blocks any removal that would leave a user with no role, and when swapping a role, adds the new one before removing the old.</td></tr>
           <tr><td>Least privilege</td><td>Declines the highest-privilege role and offers the next level down, and it hands removal of staff access to IT or the platform team.</td></tr>
           <tr><td>Honest reporting</td><td>Reports an invite as "invited, must accept", never as "access granted", and re-reads the user's state after every change to report what they hold now.</td></tr>
-          <tr><td>No blind retries</td><td>Never retries a write automatically, and it serialises concurrent changes to the same tenant.</td></tr>
+          <tr><td>No blind retries</td><td>Never retries a write automatically; if a write times out, re-reads the user to see whether it landed. It also serialises concurrent changes to the same tenant.</td></tr>
           <tr><td>Audit trail</td><td>Logs every change with the requester's identity.</td></tr>
           <tr><td>Protected attributes</td><td>Cannot set sensitive flags through the role and invite paths.</td></tr>
         </tbody>
@@ -332,7 +333,7 @@
             <tr><td>Trigger</td><td>Matches any request for a role change or access, so the agent picks the skill up from plain language.</td></tr>
             <tr><td>SKILL.md</td><td>Lists every capability the skill exposes, as commands the coding agent can run.</td></tr>
             <tr><td>Access.md</td><td>Writes down the nuances of every use case, so the agent never has to guess them.</td></tr>
-            <tr><td>Deterministic code</td><td>Holds everything deterministic as ordinary code, exposed to the agent through clients, helpers and the like, rather than leaving it to the model.</td></tr>
+            <tr><td>Deterministic code</td><td>Holds everything deterministic as ordinary code, exposed to the agent through clients, helpers and the like: role matching, least-privilege ranking, validation, the API calls, and turning each response into a clear outcome.</td></tr>
           </tbody>
         </table>
       </section>
@@ -354,19 +355,33 @@
       </section>
 
       <section class="subsec">
-        <h3 class="post-h3" id="trigger-evals">How we test that it triggers</h3>
+        <h3 class="post-h3" id="evals">How we test it</h3>
 
         <p>
-          The skill only helps if the agent picks it up for access requests and leaves it alone for
-          everything else. We have evals that test exactly that:
+          Two kinds of evals run against the skill, and neither changes anything in a real system:
+        </p>
+
+        <table class="spec">
+          <thead>
+            <tr><th>Eval</th><th>What it checks</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Trigger</td><td>Whether the agent picks up the skill for access requests and leaves it alone for everything else.</td></tr>
+            <tr><td>Decision</td><td>Whether, once it has the skill, the agent makes the right call at each step, graded by an LLM acting as a judge.</td></tr>
+          </tbody>
+        </table>
+
+        <p>
+          <strong>Trigger evals.</strong> The skill ships with ten example requests: seven that should
+          trigger it and three that shouldn't, such as creating a custom role, asking who holds admin,
+          or resetting a password. One of the seven asks for production on purpose, because the skill
+          has to pick that request up in order to decline it.
         </p>
 
         <ol>
-          <li><strong>A labelled set of requests.</strong> The skill ships with example requests, each marked as one that should trigger it or one that shouldn't, and a lint step requires a minimum number of both.</li>
-          <li><strong>Several runs per request.</strong> Each request goes to the agent more than once, because the same prompt doesn't always lead to the same choice.</li>
-          <li><strong>Triggered or not.</strong> A run counts as triggered if the agent calls the skill or reads its files.</li>
-          <li><strong>A pass mark.</strong> Each request and the skill as a whole are scored against the rules in the table below.</li>
-          <li><strong>Run on every change.</strong> The evals run on every pull request that touches the skill, with results posted on the PR, and again every week, with results posted to Slack.</li>
+          <li><strong>Run each request twice.</strong> The same prompt doesn't always lead to the same choice.</li>
+          <li><strong>Stop at the decision.</strong> A run counts as triggered the moment the agent calls the skill or reads its files, and it is stopped there, before it can run anything.</li>
+          <li><strong>Score it.</strong> Each request, and the skill as a whole, is scored against the rules below.</li>
         </ol>
 
         <table class="spec">
@@ -379,6 +394,31 @@
             <tr><td>The skill</td><td>Passes at least 70% of its requests.</td></tr>
           </tbody>
         </table>
+
+        <p>
+          <strong>Decision evals.</strong> These grade only the decision, never its effect: the agent
+          doesn't run a single command. For a step in the middle of a flow, the prompt says the earlier
+          commands have already run and shows their output, so each case tests one decision on its own.
+          There are 23 cases across three stages:
+        </p>
+
+        <ol>
+          <li><strong>Reading the request.</strong> Mapping the environment, declining production, declining the whole request when one part of it is out of bounds, and resolving who is asking.</li>
+          <li><strong>Choosing the role.</strong> Picking the one clear match from a tenant's roles, asking when "user" could mean two roles, and batching several users into one change.</li>
+          <li><strong>Reporting the result.</strong> Saying "invited, must accept" rather than "granted", asking before enabling a disabled user, and explaining why a removal was blocked.</li>
+        </ol>
+
+        <p>
+          Each case runs twice, once with the skill and once without, and an LLM judge marks every
+          assertion as passed or failed, with the evidence for its call. The number that matters is the
+          gap between the two: how much better the agent decides with the skill than without it.
+        </p>
+
+        <p>
+          <strong>Workflows.</strong> Both evals run automatically: on every pull request that changes
+          a skill, with the results posted as one PR comment that updates on each run, and every Monday
+          for all skills, with the results posted to Slack.
+        </p>
       </section>
 
       <h2 class="post-h2" id="where-it-is-now">Where it is now</h2>
