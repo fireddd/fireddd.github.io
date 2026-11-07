@@ -129,6 +129,14 @@
     </ul>
 
     <div class="prose post">
+      <p>
+        Every request for a role in a non-production environment used to go through my team, the
+        platform team, and wait in our on-call's queue. I built a skill for our internal AI assistant
+        that takes those requests in plain language in Slack and handles them itself. Most of the work
+        went into the guardrails that make it safe to let an agent change access, and into the evals
+        that check it keeps making the right call.
+      </p>
+
       <h2 class="post-h2" id="the-problem">The problem</h2>
 
       <p>
