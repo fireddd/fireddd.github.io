@@ -32,6 +32,7 @@
   #infra:target ~ .tagbar a[href="#infra"],
   #oss:target ~ .tagbar a[href="#oss"],
   #hiring:target ~ .tagbar a[href="#hiring"],
+  #selfdev:target ~ .tagbar a[href="#selfdev"],
   #hackathons:target ~ .tagbar a[href="#hackathons"],
   #quant:target ~ .tagbar a[href="#quant"] {
     background: var(--accent); border-color: var(--accent); color: var(--bg);
@@ -44,6 +45,7 @@
   #infra:target ~ .posts li:not(.t-infra),
   #oss:target ~ .posts li:not(.t-oss),
   #hiring:target ~ .posts li:not(.t-hiring),
+  #selfdev:target ~ .posts li:not(.t-selfdev),
   #hackathons:target ~ .posts li:not(.t-hackathons),
   #quant:target ~ .posts li:not(.t-quant) { display: none; }
   .ptags { flex-basis: 100%; font-size: 12px; color: var(--faint); }
@@ -81,6 +83,7 @@
     <span class="ftarget" id="infra"></span>
     <span class="ftarget" id="oss"></span>
     <span class="ftarget" id="hiring"></span>
+    <span class="ftarget" id="selfdev"></span>
     <span class="ftarget" id="hackathons"></span>
     <span class="ftarget" id="quant"></span>
 
@@ -93,6 +96,7 @@
       <a href="#infra">Infrastructure</a>
       <a href="#oss">Open source</a>
       <a href="#hiring">Hiring</a>
+      <a href="#selfdev">Self development</a>
       <a href="#morganstanley">Morgan Stanley</a>
       <a href="#hackathons">Hackathons</a>
       <a href="#quant">Quant</a>
@@ -106,10 +110,10 @@
         <span class="when">2026</span>
         <span class="ptags"><a href="#agents">Agents</a> · <a href="#aieng">AI Engineering</a></span>
       </li>
-      <li class="t-phonepe t-hiring">
+      <li class="t-phonepe t-hiring t-selfdev">
         <a href="/blog/interviewing/">Take every interview they'll let you take</a>
         <span class="when">2025</span>
-        <span class="ptags"><a href="#phonepe">PhonePe</a> · <a href="#hiring">Hiring</a></span>
+        <span class="ptags"><a href="#phonepe">PhonePe</a> · <a href="#hiring">Hiring</a> · <a href="#selfdev">Self development</a></span>
       </li>
       <li class="t-phonepe t-payments">
         <a href="/blog/phonepe-misc-work/">The systems that never made a demo</a>
