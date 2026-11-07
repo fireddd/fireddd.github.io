@@ -348,7 +348,7 @@
 
         <ol>
           <li><strong>Production is blocked in the services.</strong> Every API exposed for the skill is guarded by permissions so that it works only with non-production environments, so no wording of a request can get past it.</li>
-          <li><strong>New APIs wrap the existing ones.</strong> The APIs exposed for the skill are wrappers on top of the existing ones, so every existing check and nuance still runs, such as writing to the third party.</li>
+          <li><strong>New APIs wrap the existing ones.</strong> The APIs exposed for the skill are wrappers on top of the existing ones, so every existing check and nuance still runs, such as writing to the third-party auth service.</li>
           <li><strong>Users never touch the APIs.</strong> Every call goes through the skill.</li>
           <li><strong>Two systems stay in step.</strong> Some changes touch both our app and our identity provider; if the sync fails, the previous value is restored.</li>
         </ol>
