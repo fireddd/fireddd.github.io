@@ -44,7 +44,7 @@
       "@type": "BlogPosting",
       "@id": "https://fireddd.github.io/blog/access-via-chat/#post",
       "headline": "We stopped making people wait for access",
-      "description": "The author built a skill for the company's internal AI assistant (Orca, built and maintained by another team) that handles role and access requests for non-production environments of a multi-product platform in plain language in Slack: setting and removing roles, invites, re-enabling users, time-boxed staff access, look-ups and bulk least-privilege requests. The guardrails were the main design work: non-production only, enforced at the service level; no guessing of roles or email addresses; allow-listed domains; no lock-outs; the highest-privilege role declined; honest reporting; no automatic write retries; and an audit trail of every change. Now in use: requests rarely reach the platform team (his own team), and when one does, the team triggers the agent to handle it.",
+      "description": "The author built a skill for the company's internal AI assistant (Blue Whale, built and maintained by another team) that handles role and access requests for non-production environments of a multi-product platform in plain language in Slack: setting and removing roles, invites, re-enabling users, time-boxed staff access, look-ups and bulk least-privilege requests. The guardrails were the main design work: non-production only, enforced at the service level; no guessing of roles or email addresses; allow-listed domains; no lock-outs; the highest-privilege role declined; honest reporting; no automatic write retries; and an audit trail of every change. Now in use: requests rarely reach the platform team (his own team), and when one does, the team triggers the agent to handle it.",
       "url": "https://fireddd.github.io/blog/access-via-chat/",
       "datePublished": "2026-11-05",
       "dateModified": "2026-11-07",
@@ -191,13 +191,13 @@
       </p>
 
       <ul>
-        <li><strong>Orca.</strong> Our internal AI assistant, built and maintained by another team. It already lived in Slack, and it spins up an AI coding agent to do the work and manages that agent's lifecycle.</li>
+        <li><strong>Blue Whale 🐋.</strong> Our internal AI assistant, built and maintained by another team. It already lived in Slack, and it spins up an AI coding agent to do the work and manages that agent's lifecycle.</li>
         <li><strong>Our app and identity provider.</strong> The systems where users and their roles actually live, which only our tooling on the platform team could change.</li>
       </ul>
 
       <p>
         What was missing was a way for anyone to get a role without going through us. That is the
-        part I built: a skill for the platform team's access use case, added to Orca, and the plumbing
+        part I built: a skill for the platform team's access use case, added to Blue Whale, and the plumbing
         behind it.
       </p>
 
@@ -239,7 +239,7 @@
           <svg viewBox="0 0 760 664" role="img" aria-labelledby="flow-title flow-desc" xmlns="http://www.w3.org/2000/svg">
           <title id="flow-title">An access request, end to end</title>
           <defs><marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 z" fill="currentColor"/></marker></defs>
-          <desc id="flow-desc">You ask Orca in Slack in plain language. Orca matches the request to the access skill and runs its commands. The skill's clients ask the internal services for the tenant and its roles, map your wording to a real role and validate the request. If anything is unclear, Orca asks you one question in Slack and you answer. The skill then asks the internal services, which accept only non-production calls, to apply the change; they update the role in both the app and the identity provider and roll back if the sync fails. The skill re-reads the user's state, and Orca reports the result for each user in Slack.</desc>
+          <desc id="flow-desc">You ask Blue Whale in Slack in plain language. Blue Whale matches the request to the access skill and runs its commands. The skill's clients ask the internal services for the tenant and its roles, map your wording to a real role and validate the request. If anything is unclear, Blue Whale asks you one question in Slack and you answer. The skill then asks the internal services, which accept only non-production calls, to apply the change; they update the role in both the app and the identity provider and roll back if the sync fails. The skill re-reads the user's state, and Blue Whale reports the result for each user in Slack.</desc>
           <line x1="76" y1="56" x2="76" y2="650" class="grp"/>
           <line x1="228" y1="56" x2="228" y2="650" class="grp"/>
           <line x1="380" y1="56" x2="380" y2="650" class="grp"/>
@@ -248,7 +248,7 @@
           <rect x="8" y="8" width="136" height="46" rx="8" class="b"/>
           <text x="76" y="26" class="t bold">You</text><text x="76" y="42" class="t sm">in Slack</text>
           <rect x="160" y="8" width="136" height="46" rx="8" class="b"/>
-          <text x="228" y="26" class="t bold">Orca</text><text x="228" y="42" class="t sm">AI agent</text>
+          <text x="228" y="26" class="t bold">Blue Whale 🐋</text><text x="228" y="42" class="t sm">AI agent</text>
           <rect x="312" y="8" width="136" height="46" rx="8" class="b lead"/>
           <text x="380" y="26" class="t bold">Access skill</text><text x="380" y="42" class="t sm">clients</text>
           <rect x="464" y="8" width="136" height="46" rx="8" class="b"/>
