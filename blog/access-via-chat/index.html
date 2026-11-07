@@ -47,7 +47,7 @@
       "description": "The author built a skill for the company's internal AI assistant (Orca, built and maintained by another team) that handles role and access requests for non-production environments of a multi-product platform in plain language in Slack: setting and removing roles, invites, re-enabling users, time-boxed staff access, look-ups and bulk least-privilege requests. The guardrails were the main design work: non-production only, enforced at the service level; no guessing of roles or email addresses; allow-listed domains; no lock-outs; the highest-privilege role declined; honest reporting; no automatic write retries; and an audit trail of every change. Now in use: requests rarely reach the platform team (his own team), and when one does, the team triggers the agent to handle it.",
       "url": "https://fireddd.github.io/blog/access-via-chat/",
       "datePublished": "2026-11-05",
-      "dateModified": "2026-11-05",
+      "dateModified": "2026-11-07",
       "inLanguage": "en",
       "keywords": "AI agents, access management, role-based access control, least privilege, Slack, identity provider, audit logging, platform engineering, developer experience",
       "author": { "@id": "https://fireddd.github.io/#person" },
@@ -187,12 +187,11 @@
       <h2 class="post-h2" id="what-existed">What already existed</h2>
 
       <p>
-        I didn't start from scratch. Three things were already in place:
+        I didn't start from scratch. Two things were already in place:
       </p>
 
       <ul>
         <li><strong>Orca.</strong> Our internal AI assistant, built and maintained by another team. It already lived in Slack, and it spins up an AI coding agent to do the work and manages that agent's lifecycle.</li>
-        <li><strong>Skills.</strong> Orca's way of learning new jobs. A team registers a skill with a description of the requests it should handle, and the agent picks it up when a request matches.</li>
         <li><strong>Our app and identity provider.</strong> The systems where users and their roles actually live, which only our tooling on the platform team could change.</li>
       </ul>
 
@@ -225,7 +224,7 @@
         </thead>
         <tbody>
           <tr><td>Roles</td><td>Sets, changes or removes a user's role in a product, and maps loose wording like "admin" or "view only" to the tenant's real role.</td></tr>
-          <tr><td>Invites</td><td>Invites a new user with a role, or re-sends an expired invite, once you confirm.</td></tr>
+          <tr><td>Invites</td><td>Invites a new user with a role.</td></tr>
           <tr><td>Enabling users</td><td>Reactivates a disabled user without changing their role.</td></tr>
           <tr><td>Staff access</td><td>Grants internal staff access, or time-boxed edit access within a tenant.</td></tr>
           <tr><td>Look-ups</td><td>Shows which roles someone holds, which roles a tenant offers, and licence totals and usage.</td></tr>
@@ -313,7 +312,7 @@
           <tr><td>No guessing</td><td>Never infers an email address from a name or picks between ambiguous roles; it asks you in Slack instead.</td></tr>
           <tr><td>Allow-listed domains</td><td>Invites or changes only users on approved email domains.</td></tr>
           <tr><td>No lock-outs</td><td>Blocks any removal that would leave a user with no role, and when swapping a role, adds the new one before removing the old.</td></tr>
-          <tr><td>Least privilege</td><td>Declines the highest-privilege role and offers the next level down, and it hands removal of staff access to IT or the platform team.</td></tr>
+          <tr><td>Least privilege</td><td>Declines the highest-privilege role and offers the next level down, and it hands removal of staff access to IT or to us.</td></tr>
           <tr><td>Honest reporting</td><td>Reports an invite as "invited, must accept", never as "access granted", and re-reads the user's state after every change to report what they hold now.</td></tr>
           <tr><td>No blind retries</td><td>Never retries a write automatically; if a write times out, re-reads the user to see whether it landed. It also serialises concurrent changes to the same tenant.</td></tr>
           <tr><td>Audit trail</td><td>Logs every change with the requester's identity.</td></tr>
@@ -368,7 +367,7 @@
           </thead>
           <tbody>
             <tr><td>Trigger</td><td>Whether the agent picks up the skill for access requests and leaves it alone for everything else.</td></tr>
-            <tr><td>Decision</td><td>Whether, once it has the skill, the agent makes the right call at each step, graded by an LLM acting as a judge.</td></tr>
+            <tr><td>Decision</td><td>Whether, once it has the skill, the agent makes the right call at each step.</td></tr>
           </tbody>
         </table>
 
@@ -429,7 +428,7 @@
       <h2 class="post-h2" id="where-it-is-now">Where it is now</h2>
 
       <p>
-        Folks have started using it. Requests now rarely reach us, and when one does, we trigger the
+        People have started using it. Requests now rarely reach us, and when one does, we trigger the
         agent to handle it with this skill.
       </p>
 
