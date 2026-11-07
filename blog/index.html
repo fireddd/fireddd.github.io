@@ -25,6 +25,7 @@
   }
   .tagbar a:hover { border-color: var(--accent); color: var(--ink); text-decoration: none; }
   #agents:target ~ .tagbar a[href="#agents"],
+  #aieng:target ~ .tagbar a[href="#aieng"],
   #phonepe:target ~ .tagbar a[href="#phonepe"],
   #morganstanley:target ~ .tagbar a[href="#morganstanley"],
   #payments:target ~ .tagbar a[href="#payments"],
@@ -36,6 +37,7 @@
     background: var(--accent); border-color: var(--accent); color: var(--bg);
   }
   #agents:target ~ .posts li:not(.t-agents),
+  #aieng:target ~ .posts li:not(.t-aieng),
   #phonepe:target ~ .posts li:not(.t-phonepe),
   #morganstanley:target ~ .posts li:not(.t-morganstanley),
   #payments:target ~ .posts li:not(.t-payments),
@@ -72,6 +74,7 @@
 
   <section class="filter">
     <span class="ftarget" id="agents"></span>
+    <span class="ftarget" id="aieng"></span>
     <span class="ftarget" id="phonepe"></span>
     <span class="ftarget" id="morganstanley"></span>
     <span class="ftarget" id="payments"></span>
@@ -84,6 +87,7 @@
     <div class="tagbar" role="navigation" aria-label="Filter writing by tag">
       <a href="/blog/">All</a>
       <a href="#agents">Agents</a>
+      <a href="#aieng">AI Engineering</a>
       <a href="#phonepe">PhonePe</a>
       <a href="#payments">Payments</a>
       <a href="#infra">Infrastructure</a>
@@ -97,10 +101,10 @@
     <!-- Posts, newest first. Sorted by the year in .when — keep it that way.
          The t-* classes drive the :target filter above; keep them in sync with .ptags. -->
     <ul class="posts">
-      <li class="t-agents t-infra">
+      <li class="t-agents t-aieng">
         <a href="/blog/access-via-chat/">We stopped making people wait for access</a>
         <span class="when">2026</span>
-        <span class="ptags"><a href="#agents">Agents</a> · <a href="#infra">Infrastructure</a></span>
+        <span class="ptags"><a href="#agents">Agents</a> · <a href="#aieng">AI Engineering</a></span>
       </li>
       <li class="t-phonepe t-hiring">
         <a href="/blog/interviewing/">Take every interview they'll let you take</a>
