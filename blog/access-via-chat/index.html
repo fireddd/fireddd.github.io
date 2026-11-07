@@ -49,7 +49,7 @@
       "datePublished": "2026-11-05",
       "dateModified": "2026-11-07",
       "inLanguage": "en",
-      "keywords": "AI agents, access management, role-based access control, least privilege, Slack, identity provider, audit logging, platform engineering, developer experience",
+      "keywords": "AI agents, access management, role-based access control, least privilege, Slack, third-party auth service, audit logging, platform engineering, developer experience",
       "author": { "@id": "https://fireddd.github.io/#person" },
       "publisher": { "@id": "https://fireddd.github.io/#person" },
       "isPartOf": { "@id": "https://fireddd.github.io/#website" },
@@ -192,7 +192,7 @@
 
       <ul>
         <li><strong>Blue Whale 🐋.</strong> Our internal AI assistant, built and maintained by another team. It already lived in Slack, and it spins up an AI coding agent to do the work and manages that agent's lifecycle.</li>
-        <li><strong>Our app and identity provider.</strong> The systems where users and their roles actually live, which only our tooling on the platform team could change.</li>
+        <li><strong>Our app and the third-party auth service.</strong> The systems where users and their roles actually live, which only our tooling on the platform team could change.</li>
       </ul>
 
       <p>
@@ -239,7 +239,7 @@
           <svg viewBox="0 0 760 664" role="img" aria-labelledby="flow-title flow-desc" xmlns="http://www.w3.org/2000/svg">
           <title id="flow-title">An access request, end to end</title>
           <defs><marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 z" fill="currentColor"/></marker></defs>
-          <desc id="flow-desc">You ask Blue Whale in Slack in plain language. Blue Whale matches the request to the access skill and runs its commands. The skill's clients ask the internal services for the tenant and its roles, map your wording to a real role and validate the request. If anything is unclear, Blue Whale asks you one question in Slack and you answer. The skill then asks the internal services, which accept only non-production calls, to apply the change; they update the role in both the app and the identity provider and roll back if the sync fails. The skill re-reads the user's state, and Blue Whale reports the result for each user in Slack.</desc>
+          <desc id="flow-desc">You ask Blue Whale in Slack in plain language. Blue Whale matches the request to the access skill and runs its commands. The skill's clients ask the internal services for the tenant and its roles, map your wording to a real role and validate the request. If anything is unclear, Blue Whale asks you one question in Slack and you answer. The skill then asks the internal services, which accept only non-production calls, to apply the change; they update the role in both the app and the third-party auth service and roll back if the sync fails. The skill re-reads the user's state, and Blue Whale reports the result for each user in Slack.</desc>
           <line x1="76" y1="56" x2="76" y2="650" class="grp"/>
           <line x1="228" y1="56" x2="228" y2="650" class="grp"/>
           <line x1="380" y1="56" x2="380" y2="650" class="grp"/>
@@ -254,7 +254,7 @@
           <rect x="464" y="8" width="136" height="46" rx="8" class="b"/>
           <text x="532" y="26" class="t bold">Internal services</text><text x="532" y="42" class="t sm">non-production only</text>
           <rect x="616" y="8" width="136" height="46" rx="8" class="b"/>
-          <text x="684" y="26" class="t bold">App and identity</text><text x="684" y="42" class="t sm">provider</text>
+          <text x="684" y="26" class="t bold">App and third-party</text><text x="684" y="42" class="t sm">auth service</text>
           <line x1="76" y1="96" x2="225" y2="96" class="a"/>
           <text x="152.0" y="86" class="t" style="paint-order:stroke;stroke:var(--chip);stroke-width:5px;stroke-linejoin:round">1 &#183; Ask in plain language</text>
           <path d="M228 130 h30 v18 h-27" class="a"/>
@@ -350,7 +350,7 @@
           <li><strong>Production is blocked in the services.</strong> Every API exposed for the skill is guarded by permissions so that it works only with non-production environments, so no wording of a request can get past it.</li>
           <li><strong>New APIs wrap the existing ones.</strong> The APIs exposed for the skill are wrappers on top of the existing ones, so every existing check and nuance still runs, such as writing to the third-party auth service.</li>
           <li><strong>Users never touch the APIs.</strong> Every call goes through the skill.</li>
-          <li><strong>Two systems stay in step.</strong> Some changes touch both our app and our identity provider; if the sync fails, the previous value is restored.</li>
+          <li><strong>Two systems stay in step.</strong> Some changes touch both our app and the third-party auth service; if the sync fails, the previous value is restored.</li>
         </ol>
       </section>
 
